@@ -11,7 +11,7 @@ FieldShift is an early, installable web-app prototype for exploring how NASA cli
 - [`docs/TEAM_RESEARCH_TASKS.md`](docs/TEAM_RESEARCH_TASKS.md): the three-person research plan.
 - [`docs/COMPETITION_SCORECARD.md`](docs/COMPETITION_SCORECARD.md): evidence-based submission readiness checklist.
 
-For a fast project check with no dependency installation, run `npm run check`.
+For a full dependency-free verification, run `npm run verify`. `npm run check` validates syntax, required project files, crop schema shape, and every crop source ID; `npm test` runs the unit tests.
 
 ## Run and install
 
@@ -33,6 +33,14 @@ The page sends the requested coordinates and date range to NASA POWER only when 
 - PWA manifest, icon, service worker, and offline-cached app shell.
 - Warnings about grid scale and about the fact that remote sensing does not reveal exact field pH, nutrients, or yield.
 - Rotation prompts for exploration only. There is no yield, drought-benefit, or soil-health scoring model.
+
+## Testing foundation
+
+- Climate validation, NASA response summarization, and request code live in testable modules under `src/`.
+- Node's built-in test runner covers invalid coordinates, invalid year ranges, NASA fill values, empty climate data, HTTP failures, and network failures.
+- Crop records are checked for the required evidence shape and unknown source IDs.
+- A real, saved seven-day NASA POWER response is stored under `tests/fixtures/` with retrieval metadata. It is historical test data, not a forecast or field measurement.
+- GitHub Actions runs `npm run check` and `npm test` for pull requests and pushes to `main`.
 
 ## Data inventory and boundaries
 
@@ -62,4 +70,4 @@ Minimum: field location, recent crop history, and priorities. Helpful but option
 
 ## Verification note
 
-JavaScript syntax can be checked with `node --check app.js`. The live NASA request and install flow need verification from a browser with network access and an HTTPS deployment. This prototype contains no fabricated climate measurements.
+The source and tests can be verified with `npm run verify`. The saved NASA fixture was retrieved from the official API, but the complete browser journey and install flow still need verification from an HTTPS deployment. Synthetic missing-value records exist only inside tests and are explicitly labeled as test cases.
