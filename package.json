@@ -1,0 +1,9 @@
+{
+  "name": "fieldshift",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mobile-first NASA data and crop-rotation exploration prototype",
+  "scripts": {
+    "check": "node --check app.js && node --check sw.js && node scripts/check-project.mjs"
+  }
+}

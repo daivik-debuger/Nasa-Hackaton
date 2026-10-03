@@ -2,6 +2,17 @@
 
 FieldShift is an early, installable web-app prototype for exploring how NASA climate observations can inform crop-rotation questions. It works on mobile and desktop browsers and can be added to a phone's home screen as a Progressive Web App (PWA). It deliberately does **not** generate agronomic prescriptions or invent soil/crop facts.
 
+## Project guide
+
+- [`AGENTS.md`](AGENTS.md): focused instructions for coding agents and contributors.
+- [`docs/STATUS.md`](docs/STATUS.md): what is confirmed, missing, or unverified.
+- [`docs/PROJECT_PLAN.md`](docs/PROJECT_PLAN.md): implementation phases and acceptance gates.
+- [`docs/SCIENTIFIC_SAFETY.md`](docs/SCIENTIFIC_SAFETY.md): allowed, review-required, and prohibited claims.
+- [`docs/TEAM_RESEARCH_TASKS.md`](docs/TEAM_RESEARCH_TASKS.md): the three-person research plan.
+- [`docs/COMPETITION_SCORECARD.md`](docs/COMPETITION_SCORECARD.md): evidence-based submission readiness checklist.
+
+For a fast project check with no dependency installation, run `npm run check`.
+
 ## Run and install
 
 Serve these files from HTTPS or localhost (required for browser PWA features and NASA API requests). For local testing:
