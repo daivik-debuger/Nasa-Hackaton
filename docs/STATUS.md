@@ -9,10 +9,13 @@ Last updated: 2026-10-03
 - The app is wired to request daily NASA POWER temperature, precipitation, and solar-radiation variables.
 - The interface displays transparent scale/capability warnings and does not prefill fabricated climate values.
 - The app shell has a manifest, icon, and service worker.
+- A real seven-day NASA POWER API response for the demonstration point is saved with retrieval metadata for deterministic tests.
+- Dependency-free unit tests cover field-query validation, NASA missing values, request failures, crop record structure, and source-ID integrity.
+- GitHub Actions configuration runs source/data checks and unit tests.
 
 ## Not yet verified
 
-- Live NASA POWER response in the development environment.
+- End-to-end NASA POWER loading in a deployed browser.
 - Installation and offline reopening on real iOS and Android devices.
 - Browser compatibility and mobile visual QA on physical devices.
 
@@ -35,4 +38,3 @@ The three strategy cards are prompts, not computed recommendations. Do not descr
 ## Next highest-value decision
 
 Select one pilot region using the evidence requirements in `TEAM_RESEARCH_TASKS.md`. Crop and soil integration should not be finalized before that decision.
-

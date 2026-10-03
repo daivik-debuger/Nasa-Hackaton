@@ -74,7 +74,7 @@ Keep the app dependency-free until a requirement clearly justifies a framework o
 Run before declaring a change complete:
 
 ```sh
-npm run check
+npm run verify
 ```
 
 For UI changes, also verify the relevant journey at 320, 375, 390, 430, and desktop widths. Check keyboard focus, horizontal overflow, readable charts, loading/error states, and browser console output. Live NASA requests and PWA installation require network/HTTPS verification; record what was and was not tested.
@@ -95,4 +95,3 @@ Report only:
 - What was verified.
 - What remains unverified or blocked.
 - The next highest-value step, if relevant.
-

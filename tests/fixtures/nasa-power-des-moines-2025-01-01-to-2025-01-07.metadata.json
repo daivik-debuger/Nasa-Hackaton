@@ -1,0 +1,10 @@
+{
+  "fixtureType": "real-saved-api-response",
+  "retrievedAt": "2026-10-03T00:00:00-04:00",
+  "retrievedFrom": "NASA POWER Daily API",
+  "documentation": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+  "requestUrl": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,T2M_MAX,PRECTOTCORR,ALLSKY_SFC_SW_DWN&community=AG&longitude=-93.6250&latitude=41.5868&start=20250101&end=20250107&time-standard=UTC&format=JSON",
+  "requestedLocation": { "label": "Des Moines, Iowa demonstration point", "latitude": 41.5868, "longitude": -93.625 },
+  "purpose": "Deterministic parser and summary tests only",
+  "warning": "This fixture is a saved historical API response, not a forecast and not a field measurement. Do not use it as current climate information."
+}

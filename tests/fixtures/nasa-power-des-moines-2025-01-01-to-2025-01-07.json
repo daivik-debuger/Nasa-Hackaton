@@ -1,0 +1,29 @@
+{
+  "type": "Feature",
+  "geometry": { "type": "Point", "coordinates": [-93.625, 41.587, 292.81] },
+  "properties": {
+    "parameter": {
+      "T2M": { "20250101": -4.0, "20250102": -3.33, "20250103": -8.44, "20250104": -11.84, "20250105": -9.64, "20250106": -10.84, "20250107": -10.11 },
+      "T2M_MAX": { "20250101": 0.16, "20250102": -1.1, "20250103": -4.5, "20250104": -8.64, "20250105": -8.95, "20250106": -6.22, "20250107": -4.79 },
+      "PRECTOTCORR": { "20250101": 0.0, "20250102": 2.82, "20250103": 0.01, "20250104": 0.0, "20250105": 0.2, "20250106": 0.01, "20250107": 0.0 },
+      "ALLSKY_SFC_SW_DWN": { "20250101": 6.5, "20250102": 3.63, "20250103": 7.01, "20250104": 4.37, "20250105": 1.89, "20250106": 9.04, "20250107": 6.38 }
+    }
+  },
+  "header": {
+    "title": "NASA/POWER Source Native Resolution Daily Data",
+    "api": { "version": "v2.10.0", "name": "POWER Daily API" },
+    "sources": ["SYN1DEG", "MERRA2", "POWER"],
+    "fill_value": -999.0,
+    "time_standard": "UTC",
+    "start": "20250101",
+    "end": "20250107"
+  },
+  "messages": [],
+  "parameters": {
+    "T2M": { "units": "C", "longname": "Temperature at 2 Meters" },
+    "T2M_MAX": { "units": "C", "longname": "Temperature at 2 Meters Maximum" },
+    "PRECTOTCORR": { "units": "mm/day", "longname": "Precipitation Corrected" },
+    "ALLSKY_SFC_SW_DWN": { "units": "MJ/m^2/day", "longname": "All Sky Surface Shortwave Downward Irradiance" }
+  },
+  "times": { "data": 0.338, "process": 0.02 }
+}

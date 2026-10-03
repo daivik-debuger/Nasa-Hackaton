@@ -8,12 +8,21 @@ const requiredFiles = [
   "sw.js",
   "manifest.webmanifest",
   "icon.svg",
+  "LICENSE",
+  ".gitignore",
+  ".github/workflows/verify.yml",
+  "src/climate.js",
+  "src/nasa-power.js",
+  "src/data-validation.js",
+  "tests/fixtures/nasa-power-des-moines-2025-01-01-to-2025-01-07.json",
+  "tests/fixtures/nasa-power-des-moines-2025-01-01-to-2025-01-07.metadata.json",
   "docs/STATUS.md",
   "docs/PROJECT_PLAN.md",
   "docs/SCIENTIFIC_SAFETY.md",
   "docs/COMPETITION_SCORECARD.md",
   "data/sources.json",
-  "data/crop-record.schema.json"
+  "data/crop-record.schema.json",
+  "data/crops.json"
 ];
 
 await Promise.all(requiredFiles.map((file) => access(file)));
@@ -38,8 +47,9 @@ for (const marker of ["name=\"viewport\"", "rel=\"manifest\"", "id=\"loadClimate
 }
 
 const app = await readFile("app.js", "utf8");
-if (!app.includes("power.larc.nasa.gov") || !app.includes("serviceWorker")) {
-  throw new Error("app.js is missing the NASA POWER endpoint or service-worker registration.");
+const powerModule = await readFile("src/nasa-power.js", "utf8");
+if (!powerModule.includes("power.larc.nasa.gov") || !app.includes("serviceWorker")) {
+  throw new Error("FieldShift is missing the NASA POWER endpoint or service-worker registration.");
 }
 
 console.log(`FieldShift checks passed: ${requiredFiles.length} required files, ${sources.sources.length} registered sources.`);

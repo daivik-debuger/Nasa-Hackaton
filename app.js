@@ -1,3 +1,6 @@
+import { summarizePowerPayload, validateFieldQuery } from "./src/climate.js";
+import { fetchPowerData } from "./src/nasa-power.js";
+
 const $ = (id) => document.getElementById(id);
 const nowYear = new Date().getUTCFullYear();
 const lastFullYear = nowYear - 1;
@@ -10,33 +13,15 @@ for (const id of ["startYear", "endYear"]) {
 $("startYear").value = String(Math.max(1981, lastFullYear - 4));
 $("endYear").value = String(lastFullYear);
 
-const API = "https://power.larc.nasa.gov/api/temporal/daily/point";
-const PARAMS = ["T2M", "T2M_MAX", "PRECTOTCORR", "ALLSKY_SFC_SW_DWN"];
 const fmt = (value, digits = 1) => Number.isFinite(value) ? value.toLocaleString(undefined, { maximumFractionDigits: digits }) : "—";
 
 function validateLocation() {
-  const lat = Number($("latitude").value), lon = Number($("longitude").value);
-  if (!Number.isFinite(lat) || lat < -90 || lat > 90 || !Number.isFinite(lon) || lon < -180 || lon > 180) throw new Error("Enter a valid latitude (−90 to 90) and longitude (−180 to 180).");
-  const start = Number($("startYear").value), end = Number($("endYear").value);
-  if (start > end) throw new Error("The start year must be the same as or earlier than the end year.");
-  return { lat, lon, start, end };
-}
-
-function summarize(payload, location) {
-  const params = payload?.properties?.parameter;
-  if (!params?.T2M || !params?.T2M_MAX || !params?.PRECTOTCORR) throw new Error("NASA POWER returned an unexpected response. Please try again later.");
-  const keys = Object.keys(params.T2M).sort();
-  const usable = (v) => Number.isFinite(Number(v)) && Number(v) > -900;
-  const values = (series) => keys.map((date) => Number(series[date])).filter(usable);
-  const temp = values(params.T2M), maxTemp = values(params.T2M_MAX), rain = values(params.PRECTOTCORR);
-  if (!temp.length || !rain.length) throw new Error("No valid daily climate values were returned for this point and period.");
-  const mean = temp.reduce((a, b) => a + b, 0) / temp.length;
-  const totalRain = rain.reduce((a, b) => a + b, 0);
-  const hotDays = maxTemp.filter((v) => v >= 30).length;
-  const unitMap = payload?.parameters?.T2M?.units ? payload.parameters : {};
-  const temperatureUnit = unitMap.T2M?.units || "°C";
-  const rainUnit = unitMap.PRECTOTCORR?.units || "mm/day";
-  return { keys, params, mean, totalRain, hotDays, temperatureUnit, rainUnit, lat: location.lat, lon: location.lon, start: location.start, end: location.end, count: temp.length };
+  return validateFieldQuery({
+    latitude: $("latitude").value,
+    longitude: $("longitude").value,
+    startYear: $("startYear").value,
+    endYear: $("endYear").value
+  }, { lastFullYear });
 }
 
 function drawChart(summary) {
@@ -81,16 +66,13 @@ $("loadClimate").addEventListener("click", async () => {
   try {
     const loc = validateLocation();
     button.disabled = true; status.className = "status"; status.textContent = "Requesting daily climate data from NASA POWER…";
-    const query = new URLSearchParams({ parameters: PARAMS.join(","), community: "AG", longitude: String(loc.lon), latitude: String(loc.lat), start: `${loc.start}0101`, end: `${loc.end}1231`, "time-standard": "UTC", format: "JSON" });
-    const response = await fetch(`${API}?${query.toString()}`, { headers: { Accept: "application/json" } });
-    if (!response.ok) throw new Error(`NASA POWER returned ${response.status}. Check the coordinates or try again later.`);
-    const payload = await response.json();
-    const summary = summarize(payload, loc);
+    const payload = await fetchPowerData(loc);
+    const summary = summarizePowerPayload(payload, loc);
     renderSummary(summary, payload);
     status.className = "status success"; status.textContent = "NASA POWER data loaded. Treat it as regional context—not a measurement from your field.";
   } catch (error) {
     status.className = "status error";
-    status.textContent = error instanceof TypeError ? "Could not reach NASA POWER. Check your internet connection and try again. If you opened this as a local file, run it from a local web server." : error.message;
+    status.textContent = error.code === "network" ? "Could not reach NASA POWER. Check your internet connection and try again. If you opened this as a local file, run it from a local web server." : error.message;
   } finally { button.disabled = false; }
 });
 
