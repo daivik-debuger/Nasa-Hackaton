@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fieldshift.example/schemas/crop-record.schema.json",
+  "title": "FieldShift crop evidence record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "commonName", "scientificName", "cropFamily", "regions", "traits", "evidence", "review"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "commonName": { "type": "string", "minLength": 1 },
+    "scientificName": { "type": "string", "minLength": 1 },
+    "cropFamily": { "type": "string", "minLength": 1 },
+    "regions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "traits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["trait", "value", "sourceIds", "confidence", "limitations"],
+        "properties": {
+          "trait": { "type": "string" },
+          "value": {},
+          "unit": { "type": ["string", "null"] },
+          "conditions": { "type": "string" },
+          "sourceIds": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "confidence": { "enum": ["high", "medium", "low"] },
+          "limitations": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "evidence": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["research-only", "reviewed", "approved-for-app"] },
+        "reviewer": { "type": ["string", "null"] },
+        "date": { "type": ["string", "null"], "format": "date" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

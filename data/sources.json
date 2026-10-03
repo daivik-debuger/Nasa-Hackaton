@@ -1,0 +1,59 @@
+{
+  "sources": [
+    {
+      "id": "nasa-power-daily",
+      "name": "NASA POWER Daily API",
+      "owner": "NASA Langley Research Center",
+      "url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+      "sourceType": "official-dataset-documentation",
+      "integrationStatus": "integrated",
+      "intendedUse": "Daily regional climate context for a requested point",
+      "limitations": "Gridded values are not a field weather station; local conditions may differ.",
+      "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "usda-ssurgo",
+      "name": "Soil Survey Geographic Database (SSURGO)",
+      "owner": "USDA Natural Resources Conservation Service",
+      "url": "https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo",
+      "sourceType": "official-dataset-documentation",
+      "integrationStatus": "planned",
+      "intendedUse": "Mapped soil context for a U.S. pilot",
+      "limitations": "Map units may contain multiple components and are not exact field laboratory samples.",
+      "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "nasa-modis-vi",
+      "name": "MODIS Vegetation Indices",
+      "owner": "NASA",
+      "url": "https://modis.gsfc.nasa.gov/data/dataprod/mod13.php",
+      "sourceType": "official-dataset-documentation",
+      "integrationStatus": "research-only",
+      "intendedUse": "Potential vegetation-greenness context",
+      "limitations": "Greenness is not crop identity, yield, or direct soil health.",
+      "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isric-soilgrids",
+      "name": "SoilGrids",
+      "owner": "ISRIC World Soil Information",
+      "url": "https://docs.isric.org/globaldata/soilgrids/index.html",
+      "sourceType": "official-dataset-documentation",
+      "integrationStatus": "research-only",
+      "intendedUse": "Potential modeled global soil context",
+      "limitations": "Modeled estimates include uncertainty; service availability must be rechecked before integration.",
+      "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "nasa-nex-gddp-cmip6",
+      "name": "NASA NEX-GDDP-CMIP6",
+      "owner": "NASA Center for Climate Simulation",
+      "url": "https://www.nccs.nasa.gov/data-collections/nex-gddp-cmip6/",
+      "sourceType": "official-dataset-documentation",
+      "integrationStatus": "research-only",
+      "intendedUse": "Potential long-term climate-scenario comparison",
+      "limitations": "Climate scenarios are not next-season weather forecasts.",
+      "lastReviewed": "2026-10-03"
+    }
+  ]
+}
