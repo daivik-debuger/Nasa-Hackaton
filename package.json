@@ -5,7 +5,8 @@
   "type": "module",
   "description": "Mobile-first NASA data and crop-rotation exploration prototype",
   "scripts": {
-    "check": "node --check app.js && node --check sw.js && node --check src/climate.js && node --check src/nasa-power.js && node --check src/data-validation.js && node scripts/validate-data.mjs && node scripts/check-project.mjs",
+    "check": "node --check server.js && node --check sw.js && node --check src/main.js && node --check src/climate.js && node --check src/nasa-power.js && node --check src/data-validation.js && node --check src/api/soil-data.js && node --check src/api/soil-service.js && node --check src/api/imerg-service.js && node --check src/engine/compare-strategies.js && node scripts/validate-data.mjs && node scripts/check-project.mjs",
+    "start": "node server.js",
     "test": "node --test",
     "verify": "npm run check && npm test"
   }

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { validateCropCollection, validateCropRecord } from "../src/data-validation.js";
+import { validateCropCollection, validateCropRecord, REQUIRED_TRAITS } from "../src/data-validation.js";
 
 const knownSources = new Set(["source-a"]);
 const validCrop = {
@@ -8,8 +8,11 @@ const validCrop = {
   commonName: "Test crop",
   scientificName: "Testus cropus",
   cropFamily: "Testaceae",
+  cropFamilySourceIds: ["source-a"],
   regions: ["test-region"],
-  traits: [{ trait: "example", value: "test-only", unit: null, conditions: "Synthetic unit-test record", sourceIds: ["source-a"], confidence: "low", limitations: "Not real crop evidence." }],
+  applicability: "Synthetic unit-test region only.",
+  roles: ["cash-grain"],
+  traits: REQUIRED_TRAITS.map((trait) => ({ trait, value: "test-only", unit: null, conditions: "Synthetic unit-test record", sourceIds: ["source-a"], confidence: "low", limitations: "Not real crop evidence." })),
   evidence: ["source-a"],
   review: { status: "research-only", reviewer: null, date: null, notes: "Synthetic unit-test record." }
 };

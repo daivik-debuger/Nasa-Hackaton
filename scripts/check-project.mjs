@@ -4,7 +4,13 @@ const requiredFiles = [
   "AGENTS.md",
   "index.html",
   "styles.css",
-  "app.js",
+  "server.js",
+  "src/main.js",
+  "src/api/soil-data.js",
+  "src/api/imerg-service.js",
+  "src/engine/compare-strategies.js",
+  "src/ui/strategy-view.js",
+  "src/validation/field-inputs.js",
   "sw.js",
   "manifest.webmanifest",
   "icon.svg",
@@ -46,7 +52,7 @@ for (const marker of ["name=\"viewport\"", "rel=\"manifest\"", "id=\"loadClimate
   if (!html.includes(marker)) throw new Error(`index.html is missing required marker: ${marker}`);
 }
 
-const app = await readFile("app.js", "utf8");
+const app = await readFile("src/main.js", "utf8");
 const powerModule = await readFile("src/nasa-power.js", "utf8");
 if (!powerModule.includes("power.larc.nasa.gov") || !app.includes("serviceWorker")) {
   throw new Error("FieldShift is missing the NASA POWER endpoint or service-worker registration.");

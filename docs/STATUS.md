@@ -4,37 +4,38 @@ Last updated: 2026-10-03
 
 ## Confirmed
 
-- FieldShift is a static, responsive, installable PWA prototype.
+- FieldShift is a responsive PWA pilot with a small Node server for soil and IMERG access.
 - Users can enter coordinates, a climate-history period, crop history, optional soil notes, and priorities.
-- The app is wired to request daily NASA POWER temperature, precipitation, and solar-radiation variables.
+- The app requests daily NASA POWER mean/max temperature and corrected precipitation.
 - The interface displays transparent scale/capability warnings and does not prefill fabricated climate values.
 - The app shell has a manifest, icon, and service worker.
 - A real seven-day NASA POWER API response for the demonstration point is saved with retrieval metadata for deterministic tests.
 - Dependency-free unit tests cover field-query validation, NASA missing values, request failures, crop record structure, and source-ID integrity.
 - GitHub Actions configuration runs source/data checks and unit tests.
+- Central Iowa is the bounded implementation pilot; the example point near Ames is synthetic, not a verified field.
+- Eight source-linked crop records, seven evidence records, and five research-only rules validate against the source registry.
+- USDA SSURGO Soil Data Access and NASA GPM IMERG API queries returned real data for the synthetic pilot point in local testing.
+- The browser journey loaded NASA POWER, IMERG, and SSURGO; it displayed all three strategies and opened a complete “Why this strategy?” explanation.
+- Browser layout showed no horizontal overflow at 320, 375, 390, 430, and 1024 px. No app-origin browser console errors were observed; one browser-extension message was unrelated to the app.
 
 ## Not yet verified
 
-- End-to-end NASA POWER loading in a deployed browser.
+- End-to-end NASA POWER/IMERG/SSURGO loading on a deployed HTTPS host.
 - Installation and offline reopening on real iOS and Android devices.
 - Browser compatibility and mobile visual QA on physical devices.
 
 ## Not yet implemented
 
-- Final pilot-region selection.
-- Second meaningful NASA dataset.
-- Mapped soil lookup.
-- Reviewed crop evidence catalog.
-- Evidence-linked, transparent rotation comparison engine.
-- Confidence/uncertainty calculation.
-- “Why this?” evidence panels.
+- Named agronomist review and approval of crop records and rotation rules. Current records are source-linked but still research-only.
+- A three-region comparison to justify central Iowa relative to alternatives.
+- Farmer validation of the interface and economic/operational feasibility of the options.
 - Published HTTPS deployment.
 - Backup demo video and final three-minute pitch.
 
 ## Current scientific boundary
 
-The three strategy cards are prompts, not computed recommendations. Do not describe the prototype as producing validated rotation recommendations.
+The three strategy cards are computed exploratory patterns with evidence and uncertainty, **not approved recommendations or rankings**. Unknown pH ranges, root-depth classes, and crop-specific soil thresholds remain null. Mapped soil and satellite data are not exact field measurements.
 
 ## Next highest-value decision
 
-Select one pilot region using the evidence requirements in `TEAM_RESEARCH_TASKS.md`. Crop and soil integration should not be finalized before that decision.
+Obtain a named agronomist's review of each crop/rule and test the pilot with actual Iowa farmers before activating ranking or making field-specific claims.

@@ -1,5 +1,5 @@
 export const POWER_DAILY_ENDPOINT = "https://power.larc.nasa.gov/api/temporal/daily/point";
-export const POWER_PARAMETERS = ["T2M", "T2M_MAX", "PRECTOTCORR", "ALLSKY_SFC_SW_DWN"];
+export const POWER_PARAMETERS = ["T2M", "T2M_MAX", "PRECTOTCORR"];
 
 export function buildPowerUrl(location) {
   const query = new URLSearchParams({

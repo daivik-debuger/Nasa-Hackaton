@@ -43,6 +43,8 @@ export function summarizePowerPayload(payload, location) {
   const mean = temp.reduce((sum, value) => sum + value, 0) / temp.length;
   const totalRain = rain.reduce((sum, value) => sum + value, 0);
   const hotDays = maxTemp.filter((value) => value >= 30).length;
+  const recentGrowingSeasonDays = keys.filter((day) => day.startsWith(String(location.end)) && Number(day.slice(4, 6)) >= 4 && Number(day.slice(4, 6)) <= 9);
+  const wettestGrowingSeasonDay = recentGrowingSeasonDays.map((day) => ({ day, value: Number(params.PRECTOTCORR[day]) })).filter(({ value }) => Number.isFinite(value) && value !== fillValue && value >= 0).sort((a, b) => b.value - a.value)[0] ?? null;
   const unitMap = payload?.parameters || {};
 
   return {
@@ -59,6 +61,7 @@ export function summarizePowerPayload(payload, location) {
     end: location.end,
     count: temp.length,
     rainfallCount: rain.length,
+    wettestGrowingSeasonDay,
     fillValue
   };
 }

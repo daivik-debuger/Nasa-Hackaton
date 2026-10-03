@@ -1,0 +1,10 @@
+{"id":"cereal-rye","commonName":"Cereal rye","scientificName":"Secale cereale","cropFamily":"Poaceae","cropFamilySourceIds":["usda-cover-crop-chart"],"regions":["central-iowa"],"applicability":"Central Iowa fall cover crop, especially post-corn before soybean; establishment and termination must be planned.","roles":["cover"],"traits":[
+{"trait":"growingPeriod","value":"Fall-planted overwintering cover; usually terminated in spring","sourceIds":["isu-rye-recipe","isu-cover-crop-species"],"confidence":"high","limitations":"Timing is weather and management dependent."},
+{"trait":"temperatureConsiderations","value":"Dependable overwintering cover crop in Iowa","sourceIds":["isu-cover-crop-species"],"confidence":"medium","limitations":"Establishment still depends on fall conditions."},
+{"trait":"waterConsiderations","value":"Living spring cover uses water; quantify locally before assuming drought benefit","sourceIds":["isu-rye-corn-analysis"],"confidence":"medium","limitations":"No field water saving claimed."},
+{"trait":"soilCompatibility","value":null,"sourceIds":["usda-cover-crop-chart"],"confidence":"low","limitations":"No map-unit-specific suitability established."},
+{"trait":"phRange","value":null,"sourceIds":["usda-cover-crop-chart"],"confidence":"low","limitations":"No central-Iowa pH range verified."},
+{"trait":"rootDepthCategory","value":null,"sourceIds":["usda-cover-crop-chart"],"confidence":"low","limitations":"No fixed depth category established."},
+{"trait":"rotationBenefits","value":"Iowa recipe places rye after corn before soybean; cover can reduce erosion or nutrient loss when well established","sourceIds":["isu-rye-recipe","isu-cover-crop-species"],"confidence":"medium","limitations":"Effects depend on biomass and management."},
+{"trait":"rotationRisks","value":"Ahead of corn, late termination may raise establishment and disease risk","sourceIds":["isu-rye-corn-risk"],"confidence":"medium","limitations":"Local timing and weather matter."}
+],"evidence":["isu-rye-recipe","isu-cover-crop-species","isu-rye-corn-risk"],"review":{"status":"research-only","reviewer":null,"date":null,"notes":"Human agronomy approval pending."}}

@@ -1,0 +1,10 @@
+{"id":"oats","commonName":"Oats","scientificName":"Avena sativa","cropFamily":"Poaceae","cropFamilySourceIds":["usda-cover-crop-chart"],"regions":["central-iowa"],"applicability":"Central Iowa spring grain or fall cover uses are distinct; fit depends on harvest, planting, and market.","roles":["cash-grain","cover"],"traits":[
+{"trait":"growingPeriod","value":"Spring grain or late-summer short-term cover; cover usually winter-kills","sourceIds":["isu-cover-crop-traits","usda-iowa-crop-progress"],"confidence":"medium","limitations":"Grain and cover management differ."},
+{"trait":"temperatureConsiderations","value":"Cool-season grass","sourceIds":["usda-cover-crop-chart"],"confidence":"high","limitations":"No numeric local threshold used."},
+{"trait":"waterConsiderations","value":"Medium relative water use in USDA cover-crop chart","sourceIds":["usda-cover-crop-chart"],"confidence":"medium","limitations":"Not a field water-use estimate."},
+{"trait":"soilCompatibility","value":null,"sourceIds":["usda-cover-crop-chart"],"confidence":"low","limitations":"No local texture or drainage suitability verified."},
+{"trait":"phRange","value":null,"sourceIds":["usda-cover-crop-chart"],"confidence":"low","limitations":"No verified central-Iowa pH range."},
+{"trait":"rootDepthCategory","value":null,"sourceIds":["usda-cover-crop-chart"],"confidence":"low","limitations":"No reliable field category assigned."},
+{"trait":"rotationBenefits","value":"Iowa beginner recipe uses oats after soybean before corn","sourceIds":["isu-cover-crop-resources"],"confidence":"medium","limitations":"Fit depends on harvest and establishment timing."},
+{"trait":"rotationRisks","value":"Late seeding limits cover growth; winter-kill removes live spring cover","sourceIds":["isu-cover-crop-species","isu-cover-crop-traits"],"confidence":"medium","limitations":"Winter survival varies."}
+],"evidence":["usda-cover-crop-chart","isu-cover-crop-resources","isu-cover-crop-species"],"review":{"status":"research-only","reviewer":null,"date":null,"notes":"Human agronomy approval pending."}}

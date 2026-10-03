@@ -1,15 +1,22 @@
-const REQUIRED_CROP_FIELDS = ["id", "commonName", "scientificName", "cropFamily", "regions", "traits", "evidence", "review"];
+const REQUIRED_CROP_FIELDS = ["id", "commonName", "scientificName", "cropFamily", "cropFamilySourceIds", "regions", "applicability", "roles", "traits", "evidence", "review"];
+export const REQUIRED_TRAITS = ["growingPeriod", "temperatureConsiderations", "waterConsiderations", "soilCompatibility", "phRange", "rootDepthCategory", "rotationBenefits", "rotationRisks"];
 
 export function validateCropRecord(crop, knownSourceIds = new Set()) {
   const errors = [];
   if (!crop || typeof crop !== "object" || Array.isArray(crop)) return ["Crop record must be an object."];
   for (const field of REQUIRED_CROP_FIELDS) if (!(field in crop)) errors.push(`Missing required field: ${field}.`);
   if (crop.id !== undefined && !/^[a-z0-9-]+$/.test(crop.id)) errors.push("Crop id must use lowercase letters, numbers, and hyphens.");
-  for (const field of ["commonName", "scientificName", "cropFamily"]) {
+  for (const field of ["commonName", "scientificName", "cropFamily", "applicability"]) {
     if (crop[field] !== undefined && (typeof crop[field] !== "string" || !crop[field].trim())) errors.push(`${field} must be a non-empty string.`);
   }
   if (crop.regions !== undefined && (!Array.isArray(crop.regions) || crop.regions.length === 0)) errors.push("regions must contain at least one region.");
+  if (crop.cropFamilySourceIds !== undefined) {
+    if (!Array.isArray(crop.cropFamilySourceIds) || !crop.cropFamilySourceIds.length) errors.push("cropFamilySourceIds must contain a source.");
+    else for (const sourceId of crop.cropFamilySourceIds) if (!knownSourceIds.has(sourceId)) errors.push(`cropFamilySourceIds references unknown source ID: ${sourceId}.`);
+  }
+  if (crop.roles !== undefined && (!Array.isArray(crop.roles) || crop.roles.length === 0)) errors.push("roles must contain at least one role.");
   if (crop.traits !== undefined && !Array.isArray(crop.traits)) errors.push("traits must be an array.");
+  if (Array.isArray(crop.traits)) for (const required of REQUIRED_TRAITS) if (!crop.traits.some((trait) => trait.trait === required)) errors.push(`Missing trait: ${required}.`);
   if (Array.isArray(crop.traits)) crop.traits.forEach((trait, index) => {
     for (const field of ["trait", "value", "sourceIds", "confidence", "limitations"]) {
       if (!(field in trait)) errors.push(`traits[${index}] is missing ${field}.`);
@@ -17,10 +24,12 @@ export function validateCropRecord(crop, knownSourceIds = new Set()) {
     if (!Array.isArray(trait.sourceIds) || trait.sourceIds.length === 0) errors.push(`traits[${index}].sourceIds must not be empty.`);
     else for (const sourceId of trait.sourceIds) if (!knownSourceIds.has(sourceId)) errors.push(`traits[${index}] references unknown source ID: ${sourceId}.`);
     if (trait.confidence !== undefined && !["high", "medium", "low"].includes(trait.confidence)) errors.push(`traits[${index}].confidence is invalid.`);
+    if (typeof trait.limitations !== "string" || !trait.limitations.trim()) errors.push(`traits[${index}].limitations must explain uncertainty.`);
   });
   if (crop.evidence !== undefined && (!Array.isArray(crop.evidence) || crop.evidence.length === 0)) errors.push("evidence must contain at least one source ID.");
   if (Array.isArray(crop.evidence)) for (const sourceId of crop.evidence) if (!knownSourceIds.has(sourceId)) errors.push(`evidence references unknown source ID: ${sourceId}.`);
   if (crop.review !== undefined && !["research-only", "reviewed", "approved-for-app"].includes(crop.review?.status)) errors.push("review.status is invalid.");
+  if (crop.review?.status === "approved-for-app" && (!crop.review.reviewer || !crop.review.date)) errors.push("Approved crops require a named reviewer and date.");
   return errors;
 }
 
