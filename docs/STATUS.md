@@ -30,13 +30,14 @@ Last updated: 2026-10-04
 - Team branch roles and PR targets are documented in `BRANCHING.md`; CI is configured for pushes to the integration and topic branch patterns.
 - Crop validation now rejects malformed nested records, unknown or duplicate traits/sources, unsupported fields, and invalid human-review dates. The server sends basic anti-sniffing, no-referrer, and anti-framing headers. CI now builds and smoke-tests the Docker deployment image in addition to the Node checks.
 - Local `npm run verify` passed with 38 tests passed and one HTTP-listener test skipped because this sandbox disallows loopback listeners. That test is required in CI, where `CI=true`.
+- GitHub Actions [run 37216914697](https://github.com/daivik-debuger/Nasa-Hackaton/actions/runs/37216914697) passed for commit `aff665f`: both the Node verification job (including the HTTP-listener test) and the Docker build/start/health-and-assets smoke job succeeded.
 
 ## Not yet verified
 
 - End-to-end NASA POWER/IMERG/SSURGO loading on a deployed HTTPS host.
 - A dependable complete-day IMERG indicator from the current public image service; its current metadata ends at 2025-09-30 and tested Iowa days lack one half-hour slot.
 - Physical keyboard, screen-reader, and touch QA of the updated global-coverage UI; focus styles are implemented but not yet tested on devices.
-- Docker image build and hosted health-check behavior; the new CI job is configured but its first remote run has not yet been observed.
+- Hosted Render health-check behavior. The Docker image was built and smoke-tested in CI, but no public deployment has been checked.
 - Installation and offline reopening on real iOS and Android devices.
 - Browser compatibility and mobile visual QA on physical devices.
 
@@ -47,7 +48,7 @@ Last updated: 2026-10-04
 - A validated global soil provider and more region-scoped crop/rule catalogs. The ISRIC SoilGrids beta REST API is currently paused; WCS/WebDAV alternatives have not been integrated.
 - Farmer validation of the interface and economic/operational feasibility of the options.
 - Published HTTPS deployment.
-- Review and merge of the current integration work into `develop`, then a reviewed release to `main`; a remote CI result for these latest setup edits has not yet been verified.
+- Review and merge of the current integration work into `develop`, then a reviewed release to `main`.
 - Final three-minute narrated pitch and backup recording. Only the script exists.
 
 ## Current scientific boundary
