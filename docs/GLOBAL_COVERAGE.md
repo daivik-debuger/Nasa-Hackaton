@@ -25,4 +25,6 @@ The app must show each layer's status independently: `available`, `missing`, `fa
 
 ## Current implementation boundary
 
-The browser currently loads only `central-iowa.json` and the central-Iowa crop/rule manifest. The server also bounds soil and IMERG requests to that pilot area. The present app therefore **does not yet meet the worldwide requirement**. The next engineering milestone is a global location/coverage flow that can show available observation context without implying globally validated crop strategies. Regional catalogs can then expand one by one through the evidence gate in `SCIENTIFIC_SAFETY.md`.
+The browser now accepts global coordinates and requests NASA POWER climate context. The IMERG proxy accepts global coordinates but its live service can return missing samples or fail. The browser still loads only `central-iowa.json` and its crop/rule manifest; the server restricts SSURGO to that region. Outside Iowa, the app explicitly withholds soil and rotation comparisons. The next milestone is a validated global soil-access method and additional region-specific crop/evidence packs, not copying Iowa rules worldwide.
+
+[ISRIC currently says its SoilGrids beta REST API is paused](https://docs.isric.org/globaldata/soilgrids/index.html). WCS and WebDAV are documented alternatives but require a separate engineering and uncertainty review before integration.

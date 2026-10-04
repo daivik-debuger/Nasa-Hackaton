@@ -45,6 +45,7 @@ test("IMERG URL and incomplete sample response are explicit", () => {
   const url = new URL(buildImergUrl({ lat: 42.035, lon: -93.55 }, 1, 2));
   assert.equal(url.searchParams.get("returnFirstValueOnly"), "false");
   assert.throws(() => summarizeImergSamples([{ samples: [] }], "20250728"), /only 0/);
+  assert.throws(() => summarizeImergSamples([{ samples: [{ attributes: { stdtime: 1 }, value: null }] }], "20250728"), /only 0/);
 });
 
 test("IMERG rejects upstream failure and invalid day", async () => {
@@ -61,4 +62,38 @@ test("three strategies stay exploratory and expose rule evidence and missing inp
   assert.ok(result[1].evidence.some((item) => item.id === "ev-rye-before-soy"));
   assert.ok(result.every((item) => item.humanApproved === false && item.confidence.level === "limited"));
   assert.ok(result[2].missing.includes("marketAccess"));
+});
+
+test("farmer priorities alter visible questions without inventing a score", () => {
+  const base = { lastCrop: "corn", priorCrop: "soybean", soilPh: null };
+  const indicators = buildIndicators({ power: null, imerg: null, soil: null });
+  const water = compareStrategies({ input: { ...base, priorities: ["water"] }, indicators, soil: null, crops, rules, evidence });
+  const market = compareStrategies({ input: { ...base, priorities: ["market"] }, indicators, soil: null, crops, rules, evidence });
+  assert.notDeepEqual(water[1].priorityQuestions, market[1].priorityQuestions);
+  assert.ok(water[1].rules.some((rule) => rule.id === "rye-after-corn"));
+  assert.ok(!market[1].rules.some((rule) => rule.id === "rye-after-corn"));
+  assert.match(market[0].priorityQuestions[0], /market/i);
+  assert.equal(market[1].sequence.length, 0);
+  assert.equal(market[1].confidence.level, "limited");
+  assert.ok(water.every((item) => item.humanApproved === false && !Object.hasOwn(item, "score")));
+});
+
+test("comparison refuses to guess a rotation from missing or unsupported last crop", () => {
+  const indicators = buildIndicators({ power: null, imerg: null, soil: null });
+  for (const lastCrop of ["", "oats"]) {
+    assert.throws(() => compareStrategies({ input: { lastCrop, priorCrop: "soybean", priorities: [] }, indicators, soil: null, crops, rules, evidence }), /needs last season's crop/);
+  }
+});
+
+test("second NASA dataset changes the precipitation indicator and missing-data explanation", () => {
+  const input = { lastCrop: "corn", priorCrop: "soybean", priorities: ["water"], soilPh: null };
+  const withoutImerg = buildIndicators({ power: null, imerg: null, soil: null });
+  const withImerg = buildIndicators({ power: null, imerg: { value: 58.02, unit: "mm estimated accumulation", time: "2025-05-20 UTC", resolution: "0.1° grid" }, soil: null });
+  assert.equal(withoutImerg.satellitePrecipitation, null);
+  assert.equal(withImerg.satellitePrecipitation.value, 58.02);
+  const before = compareStrategies({ input, indicators: withoutImerg, soil: null, crops, rules, evidence });
+  const after = compareStrategies({ input, indicators: withImerg, soil: null, crops, rules, evidence });
+  assert.ok(before[1].missing.includes("IMERG satellite precipitation"));
+  assert.ok(!after[1].missing.includes("IMERG satellite precipitation"));
+  assert.equal(after[1].confidence.level, "limited");
 });

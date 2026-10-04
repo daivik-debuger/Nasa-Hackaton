@@ -1,8 +1,9 @@
-import { summarizePowerPayload } from "./climate.js";
+import { summarizePowerPayload, validateFieldQuery } from "./climate.js";
+import { resolveCoverage } from "./coverage.js";
 import { fetchPowerData } from "./api/nasa-power.js";
 import { fetchSoilData } from "./api/soil-data.js";
 import { fetchImergDay } from "./api/imerg.js";
-import { validatePilotLocation, validateFarmInputs } from "./validation/field-inputs.js";
+import { validateFarmInputs } from "./validation/field-inputs.js";
 import { buildIndicators } from "./engine/indicators.js";
 import { compareStrategies } from "./engine/compare-strategies.js";
 import { renderClimate, renderImerg } from "./ui/climate-view.js";
@@ -12,7 +13,7 @@ import { setStatus } from "./ui/status-view.js";
 
 const $ = (id) => document.getElementById(id);
 const lastFullYear = new Date().getUTCFullYear() - 1;
-const state = { region: null, crops: [], rules: [], evidence: [], sources: [], power: null, soil: null, imerg: null };
+const state = { region: null, crops: [], rules: [], evidence: [], sources: [], power: null, soil: null, imerg: null, requestId: 0 };
 
 for (const id of ["startYear", "endYear"]) {
   for (let year = lastFullYear; year >= 1981; year--) $(id).add(new Option(String(year), String(year)));
@@ -35,12 +36,47 @@ async function loadCatalog() {
   Object.assign(state, { region, crops, evidence: evidence.records, rules: rules.rules, sources: sources.sources });
   const historyCrops = crops.filter((crop) => crop.roles.some((role) => role !== "cover"));
   for (const id of ["lastCrop", "priorCrop"]) for (const crop of historyCrops) $(id).add(new Option(crop.commonName, crop.id));
-  setStatus($("climateStatus"), "Central Iowa pilot catalog loaded. Enter your field history, then load climate and soil context.");
+  updateCoverage();
+  setStatus($("climateStatus"), "Catalog loaded. Load available Earth-observation context for your location.");
 }
 
 function locationInput() {
-  if (!state.region) throw new Error("Pilot catalog is still loading.");
-  return validatePilotLocation({ latitude: $("latitude").value, longitude: $("longitude").value, startYear: $("startYear").value, endYear: $("endYear").value }, state.region, { lastFullYear });
+  return validateFieldQuery({ latitude: $("latitude").value, longitude: $("longitude").value, startYear: $("startYear").value, endYear: $("endYear").value }, { lastFullYear });
+}
+
+function coverage() {
+  return resolveCoverage(locationInput(), state.region ? [state.region] : []);
+}
+
+function updateCoverage() {
+  try {
+    const result = coverage();
+    const supported = Boolean(result.region);
+    setStatus($("coverageStatus"), supported ? "Central Iowa research catalog: NASA observations and mapped SSURGO soil can be requested; rotation patterns remain unapproved." : "Worldwide climate context can be requested here. Mapped soil and reviewed crop-rotation evidence are not yet supported for this location.");
+    for (const id of ["lastCrop", "priorCrop", "summarize"]) $(id).disabled = !supported;
+    if (!supported) {
+      $("strategies").textContent = "No region-validated crop catalog for this location yet. Iowa rotation patterns will not be applied here.";
+      $("inputSummary").textContent = "No local rotation comparison is available for this location. Field notes are not saved.";
+    } else if (!$("strategies").querySelector(".strategy-card")) {
+      $("strategies").textContent = "Add crop history and choose a priority, then compare three Central Iowa exploratory patterns.";
+    }
+    return result;
+  } catch (error) {
+    setStatus($("coverageStatus"), error.message, "error");
+    for (const id of ["lastCrop", "priorCrop", "summarize"]) $(id).disabled = true;
+    return null;
+  }
+}
+
+function clearLoadedData() {
+  state.requestId++;
+  state.power = state.soil = state.imerg = null;
+  renderClimate(null);
+  renderImerg(null, null, null, "not-loaded");
+  renderSoil(null, "Load data to see mapped soil where a supported provider exists.");
+  $("strategies").textContent = "Location or period changed. Load data again to compare available context.";
+  setStatus($("climateStatus"), "Location or period changed. Load available data again.");
+  updateCoverage();
 }
 
 function farmInput() {
@@ -50,7 +86,23 @@ function farmInput() {
 
 function updateComparison() {
   const location = locationInput();
+  const available = coverage();
+  if (!available.region) {
+    $("strategies").textContent = "No region-validated crop catalog for this location yet. Iowa rotation patterns will not be applied here.";
+    $("inputSummary").textContent = `${location.lat.toFixed(4)}, ${location.lon.toFixed(4)} · Climate context only. No local crop-rotation comparison is available; entries are not saved.`;
+    return;
+  }
   const input = farmInput();
+  if (!input.lastCrop) {
+    $("strategies").textContent = "Choose what grew last season before comparing regional rotation patterns. No crop sequence has been assumed.";
+    $("inputSummary").textContent = "Last season's crop is missing. Your entries remain on this page and are not saved.";
+    return;
+  }
+  if (!["corn", "soybean"].includes(input.lastCrop)) {
+    $("strategies").textContent = "This Iowa rule set currently compares histories ending in corn or soybean. Other crop histories need additional reviewed rotation evidence; no sequence was guessed.";
+    $("inputSummary").textContent = `Last crop: ${input.lastCrop}. No evidence-linked sequence is available for this history. Entries are not saved.`;
+    return;
+  }
   const indicators = buildIndicators(state);
   const strategies = compareStrategies({ input, indicators, soil: state.soil, crops: state.crops, rules: state.rules, evidence: state.evidence });
   renderStrategies(strategies, new Map(state.sources.map((source) => [source.id, source])));
@@ -64,28 +116,40 @@ $("loadClimate").addEventListener("click", async () => {
   const button = $("loadClimate");
   try {
     const location = locationInput();
+    const available = coverage();
+    const requestId = ++state.requestId;
     button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    button.textContent = "Loading available data…";
     state.power = state.soil = state.imerg = null;
-    setStatus($("climateStatus"), "Loading NASA POWER history and USDA mapped soil…");
-    const [powerResult, soilResult] = await Promise.allSettled([fetchPowerData(location), fetchSoilData(location)]);
+    renderClimate(null);
+    renderImerg(null, null, null, "not-loaded");
+    renderSoil(null, available.soil === "requestable" ? "Loading mapped soil context…" : "Mapped soil lookup is not yet supported for this location.");
+    setStatus($("climateStatus"), available.soil === "requestable" ? "Loading NASA POWER history and USDA mapped soil…" : "Loading worldwide NASA POWER climate context…");
+    const [powerResult, soilResult] = await Promise.allSettled([fetchPowerData(location), available.soil === "requestable" ? fetchSoilData(location) : Promise.resolve(null)]);
+    if (requestId !== state.requestId) return;
     const failures = [];
     if (powerResult.status === "fulfilled") {
       state.power = summarizePowerPayload(powerResult.value, location);
       renderClimate(state.power);
-      const wettest = state.power.wettestGrowingSeasonDay;
+      const wettest = state.power.wettestReferenceDay;
       if (wettest) {
-        setStatus($("climateStatus"), "POWER loaded. Sampling NASA GPM IMERG for the matched wettest growing-season day…");
+        setStatus($("climateStatus"), "POWER loaded. Sampling NASA GPM IMERG for the matched wettest day…");
         try { state.imerg = await fetchImergDay(location, wettest.day); }
         catch (error) { failures.push(`IMERG: ${error.message}`); }
+        if (requestId !== state.requestId) return;
         renderImerg(state.imerg, wettest.day, wettest.value);
-      } else { failures.push("No valid POWER growing-season day for IMERG cross-check."); renderImerg(null); }
+      } else { failures.push("No valid POWER day in the end year for an IMERG cross-check."); renderImerg(null); }
     } else { failures.push(`POWER: ${powerResult.reason.message}`); renderImerg(null); }
-    if (soilResult.status === "fulfilled") { state.soil = soilResult.value; renderSoil(state.soil); }
+    if (available.soil === "not-yet-supported") renderSoil(null, "Mapped soil lookup is not yet supported for this location. No Iowa soil values were applied. A local soil test remains important.");
+    else if (soilResult.status === "fulfilled") { state.soil = soilResult.value; renderSoil(state.soil); }
     else { failures.push(`SSURGO: ${soilResult.reason.message}`); renderSoil(null); }
-    setStatus($("climateStatus"), failures.length ? `Partial data loaded. ${failures.join(" ")} Missing sources remain visible in strategy confidence.` : "NASA POWER, NASA GPM IMERG and USDA SSURGO loaded. These are mapped estimates, not field measurements.", failures.length ? "error" : "success");
+    const success = available.region ? "NASA observations and USDA mapped soil loaded for the Central Iowa demonstration. These are mapped estimates, not field measurements." : "NASA observation context loaded. Soil and region-specific crop comparisons are not yet supported here.";
+    setStatus($("climateStatus"), failures.length ? `Partial data loaded. ${failures.join(" ")} Missing sources remain visible.` : success, failures.length ? "error" : "success");
+    button.textContent = failures.length ? "Retry data load" : "Refresh data";
     updateComparison();
-  } catch (error) { setStatus($("climateStatus"), error.message, "error"); }
-  finally { button.disabled = false; }
+  } catch (error) { setStatus($("climateStatus"), error.message, "error"); button.textContent = "Retry data load"; }
+  finally { button.disabled = false; button.removeAttribute("aria-busy"); }
 });
 
 $("summarize").addEventListener("click", () => {
@@ -93,6 +157,13 @@ $("summarize").addEventListener("click", () => {
   catch (error) { setStatus($("climateStatus"), error.message, "error"); }
 });
 
-loadCatalog().catch((error) => setStatus($("climateStatus"), `Pilot catalog could not load: ${error.message}`, "error"));
+loadCatalog().catch((error) => { updateCoverage(); setStatus($("climateStatus"), `Regional catalog could not load: ${error.message}. Climate context can still be requested, but no rotation comparison is available.`, "error"); });
+
+for (const id of ["latitude", "longitude", "startYear", "endYear"]) $(id).addEventListener("change", clearLoadedData);
+const offlineBanner = $("offlineBanner");
+function updateConnection() { offlineBanner.hidden = navigator.onLine !== false; }
+window.addEventListener("online", updateConnection);
+window.addEventListener("offline", updateConnection);
+updateConnection();
 
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));

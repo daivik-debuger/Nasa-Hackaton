@@ -41,3 +41,9 @@
 **Decision:** FieldShift is intended for farmers worldwide. Central Iowa remains the first implemented demonstration and evidence catalog, not a permanent product limit. The current location gate and U.S. soil integration are implementation gaps to remove with location-aware coverage and provider selection.
 
 **Reason:** The challenge and user goal concern farmers around the world. Earlier project language treated a pilot as if it were the final scope. Global access must not be confused with globally valid soil/crop/rotation advice; each layer needs explicit geographic applicability and honest unsupported states.
+
+## 2026-10-03 — Global observation path with regional evidence gates
+
+**Decision:** Accept global coordinates for historical NASA POWER context and attempt IMERG where data are returned. Keep SSURGO and rotation patterns limited to the Iowa demonstration; show unsupported soil/crop coverage elsewhere. Use a whole-calendar-year wettest valid POWER day for the IMERG cross-check instead of assuming every location has an April–September growing season.
+
+**Reason:** This moves toward worldwide use without transferring Iowa agronomy to other regions. The IMERG comparison is historical context only and may fail independently of POWER. [ISRIC's current documentation](https://docs.isric.org/globaldata/soilgrids/index.html) says its beta SoilGrids REST API is paused, so a quick global soil integration would be unreliable.

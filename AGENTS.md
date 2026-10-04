@@ -23,6 +23,7 @@ Do not repeatedly summarize the whole project. State the current task, edit the 
 - Installable PWA with no frontend framework or build step.
 - `index.html` and `styles.css`: accessible content and responsive presentation.
 - `src/main.js`, `src/ui/`, and `src/validation/`: browser journey and field inputs.
+- `src/coverage.js`: per-location availability gate; do not borrow Iowa evidence elsewhere.
 - `src/api/`: browser API clients and server-side remote-service adapters.
 - `src/engine/`: indicators, confidence, and explainable strategy comparisons.
 - `server.js`: dependency-free Node server for the app and `/api/soil` and `/api/imerg` endpoints.

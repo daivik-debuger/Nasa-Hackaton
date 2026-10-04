@@ -1,7 +1,7 @@
 const esc = (value) => String(value ?? "—").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
-export function renderSoil(soil) {
+export function renderSoil(soil, unavailableMessage = "SSURGO soil lookup unavailable. No soil property was assumed. Add a field soil test if you have one.") {
   const panel = document.getElementById("soilPanel");
-  if (!soil) { panel.textContent = "SSURGO soil lookup unavailable. No soil property was assumed. Add a field soil test if you have one."; return; }
+  if (!soil) { panel.textContent = unavailableMessage; return; }
   panel.innerHTML = `<h3>USDA mapped soil · ${esc(soil.mapUnit.symbol)} ${esc(soil.mapUnit.name)}</h3><p>Map-unit key ${esc(soil.mapUnit.key)} · flood frequency ${esc(soil.floodingFrequency)} · available water storage (mapped 0–100 cm) ${soil.availableWaterStorage0to100Cm === null ? "missing" : esc(soil.availableWaterStorage0to100Cm) + " cm"} · deepest horizon shown ${esc(soil.depthRepresentedCm)} cm.</p><div class="soil-component-grid">${soil.components.map((component) => `<div class="soil-component"><b>${esc(component.name)} · ${component.percent === null ? "unknown share" : esc(component.percent) + "% possible share"}</b><p>Drainage: ${esc(component.drainage)}</p><p>Horizons: ${component.horizons.map((horizon) => `${esc(horizon.topCm)}–${esc(horizon.bottomCm)} cm ${esc(horizon.texture)}; AWC ${horizon.availableWaterCapacityCmPerCm === null ? "missing" : esc(horizon.availableWaterCapacityCmPerCm) + " cm/cm"}`).join(" · ") || "missing"}</p></div>`).join("")}</div><p class="soil-warning">Missing: ${esc(soil.missing.join(", ") || "none in returned fields")}. Possible components are not separate exact field samples. Map boundaries, component percentages, and horizons are uncertain. This is not a laboratory soil test; pH and nutrients are not inferred.</p>`;
 }

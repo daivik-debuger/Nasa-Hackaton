@@ -18,6 +18,7 @@ export function summarizeImergSamples(payloads, day) {
   for (const payload of payloads) {
     if (!Array.isArray(payload?.samples)) throw new Error("NASA IMERG returned no sample array.");
     for (const sample of payload.samples) {
+      if (sample?.attributes?.stdtime === null || sample?.attributes?.stdtime === undefined || sample?.value === null || sample?.value === undefined || sample?.value === "") continue;
       const time = Number(sample?.attributes?.stdtime);
       const value = Number(sample?.value);
       if (Number.isFinite(time) && Number.isFinite(value) && value >= 0 && value < 1000) byTime.set(time, value);

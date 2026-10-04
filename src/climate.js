@@ -24,7 +24,13 @@ export function validateFieldQuery(input, { lastFullYear = new Date().getUTCFull
 }
 
 function seriesValues(series, keys, fillValue) {
-  return keys.map((date) => Number(series[date])).filter((value) => Number.isFinite(value) && value !== fillValue);
+  return keys.map((date) => observation(series[date], fillValue)).filter((value) => value !== null);
+}
+
+function observation(raw, fillValue) {
+  if (raw === null || raw === undefined || raw === "") return null;
+  const value = Number(raw);
+  return Number.isFinite(value) && value !== fillValue ? value : null;
 }
 
 export function summarizePowerPayload(payload, location) {
@@ -43,8 +49,8 @@ export function summarizePowerPayload(payload, location) {
   const mean = temp.reduce((sum, value) => sum + value, 0) / temp.length;
   const totalRain = rain.reduce((sum, value) => sum + value, 0);
   const hotDays = maxTemp.filter((value) => value >= 30).length;
-  const recentGrowingSeasonDays = keys.filter((day) => day.startsWith(String(location.end)) && Number(day.slice(4, 6)) >= 4 && Number(day.slice(4, 6)) <= 9);
-  const wettestGrowingSeasonDay = recentGrowingSeasonDays.map((day) => ({ day, value: Number(params.PRECTOTCORR[day]) })).filter(({ value }) => Number.isFinite(value) && value !== fillValue && value >= 0).sort((a, b) => b.value - a.value)[0] ?? null;
+  const referenceDays = keys.filter((day) => day.startsWith(String(location.end)));
+  const wettestReferenceDay = referenceDays.map((day) => ({ day, value: observation(params.PRECTOTCORR[day], fillValue) })).filter(({ value }) => value !== null && value >= 0).sort((a, b) => b.value - a.value)[0] ?? null;
   const unitMap = payload?.parameters || {};
 
   return {
@@ -61,7 +67,7 @@ export function summarizePowerPayload(payload, location) {
     end: location.end,
     count: temp.length,
     rainfallCount: rain.length,
-    wettestGrowingSeasonDay,
+    wettestReferenceDay,
     fillValue
   };
 }

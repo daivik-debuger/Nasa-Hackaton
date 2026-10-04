@@ -4,7 +4,7 @@
 
 | Data | Where it goes | Intended storage |
 |---|---|---|
-| Field coordinates and selected period | Browser request to NASA POWER; browser request to this app's `/api/soil` and `/api/imerg`; the app server forwards coordinates to USDA Soil Data Access and NASA GPM IMERG | The app does not intentionally save these requests |
+| Field coordinates and selected period | Browser request to NASA POWER; browser request to this app's `/api/imerg` when a reference day is available; `/api/soil` only for the Central Iowa demo. The server forwards requested coordinates to NASA GPM IMERG or USDA Soil Data Access as applicable | The app does not intentionally save these requests |
 | Crop history, farmer priorities, optional soil notes | Used in the current browser page to compare strategies | No account, database, or intentional persistent storage |
 | Public app files, source/crop/evidence JSON | Browser and service-worker app-shell cache | May remain on the device until cache removal |
 | Fonts | Browser requests to Google Fonts | Third-party behavior is outside this prototype's control |

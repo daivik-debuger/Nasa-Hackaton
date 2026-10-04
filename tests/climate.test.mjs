@@ -41,6 +41,16 @@ test("excludes the documented fill value from summaries", () => {
   assert.ok(Math.abs(summary.totalRain - 0.22) < 1e-12);
 });
 
+test("does not turn absent NASA values into measured zeroes", () => {
+  const payload = structuredClone(fixture);
+  payload.properties.parameter.T2M["20250101"] = null;
+  payload.properties.parameter.PRECTOTCORR["20250102"] = "";
+  const summary = summarizePowerPayload(payload, location);
+  assert.equal(summary.count, 6);
+  assert.equal(summary.rainfallCount, 6);
+  assert.ok(Math.abs(summary.totalRain - 0.22) < 1e-12);
+});
+
 test("rejects a payload with no usable temperature data", () => {
   const syntheticEmptyCase = structuredClone(fixture);
   for (const date of Object.keys(syntheticEmptyCase.properties.parameter.T2M)) syntheticEmptyCase.properties.parameter.T2M[date] = -999;

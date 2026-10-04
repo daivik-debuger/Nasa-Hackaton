@@ -29,6 +29,9 @@
       "id": "nasa-gpm-imerg", "name": "GPM IMERG V07 half-hourly precipitation image service", "owner": "NASA GES DISC", "url": "https://gis.earthdata.nasa.gov/portal/rest/services/GESDISC/GPM_3IMERGHH/ImageServer", "sourceType": "official-dataset-service", "integrationStatus": "integrated", "intendedUse": "Recent satellite precipitation indicator, separate from NASA POWER history", "limitations": "0.1-degree gridded half-hourly estimates; the sampled value is not a field rain gauge or proof of future water availability. Service temporal availability and units must be checked on each request.", "lastReviewed": "2026-10-03"
     },
     {
+      "id": "nasa-gpm-imerg-overview", "name": "IMERG product overview and run guidance", "owner": "NASA Global Precipitation Measurement", "url": "https://gpm.nasa.gov/data/imerg", "sourceType": "official-dataset-documentation", "integrationStatus": "research-only", "intendedUse": "Interpret IMERG as a half-hourly precipitation estimate and distinguish Early, Late, and Final runs", "limitations": "Overview describes the product family; the app must inspect the exact service layer and returned units before treating a sample as daily accumulation.", "lastReviewed": "2026-10-03"
+    },
+    {
       "id": "usda-nass-iowa", "name": "2025 Iowa State Agriculture Overview", "owner": "USDA NASS", "url": "https://www.nass.usda.gov/Quick_Stats/Ag_Overview/stateOverview.php?state=Iowa", "sourceType": "official-statistics", "integrationStatus": "research-only", "intendedUse": "Identify major Iowa crops; state figures are not county or field suitability", "limitations": "State aggregate, not specific to central Iowa", "lastReviewed": "2026-10-03"
     },
     {
@@ -93,9 +96,9 @@
       "owner": "ISRIC World Soil Information",
       "url": "https://docs.isric.org/globaldata/soilgrids/index.html",
       "sourceType": "official-dataset-documentation",
-      "integrationStatus": "research-only",
-      "intendedUse": "Potential modeled global soil context",
-      "limitations": "Modeled estimates include uncertainty; service availability must be rechecked before integration.",
+      "integrationStatus": "unavailable",
+      "intendedUse": "Potential modeled global soil context after a stable access method is validated",
+      "limitations": "ISRIC currently says its beta REST API is paused. WCS and WebDAV are alternatives but have not been integrated or validated here. Modeled estimates include spatial and prediction uncertainty.",
       "lastReviewed": "2026-10-03"
     },
     {

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 420" role="img" aria-labelledby="title desc">
+  <title id="title">FieldShift data flow and coverage gates</title>
+  <desc id="desc">A farmer's location and priorities feed NASA observations. A coverage gate selects a supported soil provider and regional crop evidence; unsupported locations show climate context without Iowa rotation strategies.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="none" stroke="#526b5b" stroke-width="1.6"/></marker>
+    <style>text{font-family:Arial,sans-serif;fill:#173d2d}.title{font-size:25px;font-weight:700}.box{fill:#fff;stroke:#9cb5a3;stroke-width:2;rx:14}.accent{fill:#eaf3eb}.warn{fill:#fff5e7;stroke:#d2a96c}.label{font-size:17px;font-weight:700}.small{font-size:13px;fill:#4c6555}.line{fill:none;stroke:#526b5b;stroke-width:2;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1120" height="420" fill="#f7f9f5"/>
+  <text x="36" y="42" class="title">FieldShift: location-aware evidence, not one global rulebook</text>
+  <rect class="box accent" x="36" y="88" width="210" height="96"/><text x="55" y="122" class="label">Farmer input</text><text x="55" y="147" class="small">Location · crop history</text><text x="55" y="166" class="small">Priorities · optional soil test</text>
+  <rect class="box" x="326" y="88" width="220" height="96"/><text x="345" y="122" class="label">NASA observations</text><text x="345" y="147" class="small">POWER daily climate</text><text x="345" y="166" class="small">GPM IMERG precipitation</text>
+  <rect class="box accent" x="626" y="88" width="220" height="96"/><text x="645" y="122" class="label">Coverage gate</text><text x="645" y="147" class="small">Dataset availability</text><text x="645" y="166" class="small">Regional evidence match</text>
+  <rect class="box" x="906" y="88" width="178" height="96"/><text x="925" y="122" class="label">What is shown</text><text x="925" y="147" class="small">Source · scale · time</text><text x="925" y="166" class="small">Missing-data status</text>
+  <path class="line" d="M246 136H318"/><path class="line" d="M546 136H618"/><path class="line" d="M846 136H898"/>
+  <rect class="box" x="326" y="270" width="220" height="104"/><text x="345" y="303" class="label">Mapped soil provider</text><text x="345" y="329" class="small">SSURGO: Iowa demo only</text><text x="345" y="349" class="small">Other places: unsupported</text>
+  <rect class="box" x="626" y="270" width="220" height="104"/><text x="645" y="303" class="label">Regional crop evidence</text><text x="645" y="329" class="small">Iowa: research-only rules</text><text x="645" y="349" class="small">Other places: no Iowa rules</text>
+  <rect class="box warn" x="906" y="270" width="178" height="104"/><text x="925" y="303" class="label">Three strategies</text><text x="925" y="329" class="small">Only with applicable</text><text x="925" y="349" class="small">regional evidence</text>
+  <path class="line" d="M735 184V250H436V262"/><path class="line" d="M735 184V262"/><path class="line" d="M846 322H898"/>
+  <text x="36" y="404" class="small">Current implementation: global observation request path; Central Iowa-only soil and rotation comparison. No crop outcome prediction.</text>
+</svg>
