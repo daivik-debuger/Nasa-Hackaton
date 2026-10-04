@@ -38,7 +38,7 @@ export function renderClimate(summary) {
 
 export function renderImerg(data, referenceDay, powerRain, state = "result") {
   const status = document.getElementById("imergStatus"), metric = document.getElementById("imergMetric");
-  if (!data) { status.textContent = state === "not-loaded" ? "Load data to compare IMERG with NASA POWER on the wettest valid day in your selected end year. This is historical context, not a forecast." : "IMERG unavailable for this reference day. The comparison remains possible, with lower context confidence."; metric.textContent = state === "not-loaded" ? "—" : "Unavailable"; return; }
+  if (!data) { status.textContent = state === "not-loaded" ? "Load data to compare IMERG with NASA POWER on the wettest valid day in your selected end year. This is historical context, not a forecast." : "No complete IMERG day available for this reference day. A partial satellite sample is not shown as a daily rainfall total; other comparisons remain possible with lower context confidence."; metric.textContent = state === "not-loaded" ? "—" : "Unavailable"; return; }
   metric.textContent = `${fmt(data.value)} mm`;
   status.textContent = `Wettest valid POWER day in the chosen end year: ${data.time}. IMERG estimates ${fmt(data.value)} mm from ${data.sampleCount} half-hour samples; POWER estimates ${fmt(powerRain)} mm for the same UTC day. Different grids and methods can disagree. Neither is a field gauge or forecast.`;
 }

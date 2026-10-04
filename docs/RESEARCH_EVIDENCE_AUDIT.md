@@ -19,12 +19,13 @@ Conflict search is incomplete for every row, and no human reviewer/date has been
 - Added cost and dry-subsoil evidence IDs to the relevant Iowa rule disadvantages, so the “Why this?” panel does not list only upsides.
 - Kept the Minnesota trial's numerical yield result **out** of the engine. It cannot be transferred to a farmer's field or to worldwide regions.
 - Kept unknown crop pH/root-depth values null. SSURGO does not supply a laboratory result for the user's exact spot.
+- Withheld the previously reported IMERG 2025-05-20 day total after a live sample audit found one missing in-day half-hour. A next-day sample must not fill that gap.
 - The only “confidence” labels are evidence/coverage warnings; they are not calibrated probabilities of yield or adoption success.
 
 ## Still-open research gates
 
 1. Obtain a named agronomist to review each crop trait, evidence claim, and rule; record reviewer/date and any changed applicability.
 2. Complete the planned multi-region comparison and add region-specific crop, soil, season, and economics sources before extending rotation comparisons beyond Iowa.
-3. Audit the exact IMERG image-service run, units, temporal completeness, and global coverage against its service metadata; test varied hemispheres and latitude bands.
+3. Resolve the current IMERG image-service missing-slot issue or choose a different validated access path. Audit its exact run, units, temporal completeness, and global coverage across varied hemispheres and latitude bands.
 4. Obtain field-scale ground truth (soil tests, rainfall gauges, crop histories) and published farmer-needs evidence. No farmer interview has been conducted; do not imply one.
 5. Evaluate contradictory studies and economic costs before adding scores, thresholds, or ranked recommendations. The current sources support exploration questions, not a “best crop” claim.

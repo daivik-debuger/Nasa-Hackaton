@@ -24,7 +24,7 @@ Render's Free web services can spin down after 15 idle minutes, making the next 
 
 ## Deployment gate
 
-1. Run `npm ci` and `npm run verify` at the exact commit to deploy.
+1. Run `npm ci`, `npm run verify`, and the live `npm run api:smoke` at the exact commit to deploy. See `API_READINESS.md` for the current IMERG completeness blocker; a passing build alone is insufficient.
 2. Create the Render Blueprint and verify its HTTPS URL. Do not publish an HTTP-only demo as installable.
 3. Verify `/health`, app shell, catalog JSON, `/api/soil`, and `/api/imerg` from the public URL.
 4. Test a global point outside Iowa: POWER context may load, while mapped soil and rotation comparisons must say unsupported rather than using Iowa evidence.

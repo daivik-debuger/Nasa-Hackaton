@@ -38,6 +38,8 @@ test("soil response keeps multiple possible components and missing values", () =
 
 test("soil lookup does not invent data after a failed request", async () => {
   await assert.rejects(() => querySoil({ lat: 42.035, lon: -93.55 }, async () => ({ ok: false, status: 503 })), /503/);
+  await assert.rejects(() => querySoil({ lat: 42.035, lon: -93.55 }, async () => ({ ok: true, json: async () => { throw new SyntaxError("bad"); } })), /invalid JSON/);
+  await assert.rejects(() => querySoil({ lat: 42.035, lon: -93.55 }, async () => { throw new DOMException("Timeout", "TimeoutError"); }), /timed out/);
   assert.throws(() => parseSoilResponse({ Table: [] }), /No SSURGO map unit/);
 });
 
@@ -51,6 +53,22 @@ test("IMERG URL and incomplete sample response are explicit", () => {
 test("IMERG rejects upstream failure and invalid day", async () => {
   await assert.rejects(() => queryImergDay({ lat: 42.035, lon: -93.55 }, "20250230", async () => ({ ok: true, json: async () => ({ samples: [] }) })), /Invalid IMERG day/);
   await assert.rejects(() => queryImergDay({ lat: 42.035, lon: -93.55 }, "20250728", async () => ({ ok: false, status: 503 })), /503/);
+  await assert.rejects(() => queryImergDay({ lat: 42.035, lon: -93.55 }, "20250728", async () => { throw new DOMException("Timeout", "TimeoutError"); }), /timed out/);
+  await assert.rejects(() => queryImergDay({ lat: 42.035, lon: -93.55 }, "20250728", async () => ({ ok: true, json: async () => { throw new SyntaxError("bad"); } })), /invalid JSON/);
+});
+
+test("IMERG day total requires every half-hour slot and excludes next-day boundary", () => {
+  const day = "20250520";
+  const start = Date.parse("2025-05-20T00:00:00Z");
+  const samples = Array.from({ length: 48 }, (_, index) => ({ value: "1", attributes: { stdtime: start + index * 1800000, variable: "precipitation" } }));
+  const nextDay = { value: "100", attributes: { stdtime: start + 48 * 1800000, variable: "precipitation" } };
+  const complete = summarizeImergSamples([{ samples: [...samples, nextDay, samples[0]] }], day);
+  assert.equal(complete.sampleCount, 48);
+  assert.equal(complete.value, 24);
+  assert.throws(() => summarizeImergSamples([{ samples: samples.slice(1) }], day), /47 of 48/);
+  assert.throws(() => summarizeImergSamples([{ samples: [...samples.slice(1), nextDay] }], day), /47 of 48/);
+  assert.throws(() => summarizeImergSamples([{ samples: [...samples, { ...samples[0], value: "2" }] }], day), /conflicting values/);
+  assert.throws(() => summarizeImergSamples([{ samples: samples.map((sample) => ({ ...sample, attributes: { ...sample.attributes, variable: "other" } })) }], day), /0 of 48/);
 });
 
 test("three strategies stay exploratory and expose rule evidence and missing inputs", () => {

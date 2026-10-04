@@ -31,3 +31,10 @@ test("IMERG route accepts global coordinates and preserves the requested day", a
   assert.equal(result.status, 200);
   assert.deepEqual(result.body, { point: { lat: -15.7939, lon: -47.8828 }, day: "20250101" });
 });
+
+test("public server serves app assets but not repository internals", async () => {
+  assert.equal((await call("/")).status, 200);
+  assert.equal((await call("/data/regions/central-iowa.json")).status, 200);
+  assert.equal((await call("/src/main.js")).status, 200);
+  for (const path of ["/package.json", "/data/AGENTS.md", "/docs/STATUS.md", "/tests/fixtures/nasa-power-des-moines-2025-01-01-to-2025-01-07.json", "/.git/config"]) assert.equal((await call(path)).status, 404, path);
+});

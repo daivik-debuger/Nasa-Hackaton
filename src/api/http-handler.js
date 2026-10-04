@@ -4,6 +4,14 @@ import { querySoil } from "./soil-service.js";
 import { queryImergDay } from "./imerg-service.js";
 
 const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".md": "text/markdown", ".webmanifest": "application/manifest+json" };
+const publicRootFiles = new Set(["index.html", "styles.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "docs/PRIVACY.md"]);
+
+function publicFile(pathname) {
+  try {
+    const relative = decodeURIComponent(pathname === "/" ? "/index.html" : pathname).replace(/^\/+/, "");
+    return publicRootFiles.has(relative) || /^src\/[a-z0-9/-]+\.js$/.test(relative) || /^data\/[a-z0-9/-]+\.json$/.test(relative) ? relative : null;
+  } catch { return null; }
+}
 
 function coordinates(url) {
   if (!url.searchParams.get("latitude") || !url.searchParams.get("longitude")) throw new Error("Latitude and longitude are required.");
@@ -28,15 +36,18 @@ function sendJson(res, code, value) {
 }
 
 export function createRequestHandler({ root, region, soilLookup = querySoil, imergLookup = queryImergDay }) {
+  const rootDir = resolve(root);
   return async (req, res) => {
     try {
-      const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+      const url = new URL(req.url, "http://localhost");
       if (req.method !== "GET") return sendJson(res, 405, { error: "GET only." });
       if (url.pathname === "/health") return sendJson(res, 200, { status: "ok" });
       if (url.pathname === "/api/soil") return sendJson(res, 200, await soilLookup(soilCoordinates(url, region)));
       if (url.pathname === "/api/imerg") return sendJson(res, 200, await imergLookup(coordinates(url), url.searchParams.get("day") || ""));
-      const path = resolve(root, `.${url.pathname === "/" ? "/index.html" : url.pathname}`);
-      if (!path.startsWith(root + sep) || !types[extname(path)]) return sendJson(res, 404, { error: "Not found." });
+      const relative = publicFile(url.pathname);
+      if (!relative) return sendJson(res, 404, { error: "Not found." });
+      const path = resolve(rootDir, relative);
+      if (!path.startsWith(rootDir + sep) || !types[extname(path)]) return sendJson(res, 404, { error: "Not found." });
       const body = await readFile(path);
       res.writeHead(200, { "Content-Type": `${types[extname(path)]}; charset=utf-8`, "Cache-Control": "no-store" });
       res.end(body);

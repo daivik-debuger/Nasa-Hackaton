@@ -14,9 +14,14 @@ test("builds a bounded NASA POWER daily request", () => {
   assert.equal(url.searchParams.get("time-standard"), "UTC");
 });
 
+test("rejects invalid NASA POWER requests before contacting the API", () => {
+  assert.throws(() => buildPowerUrl({ ...location, lat: 91 }), /Invalid NASA POWER/);
+  assert.throws(() => buildPowerUrl({ ...location, start: 2026, end: 2025 }), /Invalid NASA POWER/);
+});
+
 test("returns JSON from a successful request", async () => {
   const expected = { type: "Feature" };
-  const fetchStub = async () => ({ ok: true, status: 200, json: async () => expected });
+  const fetchStub = async (_url, options) => { assert.ok(options.signal); return { ok: true, status: 200, json: async () => expected }; };
   assert.deepEqual(await fetchPowerData(location, fetchStub), expected);
 });
 
@@ -28,4 +33,8 @@ test("reports HTTP failures without returning fake data", async () => {
 test("classifies network failures", async () => {
   const fetchStub = async () => { throw new TypeError("connection failed"); };
   await assert.rejects(() => fetchPowerData(location, fetchStub), (error) => error.code === "network" && /Could not reach NASA POWER/.test(error.message));
+});
+
+test("reports malformed NASA POWER JSON without returning values", async () => {
+  await assert.rejects(() => fetchPowerData(location, async () => ({ ok: true, json: async () => { throw new SyntaxError("bad"); } })), /invalid JSON/);
 });

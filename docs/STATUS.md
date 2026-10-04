@@ -18,10 +18,11 @@ Last updated: 2026-10-03
 - Worldwide use is the product requirement. Global historical climate context is now available to request; regional soil and crop evidence are not yet worldwide.
 - The current build accepts global coordinates for NASA POWER context, while gating SSURGO and crop strategies to the Central Iowa evidence catalog. A public point near Brasília returned 2025 POWER values in browser testing; IMERG was unavailable for that request and was shown as missing.
 - Eight source-linked crop records, nine evidence records, and five research-only rules validate against the source registry. A source-location audit in `RESEARCH_EVIDENCE_AUDIT.md` documents what selected claims do and do not support.
-- USDA SSURGO Soil Data Access and NASA GPM IMERG API queries returned real data for the synthetic pilot point in local testing.
-- The browser journey loaded NASA POWER, IMERG, and SSURGO; it displayed all three strategies and opened a complete “Why this strategy?” explanation.
-- The updated browser journey loaded POWER and SSURGO at the public Iowa demo point and displayed three strategy cards. The IMERG proxy successfully returned 48 samples for 2025-05-20 in a direct local request, while one browser request failed and showed retry/partial-data messaging. This is not evidence of reliable service availability.
-- Retrying the Iowa browser request then loaded POWER, IMERG, and SSURGO together. At the public demo point, changing the market priority updated the card's visible question; no crop sequence is now shown when last-season crop is missing.
+- NASA POWER and USDA SSURGO returned the expected live response shapes at the public Iowa demonstration point. IMERG returned live samples but **not a complete day**: only 47 of 48 valid in-day half-hour slots were present on 2025-05-20, with an extra next-day boundary timestamp. The former 58.02 mm day-total claim has been retracted in `CASE_STUDY.md`.
+- The IMERG parser now rejects incomplete or conflicting days rather than turning a partial sample into a daily total. A reproducible `npm run api:smoke` command and `API_READINESS.md` document the gate.
+- The 2026-10-03 live `npm run api:smoke` result was POWER pass, SSURGO pass, IMERG fail (47/48 valid UTC slots). The command intentionally exited nonzero; the integration is not declared fully ready.
+- The browser journey displayed POWER, SSURGO, three Iowa strategy cards, and a “Why this strategy?” explanation. IMERG may show unavailable and must not be described as reliable daily context until completeness is validated.
+- At the public demo point, changing the market priority updated the card's visible question; no crop sequence is shown when last-season crop is missing.
 - The engine now shows priority-specific questions without claiming predicted effects or a score. Unit tests also cover global coverage gating and server API behavior without external calls.
 - A source-linked public-location technical case study, architecture diagram, draft pitch script, Docker packaging, Render Blueprint, deployment guide, and physical-device QA protocol exist; none is proof of deployment, recording, or device testing.
 - Browser layout showed no horizontal overflow at 320, 375, 390, 430, and 1024 px. No app-origin browser console errors were observed; one browser-extension message was unrelated to the app.
@@ -30,6 +31,7 @@ Last updated: 2026-10-03
 ## Not yet verified
 
 - End-to-end NASA POWER/IMERG/SSURGO loading on a deployed HTTPS host.
+- A dependable complete-day IMERG indicator from the current public image service; its current metadata ends at 2025-09-30 and tested Iowa days lack one half-hour slot.
 - Physical keyboard, screen-reader, and touch QA of the updated global-coverage UI; focus styles are implemented but not yet tested on devices.
 - Docker image build and hosted health-check behavior.
 - Installation and offline reopening on real iOS and Android devices.

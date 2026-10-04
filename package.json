@@ -11,6 +11,7 @@
   "scripts": {
     "check": "node scripts/check-syntax.mjs && node scripts/check-assets.mjs && node scripts/validate-data.mjs && node scripts/check-project.mjs",
     "start": "node server.js",
+    "api:smoke": "node scripts/smoke-apis.mjs",
     "test": "node --test",
     "verify": "npm run check && npm test"
   }

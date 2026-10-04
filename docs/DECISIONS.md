@@ -47,3 +47,9 @@
 **Decision:** Accept global coordinates for historical NASA POWER context and attempt IMERG where data are returned. Keep SSURGO and rotation patterns limited to the Iowa demonstration; show unsupported soil/crop coverage elsewhere. Use a whole-calendar-year wettest valid POWER day for the IMERG cross-check instead of assuming every location has an April–September growing season.
 
 **Reason:** This moves toward worldwide use without transferring Iowa agronomy to other regions. The IMERG comparison is historical context only and may fail independently of POWER. [ISRIC's current documentation](https://docs.isric.org/globaldata/soilgrids/index.html) says its beta SoilGrids REST API is paused, so a quick global soil integration would be unreliable.
+
+## 2026-10-03 — IMERG daily completeness gate
+
+**Decision:** A matched-day IMERG rainfall total is shown only when all 48 half-hour UTC slots for that day are present, valid, and nonconflicting. A next-day boundary sample is not a substitute for a missing in-day value.
+
+**Reason:** A live audit of the Iowa demonstration day returned only 47 valid in-day slots while including the next midnight. Earlier code treated the 48 raw unique timestamps as a complete day and produced a misleading total. The case study now retracts that figure. IMERG remains an attempted second dataset, but its daily indicator is withheld until the public service or a different validated access route supplies complete data.
