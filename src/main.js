@@ -1,5 +1,6 @@
 import { summarizePowerPayload, validateFieldQuery } from "./climate.js";
 import { resolveCoverage } from "./coverage.js";
+import { GLOBAL_DEMO_LOCATIONS, demoLocation } from "./global-demo-locations.js";
 import { fetchPowerData } from "./api/nasa-power.js";
 import { fetchSoilData } from "./api/soil-data.js";
 import { fetchImergDay } from "./api/imerg.js";
@@ -14,6 +15,16 @@ import { setStatus } from "./ui/status-view.js";
 const $ = (id) => document.getElementById(id);
 const lastFullYear = new Date().getUTCFullYear() - 1;
 const state = { region: null, crops: [], rules: [], evidence: [], sources: [], power: null, soil: null, imerg: null, requestId: 0 };
+
+for (const location of GLOBAL_DEMO_LOCATIONS) $("demoLocation").add(new Option(location.label, location.id));
+$("demoLocation").value = "iowa";
+$("demoLocation").addEventListener("change", () => {
+  const selected = demoLocation($("demoLocation").value);
+  $("latitude").value = selected ? String(selected.lat) : "";
+  $("longitude").value = selected ? String(selected.lon) : "";
+  clearLoadedData();
+});
+for (const id of ["latitude", "longitude"]) $(id).addEventListener("input", () => { $("demoLocation").value = ""; });
 
 for (const id of ["startYear", "endYear"]) {
   for (let year = lastFullYear; year >= 1981; year--) $(id).add(new Option(String(year), String(year)));
@@ -52,7 +63,7 @@ function updateCoverage() {
   try {
     const result = coverage();
     const supported = Boolean(result.region);
-    setStatus($("coverageStatus"), supported ? "Central Iowa research catalog: NASA observations and mapped SSURGO soil can be requested; rotation patterns remain unapproved." : "Worldwide climate context can be requested here. Mapped soil and reviewed crop-rotation evidence are not yet supported for this location.");
+    setStatus($("coverageStatus"), supported ? "NASA POWER climate context is available to request worldwide. At this Iowa point, mapped SSURGO soil and research-only rotation patterns can also be explored." : "NASA POWER climate context is available to request worldwide. Mapped soil and regional crop-rotation evidence are not yet supported for this location.");
     for (const id of ["lastCrop", "priorCrop", "summarize"]) $(id).disabled = !supported;
     if (!supported) {
       $("strategies").textContent = "No region-validated crop catalog for this location yet. Iowa rotation patterns will not be applied here.";

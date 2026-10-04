@@ -31,6 +31,7 @@ Last updated: 2026-10-04
 - Crop validation now rejects malformed nested records, unknown or duplicate traits/sources, unsupported fields, and invalid human-review dates. The server sends basic anti-sniffing, no-referrer, and anti-framing headers. CI now builds and smoke-tests the Docker deployment image in addition to the Node checks.
 - Local `npm run verify` passed all 39 tests when network-listener permission was available. In the restricted sandbox, 38 passed and the HTTP-listener test explicitly skipped; CI requires that test to run.
 - GitHub Actions [run 37216914697](https://github.com/daivik-debuger/Nasa-Hackaton/actions/runs/37216914697) passed for commit `aff665f`: both the Node verification job (including the HTTP-listener test) and the Docker build/start/health-and-assets smoke job succeeded.
+- The location picker now offers six public example points across continents. The opt-in live `npm run api:smoke:global` passed on 2026-10-04: each point returned 366 valid daily temperature and precipitation values for 2024. In the browser, Brasília loaded POWER context and kept Iowa soil/rotation unavailable; IMERG timed out and remained explicitly unavailable. Responsive widths 320, 375, 390, 430, and 1024 px showed no horizontal overflow. No app-origin console warning or error was observed; browser-extension errors were unrelated.
 
 ## Not yet verified
 

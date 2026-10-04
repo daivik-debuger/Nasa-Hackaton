@@ -21,6 +21,7 @@ Open <http://localhost:8000>. `file://` and a generic static server cannot run t
 - `npm run check` checks every JavaScript file in `src/`, `scripts/`, and `tests/`, verifies local asset/import paths, validates scientific data links, and checks required project files.
 - `npm test` runs deterministic Node tests using saved, labeled fixtures. It does not need the NASA or USDA services.
 - `npm run verify` runs both checks and tests. CI uses this exact command on pull requests and pushes to `main`, `develop`, the pilot, and the named team branch patterns.
+- `npm run api:smoke:global` is an opt-in live check of NASA POWER at six public example points across continents. It needs internet access, is not part of deterministic CI, and cannot prove availability at every field or future date.
 
 For a UI or server change, also test the full form-to-strategy journey in a browser. Check 320, 375, 390, 430, and desktop widths, keyboard access, loading/failure states, and console output. Record any unverified live-service or physical-device behavior in `docs/STATUS.md`.
 

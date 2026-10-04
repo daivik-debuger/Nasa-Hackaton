@@ -65,3 +65,9 @@
 **Decision:** Require structural and provenance checks for each crop record, including valid dated human review before a record can be marked reviewed or approved. Keep the implementation dependency-free for this small, fixed schema. In CI, build and smoke-test the same Docker image intended for Render as well as running Node checks.
 
 **Reason:** A passing unit suite alone cannot catch malformed evidence metadata or packaging errors. These gates improve codebase reliability without implying that research-only agronomy or live external datasets have been scientifically validated.
+
+## 2026-10-04 — Demonstrate global NASA coverage without exporting Iowa agronomy
+
+**Decision:** Keep NASA POWER requests coordinate-based worldwide, add public example points across six continents and a repeatable live POWER smoke check, and continue withholding Iowa soil and crop strategies outside the pilot region. Treat IMERG as independently optional until complete-day samples are dependable.
+
+**Reason:** An Iowa default location obscured the already-global observation path. Example points and live checks make that path testable and visible while preserving the scientific boundary between global gridded climate context and region-specific agronomic evidence.
