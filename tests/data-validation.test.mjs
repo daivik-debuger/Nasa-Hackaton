@@ -39,3 +39,30 @@ test("rejects duplicate crop IDs", () => {
   const errors = validateCropCollection([validCrop, structuredClone(validCrop)], knownSources);
   assert.ok(errors.some((error) => error.includes("Duplicate crop id")));
 });
+
+test("rejects malformed nested traits instead of crashing", () => {
+  const crop = structuredClone(validCrop);
+  crop.traits[0] = null;
+  crop.traits[1].sourceIds = "source-a";
+  const errors = validateCropRecord(crop, knownSources);
+  assert.ok(errors.some((error) => error.includes("traits[0] must be an object")));
+  assert.ok(errors.some((error) => error.includes("traits[1].sourceIds")));
+});
+
+test("rejects unreviewed schema drift, duplicate traits, and invalid review dates", () => {
+  const crop = structuredClone(validCrop);
+  crop.unsourcedScore = 9;
+  crop.traits.push(structuredClone(crop.traits[0]));
+  crop.traits[0].madeUpField = "unsupported";
+  crop.review = { status: "approved-for-app", reviewer: "Test Reviewer", date: "2026-02-30" };
+  const errors = validateCropRecord(crop, knownSources);
+  for (const fragment of ["Unsupported crop field", "Duplicate trait", "unsupported field", "real ISO date", "Reviewed crops require"]) {
+    assert.ok(errors.some((error) => error.includes(fragment)), fragment);
+  }
+});
+
+test("requires a reviewer and date for reviewed crops, not just approved ones", () => {
+  const crop = structuredClone(validCrop);
+  crop.review.status = "reviewed";
+  assert.ok(validateCropRecord(crop, knownSources).some((error) => error.includes("named reviewer")));
+});

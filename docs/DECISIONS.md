@@ -59,3 +59,9 @@
 **Decision:** Keep `main` for reviewed releases, start `develop` from the latest pilot commit, and give the project lead and three research workstreams separate topic branches. New work enters `develop` through PRs; a later reviewed PR can bring the integrated result to `main`.
 
 **Reason:** The pilot is ahead of `main`, while research and app work can proceed independently. A shared integration branch gives the team a clear base without silently promoting unreviewed science or changing the release branch.
+
+## 2026-10-04 — Validate deployable code and review metadata
+
+**Decision:** Require structural and provenance checks for each crop record, including valid dated human review before a record can be marked reviewed or approved. Keep the implementation dependency-free for this small, fixed schema. In CI, build and smoke-test the same Docker image intended for Render as well as running Node checks.
+
+**Reason:** A passing unit suite alone cannot catch malformed evidence metadata or packaging errors. These gates improve codebase reliability without implying that research-only agronomy or live external datasets have been scientifically validated.

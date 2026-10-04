@@ -13,7 +13,7 @@ Last updated: 2026-10-04
 - Dependency-free unit tests cover field-query validation, NASA missing values, request failures, crop record structure, and source-ID integrity.
 - GitHub Actions configuration runs source/data checks and unit tests.
 - Development setup now pins Node 22, has a dependency-free lockfile, a complete JavaScript syntax scan, and one `npm run verify` path shared by local work and CI.
-- Local setup also checks app-shell/import paths and includes privacy, architecture, security, issue, and release-review guidance. The folder is connected to the existing `central-iowa-pilot` branch. Remote CI and merge status must be verified separately.
+- Local setup also checks app-shell/import paths and includes privacy, architecture, security, issue, and release-review guidance. Current integration work is on `feature/app-integration`; the topic branches and `develop` are separate from `main`.
 - Central Iowa is the bounded implementation pilot; the example point near Ames is synthetic, not a verified field.
 - Worldwide use is the product requirement. Global historical climate context is now available to request; regional soil and crop evidence are not yet worldwide.
 - The current build accepts global coordinates for NASA POWER context, while gating SSURGO and crop strategies to the Central Iowa evidence catalog. A public point near Brasília returned 2025 POWER values in browser testing; IMERG was unavailable for that request and was shown as missing.
@@ -27,14 +27,16 @@ Last updated: 2026-10-04
 - A source-linked public-location technical case study, architecture diagram, draft pitch script, Docker packaging, Render Blueprint, deployment guide, and physical-device QA protocol exist; none is proof of deployment, recording, or device testing.
 - Browser layout showed no horizontal overflow at 320, 375, 390, 430, and 1024 px. No app-origin browser console errors were observed; one browser-extension message was unrelated to the app.
 - The updated UI again showed no horizontal overflow at 320, 375, 390, 430, and 1024 px with three cards displayed. Browser console contained no app-origin error during this journey.
-- Team branch roles and PR targets are documented in `BRANCHING.md`; CI is configured for pushes to the integration and topic branch patterns. The remote branch refs and any GitHub protections must be verified separately.
+- Team branch roles and PR targets are documented in `BRANCHING.md`; CI is configured for pushes to the integration and topic branch patterns.
+- Crop validation now rejects malformed nested records, unknown or duplicate traits/sources, unsupported fields, and invalid human-review dates. The server sends basic anti-sniffing, no-referrer, and anti-framing headers. CI now builds and smoke-tests the Docker deployment image in addition to the Node checks.
+- Local `npm run verify` passed with 38 tests passed and one HTTP-listener test skipped because this sandbox disallows loopback listeners. That test is required in CI, where `CI=true`.
 
 ## Not yet verified
 
 - End-to-end NASA POWER/IMERG/SSURGO loading on a deployed HTTPS host.
 - A dependable complete-day IMERG indicator from the current public image service; its current metadata ends at 2025-09-30 and tested Iowa days lack one half-hour slot.
 - Physical keyboard, screen-reader, and touch QA of the updated global-coverage UI; focus styles are implemented but not yet tested on devices.
-- Docker image build and hosted health-check behavior.
+- Docker image build and hosted health-check behavior; the new CI job is configured but its first remote run has not yet been observed.
 - Installation and offline reopening on real iOS and Android devices.
 - Browser compatibility and mobile visual QA on physical devices.
 
@@ -45,7 +47,7 @@ Last updated: 2026-10-04
 - A validated global soil provider and more region-scoped crop/rule catalogs. The ISRIC SoilGrids beta REST API is currently paused; WCS/WebDAV alternatives have not been integrated.
 - Farmer validation of the interface and economic/operational feasibility of the options.
 - Published HTTPS deployment.
-- Review and merge of the `central-iowa-pilot` branch into `main`; a remote CI result for these setup edits has not yet been verified.
+- Review and merge of the current integration work into `develop`, then a reviewed release to `main`; a remote CI result for these latest setup edits has not yet been verified.
 - Final three-minute narrated pitch and backup recording. Only the script exists.
 
 ## Current scientific boundary

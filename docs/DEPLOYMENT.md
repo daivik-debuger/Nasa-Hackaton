@@ -4,7 +4,7 @@ The app needs a Node-capable host: a static host cannot serve `/api/soil` or `/a
 
 ## Render handoff
 
-The repository-root `render.yaml` defines a Free Docker web service with `/health` as its health check. It deliberately omits `branch`: when the Blueprint and service use the same repository, Render follows the Blueprint's selected branch. For the current pilot, select `central-iowa-pilot` when connecting the GitHub repository; after review and merge, switch the Blueprint to `main`. Do not accidentally deploy the older default-branch code.
+The repository-root `render.yaml` defines a Free Docker web service with `/health` as its health check. It deliberately omits `branch`: when the Blueprint and service use the same repository, Render follows the Blueprint's selected branch. For a preview of current integration work, select `feature/app-integration` and verify its exact commit. After review and merge, deploy from `main`. Do not accidentally deploy the older default-branch code.
 
 1. In the Render dashboard, create a Blueprint from `daivik-debuger/Nasa-Hackaton`, selecting the branch that contains this configuration.
 2. Review the service name and confirm the **Free** plan before approving creation. No database or secret is required for this baseline.
@@ -31,4 +31,4 @@ Render's Free web services can spin down after 15 idle minutes, making the next 
 5. Test network failure, retry, mobile install, offline shell, and a clean browser profile.
 6. Record the URL, deployed commit, test date, and failures in `STATUS.md` and `RELEASE_CHECKLIST.md`.
 
-The `Dockerfile` and `render.yaml` are deployment preparation, not proof that an image has been built or a public service has been tested.
+CI builds and smoke-tests the Docker image on every covered push or PR. A green CI container job is packaging evidence, not proof that Render or a public HTTPS service has been tested.
