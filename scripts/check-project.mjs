@@ -33,6 +33,7 @@ const requiredFiles = [
   "docs/STATUS.md",
   "docs/PROJECT_PLAN.md",
   "docs/DEVELOPMENT.md",
+  "docs/GLOBAL_COVERAGE.md",
   "docs/ARCHITECTURE.md",
   "docs/PRIVACY.md",
   "docs/RELEASE_CHECKLIST.md",

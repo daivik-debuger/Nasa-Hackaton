@@ -16,6 +16,7 @@ Check an item only when a file, test result, screenshot, or source proves it.
 - [ ] Published farmer-needs research supports the problem.
 - [ ] A reproducible case study demonstrates value.
 - [ ] Expansion claims are realistic and conditional.
+- [ ] Worldwide product goal is clear, while currently supported data and regional evidence coverage are stated accurately.
 
 ## Creativity
 
@@ -57,4 +58,3 @@ Check an item only when a file, test result, screenshot, or source proves it.
 ## Final gate
 
 The project is not “10/10 ready” while any unchecked item could be demonstrated during judging. If an item cannot be completed, state the limitation rather than pretending it passed.
-

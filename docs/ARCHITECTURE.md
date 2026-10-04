@@ -1,4 +1,6 @@
-# Pilot architecture
+# Current pilot architecture and worldwide target
+
+The product target is worldwide, but the implementation described below is the central-Iowa demonstration only. The planned location-aware layers and coverage states are in `docs/GLOBAL_COVERAGE.md`.
 
 ## Data flow
 

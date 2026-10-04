@@ -35,3 +35,9 @@
 **Decision:** Keep evidence records in version-controlled JSON and farmer inputs in the current browser page. Request remote observations only when the user asks for them. Do not add accounts or persistent field storage for the pilot.
 
 **Reason:** The comparison journey does not require saved fields, while persistence would introduce privacy, security, retention, and deletion obligations. Revisit this decision only when a validated user need and an explicit data policy exist.
+
+## 2026-10-03 — Worldwide product requirement clarified
+
+**Decision:** FieldShift is intended for farmers worldwide. Central Iowa remains the first implemented demonstration and evidence catalog, not a permanent product limit. The current location gate and U.S. soil integration are implementation gaps to remove with location-aware coverage and provider selection.
+
+**Reason:** The challenge and user goal concern farmers around the world. Earlier project language treated a pilot as if it were the final scope. Global access must not be confused with globally valid soil/crop/rotation advice; each layer needs explicit geographic applicability and honest unsupported states.

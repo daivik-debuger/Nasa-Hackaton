@@ -1,6 +1,6 @@
-# FieldShift — central Iowa pilot
+# FieldShift — worldwide goal, central Iowa demonstration
 
-FieldShift is a mobile-first crop-rotation **exploration** app. It combines NASA POWER climate history, NASA GPM IMERG precipitation context, USDA SSURGO mapped soils, a small cited crop catalog, farmer history, and farmer priorities. It produces three inspectable patterns, not a ranked or approved agronomic recommendation.
+FieldShift is being built as a worldwide, mobile-first crop-rotation **exploration** app. The currently implemented demonstration is limited to central Iowa. It combines NASA POWER climate history, NASA GPM IMERG precipitation context, USDA SSURGO mapped soils, a small cited crop catalog, farmer history, and farmer priorities. It produces three inspectable patterns, not a ranked or approved agronomic recommendation. It does **not** yet provide worldwide crop or soil comparisons.
 
 ## Run
 
@@ -16,7 +16,7 @@ Open <http://localhost:8000>. A generic static file server will display the page
 
 ## What the pilot includes
 
-- Central Iowa research pilot; synthetic example coordinate near Ames. The app checks a pilot bounding box, which is not a field-suitability boundary.
+- Central Iowa is the first research/demo catalog, not the intended worldwide product boundary. The current app still checks this catalog's bounding box; a synthetic example coordinate near Ames is not a verified field.
 - Eight source-linked crop records under `data/crops/`; crop families, seasons, temperature/water/soil considerations, pH where supported, root-depth uncertainty, benefits, risks, confidence, and limitations.
 - Seven evidence records and five transparent rules under `data/`. Every rule is `research-only`, `humanApproved: false` until a named agronomist reviews it. No numeric yield, profit, water-saving, or soil-health score is asserted.
 - USDA Soil Data Access lookup showing map unit, possible components, component percentages, drainage, texture by depth, horizon available water capacity, map-unit 0–100 cm available water storage, flooding frequency, missing values, and uncertainty. It is **not a lab soil test**; field pH and nutrients are not inferred.
@@ -28,6 +28,8 @@ The catalog is deliberately small. Many crop-specific pH ranges, root-depth cate
 ## Important limits
 
 The region was selected for this implementation because [USDA NASS](https://www.nass.usda.gov/Quick_Stats/Ag_Overview/stateOverview.php?state=Iowa) records Iowa corn, soybean, alfalfa hay, and oats; [Iowa State Extension](https://naturalresources.extension.iastate.edu/encyclopedia/cover-crop-resources) documents locally used rotation/cover windows; and [USDA NRCS](https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo) provides mapped soil context. The earlier proposed three-region comparison was not completed. State-level crop acreage does not establish suitability for an individual field.
+
+The worldwide expansion architecture and honest coverage states are defined in [docs/GLOBAL_COVERAGE.md](docs/GLOBAL_COVERAGE.md). The present app is not globally functional yet; the next implementation must separate a global location/climate journey from region-validated soil and rotation layers.
 
 No human reviewer, farmer interview, physical-device test, HTTPS installation test, production security review, or economic feasibility study has been completed. The live NASA and USDA services can fail or change. When they fail, missing sources remain visible and the app does not invent replacements. Farmer notes stay in the current browser page; coordinates are transmitted to the requested data services when **Load climate + soil data** is pressed. The Node server does not intentionally store requests.
 

@@ -15,6 +15,7 @@ Last updated: 2026-10-03
 - Development setup now pins Node 22, has a dependency-free lockfile, a complete JavaScript syntax scan, and one `npm run verify` path shared by local work and CI.
 - Local setup also checks app-shell/import paths and includes privacy, architecture, security, issue, and release-review guidance. The folder is connected to the existing `central-iowa-pilot` branch. Remote CI and merge status must be verified separately.
 - Central Iowa is the bounded implementation pilot; the example point near Ames is synthetic, not a verified field.
+- The user has clarified that worldwide use is the product requirement. The current app is still Iowa-only; scope documents now distinguish this demonstration from the intended global product.
 - Eight source-linked crop records, seven evidence records, and five research-only rules validate against the source registry.
 - USDA SSURGO Soil Data Access and NASA GPM IMERG API queries returned real data for the synthetic pilot point in local testing.
 - The browser journey loaded NASA POWER, IMERG, and SSURGO; it displayed all three strategies and opened a complete “Why this strategy?” explanation.
@@ -30,6 +31,7 @@ Last updated: 2026-10-03
 
 - Named agronomist review and approval of crop records and rotation rules. Current records are source-linked but still research-only.
 - A three-region comparison to justify central Iowa relative to alternatives.
+- Worldwide location routing, location-appropriate soil providers, region-scoped crop/rule catalogs, coverage states, and cross-region tests.
 - Farmer validation of the interface and economic/operational feasibility of the options.
 - Published HTTPS deployment.
 - Review and merge of the `central-iowa-pilot` branch into `main`; a remote CI result for these setup edits has not yet been verified.
@@ -41,4 +43,4 @@ The three strategy cards are computed exploratory patterns with evidence and unc
 
 ## Next highest-value decision
 
-Obtain a named agronomist's review of each crop/rule and test the pilot with actual Iowa farmers before activating ranking or making field-specific claims.
+Build the global location/coverage flow without applying Iowa evidence elsewhere; in parallel, obtain named agronomist review of the existing Iowa crop/rule pack before activating ranking or field-specific claims.

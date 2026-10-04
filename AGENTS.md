@@ -6,7 +6,7 @@ These instructions apply to the entire repository. More specific instructions ex
 
 Build a mobile-first decision-support tool that combines NASA Earth observations, mapped soil context, crop evidence, crop history, and farmer priorities to compare rotation strategies. FieldShift explores options; it does not prescribe a crop or replace an agronomist.
 
-The target is a credible NASA Space Apps demonstration for one evidence-backed pilot region. Do not claim worldwide scientific support until each new region is validated.
+The product target is worldwide use. Central Iowa is the first implemented demonstration region, not the product's geographic limit. Design location, dataset, soil-source, crop-catalog, and rule interfaces for multiple regions. Do not claim worldwide scientific support from the current Iowa-only evidence; show the actual coverage and missing layers for each location.
 
 ## Token-efficient startup
 
@@ -65,7 +65,7 @@ Keep dependencies minimal. Explain the tradeoff before adding a framework, exter
 
 - Preserve unrelated user changes.
 - Make small, reviewable changes.
-- Do not silently change the pilot region, scoring model, dataset, or scientific meaning.
+- Do not silently change geographic coverage, the validated region, scoring model, dataset, or scientific meaning.
 - Record consequential decisions in `docs/DECISIONS.md` and update `docs/STATUS.md` after material work.
 - Prefer transparent deterministic rules over a black-box model for the hackathon MVP.
 - If live data cannot be verified, say so; do not imply the request succeeded.
