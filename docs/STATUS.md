@@ -1,6 +1,6 @@
 # Project status
 
-Last updated: 2026-10-03
+Last updated: 2026-10-04
 
 ## Confirmed
 
@@ -27,6 +27,7 @@ Last updated: 2026-10-03
 - A source-linked public-location technical case study, architecture diagram, draft pitch script, Docker packaging, Render Blueprint, deployment guide, and physical-device QA protocol exist; none is proof of deployment, recording, or device testing.
 - Browser layout showed no horizontal overflow at 320, 375, 390, 430, and 1024 px. No app-origin browser console errors were observed; one browser-extension message was unrelated to the app.
 - The updated UI again showed no horizontal overflow at 320, 375, 390, 430, and 1024 px with three cards displayed. Browser console contained no app-origin error during this journey.
+- Team branch roles and PR targets are documented in `BRANCHING.md`; CI is configured for pushes to the integration and topic branch patterns. The remote branch refs and any GitHub protections must be verified separately.
 
 ## Not yet verified
 

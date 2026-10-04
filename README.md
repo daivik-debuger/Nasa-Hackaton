@@ -46,6 +46,6 @@ No human reviewer, farmer interview, physical-device test, HTTPS installation te
 
 `npm run verify` runs syntax, file/source-ID/data validation, and Node unit tests. Saved NASA POWER fixture data is under `tests/fixtures/`; tests do not depend on live services. GitHub Actions runs the same command. `npm run api:smoke` separately checks live services with a public demo point and currently fails the IMERG completeness gate. See [API readiness](docs/API_READINESS.md) and `docs/STATUS.md` before claiming a live three-source demo.
 
-Contributor setup and review checks are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md). The repository uses npm and port 8000; pnpm/Convex/port-3000 instructions from another project do not apply here.
+Contributor setup and review checks are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md); [the branch guide](docs/BRANCHING.md) assigns the lead and three research workstreams. The repository uses npm and port 8000; pnpm/Convex/port-3000 instructions from another project do not apply here.
 
 Before sharing a hosted demo, use [the release checklist](docs/RELEASE_CHECKLIST.md), [deployment guide](docs/DEPLOYMENT.md), and [privacy/data-flow inventory](docs/PRIVACY.md). The [case study](docs/CASE_STUDY.md), [architecture figure](docs/architecture.svg), and [pitch draft](docs/PITCH_SCRIPT.md) are preparation materials, not a completed deployed submission or recorded video.

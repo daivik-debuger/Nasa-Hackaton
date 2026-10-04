@@ -42,6 +42,7 @@ const requiredFiles = [
   "docs/DEVELOPMENT.md",
   "docs/GLOBAL_COVERAGE.md",
   "docs/DEPLOYMENT.md",
+  "docs/BRANCHING.md",
   "docs/API_READINESS.md",
   "docs/DEVICE_QA.md",
   "docs/CASE_STUDY.md",

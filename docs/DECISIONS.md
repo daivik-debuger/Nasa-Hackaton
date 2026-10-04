@@ -53,3 +53,9 @@
 **Decision:** A matched-day IMERG rainfall total is shown only when all 48 half-hour UTC slots for that day are present, valid, and nonconflicting. A next-day boundary sample is not a substitute for a missing in-day value.
 
 **Reason:** A live audit of the Iowa demonstration day returned only 47 valid in-day slots while including the next midnight. Earlier code treated the 48 raw unique timestamps as a complete day and produced a misleading total. The case study now retracts that figure. IMERG remains an attempted second dataset, but its daily indicator is withheld until the public service or a different validated access route supplies complete data.
+
+## 2026-10-04 — Team integration branches
+
+**Decision:** Keep `main` for reviewed releases, start `develop` from the latest pilot commit, and give the project lead and three research workstreams separate topic branches. New work enters `develop` through PRs; a later reviewed PR can bring the integrated result to `main`.
+
+**Reason:** The pilot is ahead of `main`, while research and app work can proceed independently. A shared integration branch gives the team a clear base without silently promoting unreviewed science or changing the release branch.

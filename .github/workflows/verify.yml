@@ -2,7 +2,7 @@ name: Verify FieldShift
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop, central-iowa-pilot, 'feature/**', 'research/**']
   pull_request:
 
 permissions:
