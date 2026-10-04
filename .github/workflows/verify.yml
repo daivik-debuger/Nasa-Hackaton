@@ -20,9 +20,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - name: Validate source and project data
-        run: npm run check
+      - name: Install locked dependencies
+        run: npm ci
 
-      - name: Run unit tests
-        run: npm test
+      - name: Verify project
+        run: npm run verify

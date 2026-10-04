@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "description": "Mobile-first NASA data and crop-rotation exploration prototype",
   "scripts": {
-    "check": "node --check server.js && node --check sw.js && node --check src/main.js && node --check src/climate.js && node --check src/nasa-power.js && node --check src/data-validation.js && node --check src/api/soil-data.js && node --check src/api/soil-service.js && node --check src/api/imerg-service.js && node --check src/engine/compare-strategies.js && node scripts/validate-data.mjs && node scripts/check-project.mjs",
+    "check": "node scripts/check-syntax.mjs && node scripts/check-assets.mjs && node scripts/validate-data.mjs && node scripts/check-project.mjs",
     "start": "node server.js",
     "test": "node --test",
     "verify": "npm run check && npm test"

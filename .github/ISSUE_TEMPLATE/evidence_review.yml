@@ -1,0 +1,30 @@
+name: Evidence review
+description: Track a crop, rule, or source that needs human research and approval.
+title: "evidence: "
+body:
+  - type: input
+    id: record
+    attributes:
+      label: Crop or rule ID
+      placeholder: "e.g. cereal-rye or rye-after-corn"
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: Claim and applicability
+      description: State region, crop/system, management conditions, and what the app may safely say.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Primary sources and conflicting evidence
+      description: Provide direct source links and the relevant section/table; note limitations.
+    validations:
+      required: true
+  - type: input
+    id: reviewer
+    attributes:
+      label: Named human reviewer and date
+      description: Leave blank until an actual qualified reviewer approves the claim.

@@ -7,6 +7,7 @@ FieldShift is a mobile-first crop-rotation **exploration** app. It combines NASA
 Node 22 or newer; no npm dependencies or build step.
 
 ```sh
+npm ci
 npm run verify
 npm start
 ```
@@ -41,4 +42,8 @@ No human reviewer, farmer interview, physical-device test, HTTPS installation te
 | Interface and validation | `src/ui/*`, `src/validation/*`, `src/main.js` |
 | Safety and decisions | `docs/SCIENTIFIC_SAFETY.md`, `docs/DECISIONS.md`, `docs/STATUS.md` |
 
-`npm run verify` runs syntax, file/source-ID/data validation, and Node unit tests. Saved NASA POWER fixture data is under `tests/fixtures/`; tests do not depend on live services. GitHub Actions runs `npm run check`. Browser and live-service verification are recorded in `docs/STATUS.md`.
+`npm run verify` runs syntax, file/source-ID/data validation, and Node unit tests. Saved NASA POWER fixture data is under `tests/fixtures/`; tests do not depend on live services. GitHub Actions runs the same command. Browser and live-service verification are recorded in `docs/STATUS.md`.
+
+Contributor setup and review checks are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md). The repository uses npm and port 8000; pnpm/Convex/port-3000 instructions from another project do not apply here.
+
+Before sharing a hosted demo, use [the release checklist](docs/RELEASE_CHECKLIST.md) and review [the privacy/data-flow inventory](docs/PRIVACY.md). This folder is connected to the `central-iowa-pilot` branch; CI must still verify any new commit on GitHub.

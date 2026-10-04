@@ -12,6 +12,8 @@ Last updated: 2026-10-03
 - A real seven-day NASA POWER API response for the demonstration point is saved with retrieval metadata for deterministic tests.
 - Dependency-free unit tests cover field-query validation, NASA missing values, request failures, crop record structure, and source-ID integrity.
 - GitHub Actions configuration runs source/data checks and unit tests.
+- Development setup now pins Node 22, has a dependency-free lockfile, a complete JavaScript syntax scan, and one `npm run verify` path shared by local work and CI.
+- Local setup also checks app-shell/import paths and includes privacy, architecture, security, issue, and release-review guidance. The folder is connected to the existing `central-iowa-pilot` branch. Remote CI and merge status must be verified separately.
 - Central Iowa is the bounded implementation pilot; the example point near Ames is synthetic, not a verified field.
 - Eight source-linked crop records, seven evidence records, and five research-only rules validate against the source registry.
 - USDA SSURGO Soil Data Access and NASA GPM IMERG API queries returned real data for the synthetic pilot point in local testing.
@@ -30,6 +32,7 @@ Last updated: 2026-10-03
 - A three-region comparison to justify central Iowa relative to alternatives.
 - Farmer validation of the interface and economic/operational feasibility of the options.
 - Published HTTPS deployment.
+- Review and merge of the `central-iowa-pilot` branch into `main`; a remote CI result for these setup edits has not yet been verified.
 - Backup demo video and final three-minute pitch.
 
 ## Current scientific boundary

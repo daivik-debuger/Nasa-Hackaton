@@ -20,16 +20,17 @@ Do not repeatedly summarize the whole project. State the current task, edit the 
 
 ## Current architecture
 
-- Static installable PWA; no framework and no build step.
-- `index.html`: content and accessible structure.
-- `styles.css`: responsive presentation.
-- `app.js`: form behavior, NASA POWER request, summaries, and chart.
-- `sw.js`: same-origin app-shell caching only.
-- `manifest.webmanifest` and `icon.svg`: install metadata.
-- `data/`: evidence schemas and source registry; never a dumping ground for uncited facts.
-- `docs/`: decisions, research standards, safety, progress, and competition checks.
+- Installable PWA with no frontend framework or build step.
+- `index.html` and `styles.css`: accessible content and responsive presentation.
+- `src/main.js`, `src/ui/`, and `src/validation/`: browser journey and field inputs.
+- `src/api/`: browser API clients and server-side remote-service adapters.
+- `src/engine/`: indicators, confidence, and explainable strategy comparisons.
+- `server.js`: dependency-free Node server for the app and `/api/soil` and `/api/imerg` endpoints.
+- `sw.js`, `manifest.webmanifest`, and `icon.svg`: same-origin app-shell caching and install metadata.
+- `data/`: evidence schemas, crop records, rules, and source registry; never a dumping ground for uncited facts.
+- `docs/`: decisions, research standards, safety, progress, and development workflow.
 
-Keep the app dependency-free until a requirement clearly justifies a framework or backend. Explain the tradeoff before adding one.
+Keep dependencies minimal. Explain the tradeoff before adding a framework, external package, or new service.
 
 ## Non-negotiable scientific rules
 

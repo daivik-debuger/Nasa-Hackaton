@@ -1,0 +1,23 @@
+name: Bug report
+description: Report a reproducible FieldShift problem without private farmer data.
+title: "bug: "
+body:
+  - type: textarea
+    id: observed
+    attributes:
+      label: What happened?
+      description: Include the screen, steps, and expected behavior. Do not include private field coordinates or notes.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "Local or deployed URL; browser/device; commit if known"
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Checks already tried
+      description: Include relevant `npm run verify` or browser-console results when available.
