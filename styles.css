@@ -389,9 +389,9 @@ a { color: var(--green); }
 }
 
 @media (max-width: 720px) {
-  .header-inner { display: flex; width: calc(100% - 28px); min-height: 58px; gap: 12px; }
+  .header-inner { display: flex; flex-wrap: wrap; width: calc(100% - 28px); min-height: 58px; gap: 8px 12px; padding-block: 8px; }
   .brand { flex: 0 0 auto; }
-  .primary-nav { order: 3; flex: 1; justify-content: flex-start; }
+  .primary-nav { order: 3; flex: 0 0 100%; flex-wrap: wrap; justify-content: flex-start; overflow: visible; }
   .prototype-label { display: none; }
   .page-shell, .site-footer { width: min(100% - 28px, 640px); }
   .product-intro { padding: 42px 0 38px; }

@@ -14,6 +14,8 @@ npm start
 
 Open <http://localhost:8000>. Use the satellite map to drop or drag a pin, switch to street view, choose a public example, or expand **Exact coordinates** for precise entry and keyboard fallback. The map library is served locally, but Esri or OpenStreetMap tiles require internet; the app does not download them for offline use. A generic static file server will display the page but **cannot provide mapped soil or IMERG data**, because `/api/soil` and `/api/imerg` require the included small Node server. NASA POWER is requested directly by the browser. USDA SSURGO and NASA IMERG are requested by the local server; all require internet. Set `PORT` to choose another port. Deployment needs a Node-capable host and HTTPS for phone installation.
 
+The opening farm overview uses decorative generated agricultural photography and a coverage ring computed from valid NASA POWER days; it does not show a field-health score. The separate **Crops** section provides searchable Central Iowa crop research with evidence links, limitations, and an explicit boundary for locations outside the pilot. Image generation prompts and provenance are recorded in [docs/ASSET_PROMPTS.md](docs/ASSET_PROMPTS.md).
+
 ## What the pilot includes
 
 - Central Iowa is the first research/demo catalog, not the intended worldwide product boundary. Global locations can request climate context; only the Iowa area enables mapped SSURGO soil and exploratory rotation patterns. No location is preselected; the public Ames-area example is not a verified field.

@@ -33,12 +33,11 @@ body { padding: 22px; background: #a8c99b; }
 .dashboard-layout {
   display: grid;
   grid-template-columns: minmax(0, .98fr) minmax(420px, 1.02fr);
-  grid-template-areas: "intro map" "location map" "climate map";
+  grid-template-areas: "location map" "climate map";
   gap: 0 22px;
   align-items: start;
   padding-top: 24px;
 }
-.dashboard-layout > #top { grid-area: intro; }
 .dashboard-layout > #location { grid-area: location; }
 .dashboard-layout > #climate { grid-area: climate; }
 .dashboard-layout > .dashboard-map { grid-area: map; }
@@ -138,8 +137,7 @@ body { padding: 22px; background: #a8c99b; }
   body { padding: 12px; }
   .app-frame { min-height: calc(100vh - 24px); border-radius: 22px; }
   .header-inner, .page-shell, .site-footer { width: calc(100% - 40px); }
-  .dashboard-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "intro" "map" "location" "climate"; gap: 0; }
-  .product-intro { padding-bottom: 16px; }
+  .dashboard-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "map" "location" "climate"; gap: 0; }
   .dashboard-map { position: relative; top: auto; }
   .dashboard-map #fieldMap { height: 450px; min-height: 0; }
   .dashboard-layout .climate-layout { grid-template-columns: minmax(0, 1.7fr) minmax(250px, .8fr); }

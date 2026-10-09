@@ -101,3 +101,9 @@
 **Decision:** Present the location picker as a large right-side satellite map on wide screens and a full-width map before field settings on smaller screens. Use the public [Esri World Imagery](https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9) tile layer by default, with an OpenStreetMap street-view switch and automatic street-view fallback if satellite tiles fail. Do not cache or export either provider's tiles. Continue accepting global points and keep exact coordinates as a map-independent alternative.
 
 **Reason:** A realistic aerial map makes field selection easier and matches the visual direction requested for the app. The basemap only shows location context; imagery dates and resolution vary, and it cannot justify a field-health score, nutrient reading, or plot alert. Provider attribution and the map-view privacy disclosure stay visible.
+
+## 2026-10-09 — Reference-led farm overview with truthful measures
+
+**Decision:** Use a dark agricultural photograph, olive data cards, a wheat accent, and a lime coverage ring to follow the supplied visual reference. Populate the data cards from actual NASA POWER response coverage and the local evidence catalog; show placeholders before loading. Put the Central Iowa crop profiles in a separate searchable research section with limitations and direct sources. Label generated photographs as decorative, never as farm imagery or a crop diagnosis.
+
+**Reason:** The user asked for a closer visual match and an “all about crops” area. The reference contains financial, soil-health, and productivity numbers that this app cannot establish, so its composition is adapted without copying unsupported claims. The ring measures valid observation days, not farm performance or crop suitability.

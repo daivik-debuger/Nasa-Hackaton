@@ -3,8 +3,8 @@ import { resolve, extname, sep } from "node:path";
 import { querySoil } from "./soil-service.js";
 import { queryImergDay } from "./imerg-service.js";
 
-const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".md": "text/markdown", ".webmanifest": "application/manifest+json" };
-const publicRootFiles = new Set(["index.html", "styles.css", "dashboard.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "docs/PRIVACY.md"]);
+const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".png": "image/png", ".md": "text/markdown", ".webmanifest": "application/manifest+json" };
+const publicRootFiles = new Set(["index.html", "styles.css", "dashboard.css", "farm-hero.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "assets/farm-overview.jpg", "assets/harvest-card.jpg", "assets/wheat-ear.png", "docs/PRIVACY.md"]);
 const vendorFiles = new Map([["vendor/leaflet.js", "node_modules/leaflet/dist/leaflet.js"], ["vendor/leaflet.css", "node_modules/leaflet/dist/leaflet.css"]]);
 const responseHeaders = {
   "Cache-Control": "no-store",
@@ -57,7 +57,8 @@ export function createRequestHandler({ root, region, soilLookup = querySoil, ime
       const path = resolve(rootDir, vendorFiles.get(relative) || relative);
       if (!path.startsWith(rootDir + sep) || !types[extname(path)]) return sendJson(res, 404, { error: "Not found." });
       const body = await readFile(path);
-      res.writeHead(200, { ...responseHeaders, "Content-Type": `${types[extname(path)]}; charset=utf-8` });
+      const type = types[extname(path)];
+      res.writeHead(200, { ...responseHeaders, "Content-Type": type.startsWith("image/") ? type : `${type}; charset=utf-8` });
       res.end(body);
     } catch (error) {
       const code = error.status || (error.code === "ENOENT" ? 404 : /coordinates|latitude|longitude|Invalid|Day must|valid/.test(error.message) ? 400 : 502);

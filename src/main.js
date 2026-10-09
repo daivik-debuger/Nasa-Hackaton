@@ -11,12 +11,24 @@ import { renderClimate, renderImerg } from "./ui/climate-view.js";
 import { renderSoil } from "./ui/soil-view.js";
 import { renderStrategies } from "./ui/strategy-view.js";
 import { renderResearch } from "./ui/research-view.js";
+import { renderOverview } from "./ui/overview-view.js";
+import { renderCropExplorer, renderSelectedCropContext } from "./ui/crop-view.js";
 import { createLocationPicker } from "./ui/location-picker.js";
 import { setStatus } from "./ui/status-view.js";
 
 const $ = (id) => document.getElementById(id);
 const lastFullYear = new Date().getUTCFullYear() - 1;
 const state = { region: null, crops: [], rules: [], evidence: [], sources: [], power: null, soil: null, imerg: null, requestId: 0 };
+function selectedPoint() {
+  const lat = Number($("latitude").value), lon = Number($("longitude").value);
+  return $("latitude").value && $("longitude").value ? { lat, lon } : null;
+}
+function syncOverview() {
+  renderOverview({ power: state.power, crops: state.crops, evidence: state.evidence, point: selectedPoint(), fieldName: $("fieldName").value });
+}
+function syncCropContext(selectedRegion = null) {
+  renderSelectedCropContext({ selectedRegion, crops: state.crops, lastCrop: $("lastCrop").value, globalLastCrop: $("globalLastCrop").value });
+}
 const locationPicker = createLocationPicker({
   onSelect(point) {
     $("latitude").value = String(point.lat);
@@ -67,6 +79,8 @@ async function loadCatalog() {
   const crops = await Promise.all(manifest.cropFiles.map((id) => json(`./data/crops/${id}.json`)));
   Object.assign(state, { region, crops, evidence: evidence.records, rules: rules.rules, sources: sources.sources });
   renderResearch(state);
+  renderCropExplorer(state, { search: $("cropSearch").value, role: $("cropRole").value });
+  syncOverview();
   $("retryResearch").hidden = true;
   const historyCrops = crops.filter((crop) => crop.roles.some((role) => role !== "cover"));
   for (const id of ["lastCrop", "priorCrop"]) for (const crop of historyCrops) $(id).add(new Option(crop.commonName, crop.id));
@@ -85,6 +99,7 @@ function coverage() {
 
 function updateCoverage() {
   if (!$("latitude").value && !$("longitude").value) {
+    syncCropContext();
     $("researchCoverage").textContent = "The research library below applies to the Central Iowa pilot only; NASA climate context can be requested for locations worldwide.";
     setStatus($("coverageStatus"), "Drop a pin on the map, use its center, choose a public example, or enter exact coordinates anywhere in the world.");
     for (const id of ["lastCrop", "priorCrop", "summarize"]) $(id).disabled = true;
@@ -97,6 +112,7 @@ function updateCoverage() {
   try {
     const result = coverage();
     const supported = Boolean(result.region);
+    syncCropContext(result.region);
     $("researchCoverage").textContent = supported ? "This research pack applies to the Central Iowa pilot. Its crop and rotation records still need named agronomist review." : "This research pack applies only to Central Iowa. It is displayed for transparency, not as crop or rotation advice for your selected location.";
     setStatus($("coverageStatus"), supported ? "NASA POWER climate context is available to request worldwide. At this Iowa point, mapped SSURGO soil and research-only rotation patterns can also be explored." : "NASA POWER climate context is available to request worldwide. Mapped soil and regional crop-rotation evidence are not yet supported for this location.");
     for (const id of ["lastCrop", "priorCrop"]) $(id).disabled = !supported;
@@ -112,6 +128,7 @@ function updateCoverage() {
     }
     return result;
   } catch (error) {
+    syncCropContext();
     $("researchCoverage").textContent = "Location is invalid; regional research applicability cannot be determined.";
     setStatus($("coverageStatus"), error.message, "error");
     for (const id of ["lastCrop", "priorCrop", "summarize"]) $(id).disabled = true;
@@ -126,6 +143,7 @@ function clearLoadedData() {
   $("loadClimate").removeAttribute("aria-busy");
   $("loadClimate").textContent = "Load available data";
   renderClimate(null);
+  syncOverview();
   renderImerg(null, null, null, "not-loaded");
   renderSoil(null, "Load data to see mapped soil where a supported provider exists.");
   $("strategies").textContent = "Location or period changed. Load data again to compare available context.";
@@ -177,10 +195,16 @@ function markComparisonStale() {
   $("strategies").textContent = "Field notes changed. Review the field snapshot or compare supported strategies again to see current inputs.";
   $("inputSummary").textContent = "Field notes changed; the previous summary is no longer current. Entries are not saved.";
   setStatus($("comparisonStatus"), "Field notes changed. Use the review button to update this result.");
+  syncOverview();
+  try { syncCropContext(coverage().region); }
+  catch { syncCropContext(); }
 }
 for (const id of ["fieldName", "globalLastCrop", "globalPriorCrop", "soilPh"]) $(id).addEventListener("input", markComparisonStale);
 for (const id of ["lastCrop", "priorCrop", "soilTexture"]) $(id).addEventListener("change", markComparisonStale);
 for (const element of document.querySelectorAll(".priority-options input")) element.addEventListener("change", markComparisonStale);
+for (const id of ["cropSearch", "cropRole"]) $(id).addEventListener(id === "cropSearch" ? "input" : "change", () => {
+  renderCropExplorer(state, { search: $("cropSearch").value, role: $("cropRole").value });
+});
 
 $("loadClimate").addEventListener("click", async () => {
   const button = $("loadClimate");
@@ -194,6 +218,7 @@ $("loadClimate").addEventListener("click", async () => {
     button.textContent = "Loading available data…";
     state.power = state.soil = state.imerg = null;
     renderClimate(null);
+    syncOverview();
     renderImerg(null, null, null, "not-loaded");
     renderSoil(null, available.soil === "requestable" ? "Loading mapped soil context…" : "Mapped soil lookup is not yet supported for this location.");
     setStatus($("climateStatus"), available.soil === "requestable" ? "Loading NASA POWER history and USDA mapped soil…" : "Loading worldwide NASA POWER climate context…");
@@ -210,6 +235,7 @@ $("loadClimate").addEventListener("click", async () => {
       try { state.power = summarizePowerPayload(powerResult.value, location); renderClimate(state.power); }
       catch (error) { state.power = null; renderClimate(null); failures.push(`POWER: ${error.message}`); }
     } else failures.push(`POWER: ${powerResult.reason.message}`);
+    syncOverview();
     if (state.power) {
       const wettest = state.power.wettestReferenceDay;
       if (wettest) {
@@ -245,6 +271,8 @@ $("summarize").addEventListener("click", () => {
 
 function reportCatalogError(error) {
   Object.assign(state, { region: null, crops: [], evidence: [], rules: [], sources: [] });
+  renderCropExplorer(state);
+  syncOverview();
   $("researchSummary").textContent = "Research catalog unavailable. No source or crop claims are being shown.";
   $("researchBody").textContent = `Could not load the research catalog: ${error.message}`;
   $("retryResearch").hidden = false;
@@ -256,6 +284,7 @@ $("retryResearch").addEventListener("click", () => {
   $("researchSummary").textContent = "Retrying the research catalog…";
   loadCatalog().catch(reportCatalogError);
 });
+syncOverview();
 loadCatalog().catch(reportCatalogError);
 
 for (const id of ["latitude", "longitude", "startYear", "endYear"]) $(id).addEventListener("change", clearLoadedData);
