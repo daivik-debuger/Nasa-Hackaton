@@ -2,7 +2,7 @@ name: Verify FieldShift
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop, central-iowa-pilot, 'feature/**', 'research/**']
   pull_request:
 
 permissions:
@@ -14,15 +14,43 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22
+          cache: npm
 
-      - name: Validate source and project data
-        run: npm run check
+      - name: Install locked dependencies
+        run: npm ci
 
-      - name: Run unit tests
-        run: npm test
+      - name: Verify project
+        run: npm run verify
+
+  container-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Build deployment image
+        run: docker build --tag fieldshift-ci .
+
+      - name: Start deployment image
+        run: docker run --detach --name fieldshift-ci --publish 127.0.0.1:18000:8000 fieldshift-ci
+
+      - name: Check health and packaged app assets
+        run: |
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://127.0.0.1:18000/health > /dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --show-error --silent http://127.0.0.1:18000/health | grep -F '"status":"ok"'
+          curl --fail --show-error --silent http://127.0.0.1:18000/ | grep -F 'FieldShift'
+          curl --fail --show-error --silent http://127.0.0.1:18000/data/regions/central-iowa.json | grep -F 'central-iowa'
+
+      - name: Print container logs on failure
+        if: failure()
+        run: docker logs fieldshift-ci

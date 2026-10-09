@@ -25,11 +25,10 @@ Unknown values must be `null` or omitted according to the schema, never guessed.
 ## Crop data
 
 - Validate crop records against `crop-record.schema.json`.
-- Prefer a small reviewed catalog for one pilot region over broad, weak coverage.
+- Maintain region-scoped reviewed catalogs that can grow toward worldwide coverage. A crop record validated in one region does not automatically apply elsewhere.
 - Conflicting sources stay visible in notes; do not average them silently.
 - App rules should reference evidence IDs so the interface can show “Why this?” and sources.
 
 ## Privacy
 
 Do not commit private farm names, exact private coordinates, personally identifying data, soil-test reports, credentials, API keys, or access tokens. Use clearly labeled synthetic/demo coordinates where necessary.
-

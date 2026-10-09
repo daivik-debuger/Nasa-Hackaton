@@ -1,4 +1,5 @@
 {
-  "status": "awaiting-pilot-region-and-evidence-review",
-  "crops": []
+  "regionId": "central-iowa",
+  "cropFiles": ["corn", "soybean", "oats", "alfalfa", "winter-wheat", "cereal-rye", "red-clover", "oilseed-radish"],
+  "note": "Eight source-linked pilot records. All are research-only pending named agronomist review. Unknown values are null."
 }

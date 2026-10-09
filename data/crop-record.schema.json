@@ -4,13 +4,16 @@
   "title": "FieldShift crop evidence record",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "commonName", "scientificName", "cropFamily", "regions", "traits", "evidence", "review"],
+  "required": ["id", "commonName", "scientificName", "cropFamily", "cropFamilySourceIds", "regions", "applicability", "roles", "traits", "evidence", "review"],
   "properties": {
     "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
     "commonName": { "type": "string", "minLength": 1 },
     "scientificName": { "type": "string", "minLength": 1 },
     "cropFamily": { "type": "string", "minLength": 1 },
+    "cropFamilySourceIds": { "type": "array", "minItems": 1, "items": { "type": "string" } },
     "regions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "applicability": { "type": "string", "minLength": 1 },
+    "roles": { "type": "array", "minItems": 1, "items": { "type": "string" } },
     "traits": {
       "type": "array",
       "items": {

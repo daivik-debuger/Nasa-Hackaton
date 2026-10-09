@@ -1,0 +1,10 @@
+{"id":"soybean","commonName":"Soybean","scientificName":"Glycine max","cropFamily":"Fabaceae","cropFamilySourceIds":["usda-cover-crop-chart"],"regions":["central-iowa"],"applicability":"Central Iowa soybean grain systems; variety, soil, drainage, disease, and marketing require local checks.","roles":["cash-grain"],"traits":[
+{"trait":"growingPeriod","value":"Spring planting; autumn harvest","sourceIds":["usda-iowa-crop-progress"],"confidence":"high","limitations":"Date varies with variety and field conditions."},
+{"trait":"temperatureConsiderations","value":"Warm-season crop; reproductive stages can be vulnerable during drought","sourceIds":["isu-drought-corn-soy"],"confidence":"medium","limitations":"Not a numeric suitability rule."},
+{"trait":"waterConsiderations","value":"Greatest demand from early pod set through mid seed fill","sourceIds":["isu-drought-corn-soy"],"confidence":"medium","limitations":"Water stress requires local observations."},
+{"trait":"soilCompatibility","value":"Check mapped drainage and field-specific soil constraints","sourceIds":["usda-ssurgo","isu-ph-guidance"],"confidence":"low","limitations":"No suitability conclusion from SSURGO alone."},
+{"trait":"phRange","value":null,"sourceIds":["isu-ph-guidance"],"confidence":"low","limitations":"Iowa pH target depends on subsoil: 6.0 or 6.5, not a universal range."},
+{"trait":"rootDepthCategory","value":null,"sourceIds":["isu-drought-corn-soy"],"confidence":"low","limitations":"Field rooting depth is unknown."},
+{"trait":"rotationBenefits","value":"Corn-to-soybean provides a documented cereal-rye cover window","sourceIds":["isu-rye-recipe"],"confidence":"medium","limitations":"Benefit depends on cover establishment and management."},
+{"trait":"rotationRisks","value":"Crop-stage water stress and local pest history require review","sourceIds":["isu-drought-corn-soy"],"confidence":"low","limitations":"No pest diagnosis or yield claim."}
+],"evidence":["usda-iowa-crop-progress","isu-drought-corn-soy","isu-rye-recipe"],"review":{"status":"research-only","reviewer":null,"date":null,"notes":"Human agronomy approval pending."}}

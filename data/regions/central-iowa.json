@@ -1,0 +1,32 @@
+{
+  "id": "central-iowa",
+  "name": "Central Iowa pilot",
+  "coverage": "Exploratory pilot for agricultural locations in and near Polk, Story, Boone, Dallas, and Jasper counties; this bounding box is only an app gate, not a soil-survey boundary.",
+  "bounds": { "south": 41.3, "north": 42.5, "west": -94.5, "east": -92.5 },
+  "demoPoint": { "latitude": 42.035, "longitude": -93.55, "label": "Synthetic demonstration coordinate near Ames; not a verified farm field" },
+  "majorCrops": ["corn", "soybean", "alfalfa", "oats"],
+  "majorCropSourceIds": ["usda-nass-iowa"],
+  "additionalCropsForExploration": ["winter-wheat", "cereal-rye", "red-clover", "oilseed-radish"],
+  "additionalCropSourceIds": ["isu-cover-crop-species"],
+  "normalRotations": [
+    { "pattern": ["corn", "soybean"], "note": "Common row-crop baseline, not a recommendation for a particular field.", "sourceIds": ["isu-cover-crop-resources", "isu-rye-recipe"] },
+    { "pattern": ["corn", "soybean", "oats", "alfalfa"], "note": "Diversified rotation investigated in Upper Midwest research; market, livestock, equipment, and multi-year commitments require local review.", "sourceIds": ["umn-alfalfa-rotation"] }
+  ],
+  "climateRisks": [
+    { "risk": "Heavy rainfall, ponding, flooding, and erosion", "sourceIds": ["isu-floods", "isu-climate-outlook"] },
+    { "risk": "Variable drought and heat stress", "sourceIds": ["isu-drought-corn-soy", "isu-climate-outlook"] }
+  ],
+  "soilDataSourceIds": ["usda-ssurgo", "usda-sda-api"],
+  "seasons": {
+    "corn": { "plant": "spring", "harvest": "autumn", "sourceIds": ["usda-iowa-crop-progress"] },
+    "soybean": { "plant": "spring", "harvest": "autumn", "sourceIds": ["usda-iowa-crop-progress"] },
+    "oats": { "plant": "spring", "harvest": "summer", "sourceIds": ["isu-cover-crop-species", "usda-iowa-crop-progress"] },
+    "alfalfa": { "plant": "spring or late summer", "harvest": "multiple cuttings over multiple years", "sourceIds": ["umn-alfalfa-rotation"] },
+    "winter-wheat": { "plant": "late summer or autumn", "harvest": "following summer if grown for grain", "sourceIds": ["isu-cover-crop-species"] },
+    "cereal-rye": { "plant": "late summer or autumn", "harvest": "normally terminated in spring when used as cover", "sourceIds": ["isu-rye-recipe"] },
+    "red-clover": { "plant": "spring or late summer", "harvest": "management-dependent forage or cover crop", "sourceIds": ["isu-cover-crop-species"] },
+    "oilseed-radish": { "plant": "late summer", "harvest": "usually winter-killed cover crop", "sourceIds": ["usda-radish-guide", "isu-cover-crop-species"] }
+  },
+  "limitations": "Seasons are broad windows, not field planting dates. State-level crop acreage does not prove a crop is suitable at a given point. A local agronomist must review any proposed sequence.",
+  "review": { "status": "research-only", "reviewer": null, "date": null }
+}

@@ -1,0 +1,10 @@
+{"id":"red-clover","commonName":"Red clover","scientificName":"Trifolium pratense","cropFamily":"Fabaceae","cropFamilySourceIds":["usda-cover-crop-chart"],"regions":["central-iowa"],"applicability":"Central Iowa legume cover or forage only where establishment and termination fit the cash-crop system.","roles":["cover","forage"],"traits":[
+{"trait":"growingPeriod","value":"Cool-season biennial or short-lived perennial; spring or late-summer establishment","sourceIds":["usda-cover-crop-chart","isu-cover-crop-traits"],"confidence":"medium","limitations":"Use and winter survival vary."},
+{"trait":"temperatureConsiderations","value":"Can overwinter with adequate fall growth and suitable weather","sourceIds":["isu-cover-crop-species"],"confidence":"medium","limitations":"Not a survival guarantee."},
+{"trait":"waterConsiderations","value":"Water need not quantified for central-Iowa fields","sourceIds":["usda-cover-crop-chart"],"confidence":"low","limitations":"No water-saving inference."},
+{"trait":"soilCompatibility","value":null,"sourceIds":["usda-cover-crop-chart"],"confidence":"low","limitations":"Local drainage and soil suitability not verified."},
+{"trait":"phRange","value":null,"sourceIds":["isu-ph-guidance"],"confidence":"low","limitations":"Iowa guidance for other forages is not a red-clover-specific range."},
+{"trait":"rootDepthCategory","value":null,"sourceIds":["usda-cover-crop-chart"],"confidence":"low","limitations":"No fixed root-depth category verified."},
+{"trait":"rotationBenefits","value":"Legume may contribute nitrogen if established early and overwintered","sourceIds":["isu-cover-crop-species"],"confidence":"medium","limitations":"Contribution not quantified and may not offset costs."},
+{"trait":"rotationRisks","value":"Higher seed cost and uncertain overwintering or spring termination","sourceIds":["isu-cover-crop-species"],"confidence":"medium","limitations":"Management must be locally checked."}
+],"evidence":["isu-cover-crop-species","usda-cover-crop-chart"],"review":{"status":"research-only","reviewer":null,"date":null,"notes":"Human agronomy approval pending."}}

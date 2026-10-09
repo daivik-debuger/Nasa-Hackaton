@@ -17,10 +17,67 @@
       "owner": "USDA Natural Resources Conservation Service",
       "url": "https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo",
       "sourceType": "official-dataset-documentation",
-      "integrationStatus": "planned",
+      "integrationStatus": "integrated",
       "intendedUse": "Mapped soil context for a U.S. pilot",
       "limitations": "Map units may contain multiple components and are not exact field laboratory samples.",
       "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "usda-sda-api", "name": "Soil Data Access web service and spatial SQL functions", "owner": "USDA NRCS", "url": "https://sdmdataaccess.nrcs.usda.gov/WebServiceHelp.aspx", "sourceType": "official-api-documentation", "integrationStatus": "integrated", "intendedUse": "Lookup map units and their possible components at a pilot coordinate", "limitations": "Point-to-map-unit intersection gives a mapped polygon; it is not a field sampling result.", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "nasa-gpm-imerg", "name": "GPM IMERG V07 half-hourly precipitation image service", "owner": "NASA GES DISC", "url": "https://gis.earthdata.nasa.gov/portal/rest/services/GESDISC/GPM_3IMERGHH/ImageServer", "sourceType": "official-dataset-service", "integrationStatus": "integrated", "intendedUse": "Attempted satellite precipitation cross-check, separate from NASA POWER history; daily total withheld unless all 48 UTC slots are valid", "limitations": "0.1-degree gridded half-hourly rates are not a field gauge or future water supply. The exact run is unverified. Live metadata checked 2026-10-03 ended at 2025-09-30; tested Iowa days returned only 47 valid in-day slots. Recheck temporal availability, units, and completeness before relying on this service.", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "nasa-gpm-imerg-overview", "name": "IMERG product overview and run guidance", "owner": "NASA Global Precipitation Measurement", "url": "https://gpm.nasa.gov/data/imerg", "sourceType": "official-dataset-documentation", "integrationStatus": "research-only", "intendedUse": "Interpret IMERG as a half-hourly precipitation estimate and distinguish Early, Late, and Final runs", "limitations": "Overview describes the product family; the app must inspect the exact service layer and returned units before treating a sample as daily accumulation.", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "usda-nass-iowa", "name": "2025 Iowa State Agriculture Overview", "owner": "USDA NASS", "url": "https://www.nass.usda.gov/Quick_Stats/Ag_Overview/stateOverview.php?state=Iowa", "sourceType": "official-statistics", "integrationStatus": "research-only", "intendedUse": "Identify major Iowa crops; state figures are not county or field suitability", "limitations": "State aggregate, not specific to central Iowa", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "usda-iowa-crop-progress", "name": "2024 Iowa Crop Progress Review", "owner": "USDA NASS", "url": "https://www.nass.usda.gov/Statistics_by_State/Iowa/Publications/Crop_Progress_%26_Condition/2024/IA-Annual-Crop-Progress-2024.pdf", "sourceType": "official-report", "integrationStatus": "research-only", "intendedUse": "Broad Iowa planting and harvest season context", "limitations": "One-year state report, not a date prescription", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-cover-crop-resources", "name": "Cover Crop Resources", "owner": "Iowa State University Extension", "url": "https://naturalresources.extension.iastate.edu/encyclopedia/cover-crop-resources", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Iowa corn-soy cover-crop patterns", "limitations": "Beginner recipes need adaptation to local management", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-cover-crop-species", "name": "Most Commonly Used Cover Crops in Iowa", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/post/most-commonly-used-cover-crops-iowa", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Cover crop types, overwintering, and management tradeoffs", "limitations": "General Iowa guidance, not field-specific performance", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-cover-crop-traits", "name": "Types of Cover Crops for Use in Home Vegetable Gardens", "owner": "Iowa State University Extension", "url": "https://yardandgarden.extension.iastate.edu/how-to/types-cover-crops-use-home-vegetable-gardens", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Species identity and qualitative cover-crop traits only", "limitations": "Home vegetable gardens are a different management system from commercial row crops; do not transfer ratings directly into recommendation scores", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-rye-recipe", "name": "Iowa Cover Crop Recipe: Post Corn, Going to Soybean", "owner": "Iowa State University Extension and Midwest Cover Crops Council", "url": "https://store.extension.iastate.edu/product/15548.pdf", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Central Iowa cereal rye timing and corn-to-soybean cover window", "limitations": "Introductory recipe, not an exact planting date for every field", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-rye-corn-risk", "name": "Terminating cover crops ahead of corn", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/post/terminating-cover-crops-ahead-corn", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Potential corn establishment and disease risks after winter cereal rye", "limitations": "Risk depends on termination, weather, and management", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-drought-corn-soy", "name": "Influence of Drought on Corn and Soybean", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/cropnews/2017/07/influence-drought-corn-and-soybean", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Qualitative crop-stage water sensitivity", "limitations": "Does not provide field water needs from annual rainfall alone", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-ph-guidance", "name": "Soil-test interpretations for liming decisions", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/cropnews/2021/10/soil-test-interpretations-fall-fertilization-and-liming-decisions-high-fertilizer", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Conditional Iowa pH targets for corn, soybean, and alfalfa", "limitations": "Corn/soy target depends on subsoil; not a universal pH range", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-floods", "name": "Floods", "owner": "Iowa State University Extension", "url": "https://www.extension.iastate.edu/disasterreadiness/floods", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Regional flood and erosion context", "limitations": "Hazard description does not establish individual field risk", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-climate-outlook", "name": "July 2025 Weather Update", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/post/july-2025-weather-update", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Example of rainfall and dryness variability", "limitations": "One period is not a long-term climate trend", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "umn-alfalfa-rotation", "name": "Adding alfalfa benefits corn-soybean rotations", "owner": "University of Minnesota Extension", "url": "https://extension.umn.edu/agriculture/crop-production/corn/adding-alfalfa-benefits-corn-soybean-rotations", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Upper Midwest diversified rotation pattern and potential benefits", "limitations": "Minnesota trial and management systems may not transfer directly to a central Iowa field", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-rotation-nitrogen", "name": "Value of crop rotation in nitrogen management", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/encyclopedia/value-crop-rotation-nitrogen-management", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Qualitative Iowa rotation and nitrogen context", "limitations": "Does not establish a crop-specific field nitrogen credit", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "isu-rye-corn-analysis", "name": "Understanding rye cover crop effects on corn", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/post/understanding-rye-cover-crop-effects-corn", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Rye biomass and water/nitrogen management tradeoffs", "limitations": "Research synthesis cannot predict field-specific outcome", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "usda-cover-crop-chart", "name": "USDA ARS Cover Crop Chart, version 4.0", "owner": "USDA ARS/NRCS", "url": "https://www.nrcs.usda.gov/sites/default/files/2025-06/CoverCropChart%20V.4.0_April%202023-508.pdf", "sourceType": "official-technical-reference", "integrationStatus": "research-only", "intendedUse": "Qualitative crop type and relative water use", "limitations": "Broad species-level chart, not local water requirement or field outcome", "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "usda-radish-guide", "name": "Oilseed radish Plant Guide", "owner": "USDA NRCS", "url": "https://plants.usda.gov/DocumentLibrary/plantguide/pdf/pg_rasa2.pdf", "sourceType": "official-plant-guide", "integrationStatus": "research-only", "intendedUse": "Radish growing period and taproot context", "limitations": "Guide draws on multiple regions; local Iowa feasibility still requires review", "lastReviewed": "2026-10-03"
     },
     {
       "id": "nasa-modis-vi",
@@ -39,9 +96,9 @@
       "owner": "ISRIC World Soil Information",
       "url": "https://docs.isric.org/globaldata/soilgrids/index.html",
       "sourceType": "official-dataset-documentation",
-      "integrationStatus": "research-only",
-      "intendedUse": "Potential modeled global soil context",
-      "limitations": "Modeled estimates include uncertainty; service availability must be rechecked before integration.",
+      "integrationStatus": "unavailable",
+      "intendedUse": "Potential modeled global soil context after a stable access method is validated",
+      "limitations": "ISRIC currently says its beta REST API is paused. WCS and WebDAV are alternatives but have not been integrated or validated here. Modeled estimates include spatial and prediction uncertainty.",
       "lastReviewed": "2026-10-03"
     },
     {
@@ -54,6 +111,28 @@
       "intendedUse": "Potential long-term climate-scenario comparison",
       "limitations": "Climate scenarios are not next-season weather forecasts.",
       "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "usda-ers-cover-crop-persistence-2026",
+      "name": "Persistence of Cover Crop Use in Crop Production in the United States, 2012–2022",
+      "owner": "USDA Economic Research Service",
+      "url": "https://www.ers.usda.gov/publications/113869",
+      "sourceType": "official-research-report",
+      "integrationStatus": "research-only",
+      "intendedUse": "National context that cover-crop adoption and persistence vary; not a field-level success prediction",
+      "limitations": "U.S. multi-source historical analysis; the overview does not provide a central-Iowa field estimate or explain the reason for any individual farm discontinuing use.",
+      "lastReviewed": "2026-10-08"
+    },
+    {
+      "id": "isu-cover-crop-economics-tool",
+      "name": "Economics of Cover Crops",
+      "owner": "Iowa State University Extension Ag Decision Maker",
+      "url": "https://www.extension.iastate.edu/Agdm/crops/html/a1-91.html",
+      "sourceType": "university-extension-decision-tool",
+      "integrationStatus": "research-only",
+      "intendedUse": "Identify the farm-specific projected and actual cost/benefit scenarios needed before an economic claim",
+      "limitations": "Worksheets require local numbers; the page does not prove a particular field's net return or supply an app-ready price model.",
+      "lastReviewed": "2026-10-08"
     }
   ]
 }

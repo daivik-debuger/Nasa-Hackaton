@@ -7,7 +7,7 @@ Check an item only when a file, test result, screenshot, or source proves it.
 - [ ] NASA observations visibly affect the comparison.
 - [ ] Soil context visibly affects the comparison or confidence.
 - [ ] Crop characteristics and history are used.
-- [ ] Farmer priorities alter the result.
+- [x] Farmer priorities alter the visible questions and matching research rules (`tests/pilot.test.mjs`, `src/engine/compare-strategies.js`); this is not a validated impact score.
 - [ ] Multiple rotation strategies address soil health and adaptation.
 
 ## Impact
@@ -16,6 +16,7 @@ Check an item only when a file, test result, screenshot, or source proves it.
 - [ ] Published farmer-needs research supports the problem.
 - [ ] A reproducible case study demonstrates value.
 - [ ] Expansion claims are realistic and conditional.
+- [ ] Worldwide product goal is clear, while currently supported data and regional evidence coverage are stated accurately.
 
 ## Creativity
 
@@ -43,7 +44,7 @@ Check an item only when a file, test result, screenshot, or source proves it.
 
 - [ ] Three-minute pitch is rehearsed within time.
 - [ ] Live demo has a backup recording and screenshots.
-- [ ] One diagram explains the data-to-strategy flow.
+- [x] One diagram explains the data-to-strategy flow (`docs/architecture.svg`).
 - [ ] Limitations are explained confidently.
 - [ ] Likely judge questions have evidence-backed answers.
 
@@ -57,4 +58,3 @@ Check an item only when a file, test result, screenshot, or source proves it.
 ## Final gate
 
 The project is not “10/10 ready” while any unchecked item could be demonstrated during judging. If an item cannot be completed, state the limitation rather than pretending it passed.
-

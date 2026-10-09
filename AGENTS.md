@@ -6,7 +6,7 @@ These instructions apply to the entire repository. More specific instructions ex
 
 Build a mobile-first decision-support tool that combines NASA Earth observations, mapped soil context, crop evidence, crop history, and farmer priorities to compare rotation strategies. FieldShift explores options; it does not prescribe a crop or replace an agronomist.
 
-The target is a credible NASA Space Apps demonstration for one evidence-backed pilot region. Do not claim worldwide scientific support until each new region is validated.
+The product target is worldwide use. Central Iowa is the first implemented demonstration region, not the product's geographic limit. Design location, dataset, soil-source, crop-catalog, and rule interfaces for multiple regions. Do not claim worldwide scientific support from the current Iowa-only evidence; show the actual coverage and missing layers for each location.
 
 ## Token-efficient startup
 
@@ -20,16 +20,18 @@ Do not repeatedly summarize the whole project. State the current task, edit the 
 
 ## Current architecture
 
-- Static installable PWA; no framework and no build step.
-- `index.html`: content and accessible structure.
-- `styles.css`: responsive presentation.
-- `app.js`: form behavior, NASA POWER request, summaries, and chart.
-- `sw.js`: same-origin app-shell caching only.
-- `manifest.webmanifest` and `icon.svg`: install metadata.
-- `data/`: evidence schemas and source registry; never a dumping ground for uncited facts.
-- `docs/`: decisions, research standards, safety, progress, and competition checks.
+- Installable PWA with no frontend framework or build step.
+- `index.html` and `styles.css`: accessible content and responsive presentation.
+- `src/main.js`, `src/ui/`, and `src/validation/`: browser journey and field inputs.
+- `src/coverage.js`: per-location availability gate; do not borrow Iowa evidence elsewhere.
+- `src/api/`: browser API clients and server-side remote-service adapters.
+- `src/engine/`: indicators, confidence, and explainable strategy comparisons.
+- `server.js`: dependency-free Node server for the app and `/api/soil` and `/api/imerg` endpoints.
+- `sw.js`, `manifest.webmanifest`, and `icon.svg`: same-origin app-shell caching and install metadata.
+- `data/`: evidence schemas, crop records, rules, and source registry; never a dumping ground for uncited facts.
+- `docs/`: decisions, research standards, safety, progress, and development workflow.
 
-Keep the app dependency-free until a requirement clearly justifies a framework or backend. Explain the tradeoff before adding one.
+Keep dependencies minimal. Explain the tradeoff before adding a framework, external package, or new service.
 
 ## Non-negotiable scientific rules
 
@@ -64,7 +66,7 @@ Keep the app dependency-free until a requirement clearly justifies a framework o
 
 - Preserve unrelated user changes.
 - Make small, reviewable changes.
-- Do not silently change the pilot region, scoring model, dataset, or scientific meaning.
+- Do not silently change geographic coverage, the validated region, scoring model, dataset, or scientific meaning.
 - Record consequential decisions in `docs/DECISIONS.md` and update `docs/STATUS.md` after material work.
 - Prefer transparent deterministic rules over a black-box model for the hackathon MVP.
 - If live data cannot be verified, say so; do not imply the request succeeded.

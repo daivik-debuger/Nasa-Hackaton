@@ -1,5 +1,5 @@
-const CACHE_NAME = "fieldshift-shell-v2";
-const APP_SHELL = ["./", "./index.html", "./styles.css", "./app.js", "./src/climate.js", "./src/nasa-power.js", "./manifest.webmanifest", "./icon.svg"];
+const CACHE_NAME = "fieldshift-shell-v10";
+const APP_SHELL = ["./", "./index.html", "./styles.css", "./vendor/leaflet.css", "./vendor/leaflet.js", "./location-map.css", "./research.css", "./accessibility.css", "./src/main.js", "./src/climate.js", "./src/coverage.js", "./src/global-demo-locations.js", "./src/nasa-power.js", "./src/api/nasa-power.js", "./src/api/soil-data.js", "./src/api/imerg.js", "./src/engine/indicators.js", "./src/engine/compare-strategies.js", "./src/engine/confidence.js", "./src/ui/climate-view.js", "./src/ui/soil-view.js", "./src/ui/strategy-view.js", "./src/ui/research-view.js", "./src/ui/location-picker.js", "./src/ui/status-view.js", "./src/validation/field-inputs.js", "./data/regions/central-iowa.json", "./data/crops.json", "./data/crops/corn.json", "./data/crops/oats.json", "./data/crops/soybean.json", "./data/crops/alfalfa.json", "./data/crops/winter-wheat.json", "./data/crops/cereal-rye.json", "./data/crops/red-clover.json", "./data/crops/oilseed-radish.json", "./data/evidence.json", "./data/rotation-rules.json", "./data/sources.json", "./docs/PRIVACY.md", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
@@ -13,7 +13,7 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   const request = event.request;
-  if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) return;
+  if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin || new URL(request.url).pathname.startsWith("/api/")) return;
   event.respondWith(fetch(request).then((response) => {
     if (response.ok) caches.open(CACHE_NAME).then((cache) => cache.put(request, response.clone()));
     return response;
