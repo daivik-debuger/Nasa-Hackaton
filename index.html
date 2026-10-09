@@ -13,11 +13,13 @@
   <link rel="stylesheet" href="./vendor/leaflet.css">
   <link rel="stylesheet" href="location-map.css">
   <link rel="stylesheet" href="research.css">
+  <link rel="stylesheet" href="dashboard.css">
   <link rel="stylesheet" href="accessibility.css">
   <script src="./vendor/leaflet.js" defer></script>
   <script src="src/main.js" type="module"></script>
 </head>
 <body>
+  <div class="app-frame">
   <a class="skip-link" href="#main-content">Skip to the planning tool</a>
   <header class="app-header">
     <div class="header-inner">
@@ -28,11 +30,12 @@
   </header>
 
   <main id="main-content" class="page-shell">
+    <div class="dashboard-layout">
     <section id="top" class="product-intro" aria-labelledby="page-title">
       <div class="intro-copy">
         <p class="section-kicker">NASA Earth observations + local farm knowledge</p>
-        <h1 id="page-title">Explore rotation options with the evidence in view.</h1>
-        <p class="intro-lede">Choose a location, load available climate and soil context, add what you know about the field, and compare transparent strategies.</p>
+        <h1 id="page-title">Plan for the field ahead.</h1>
+        <p class="intro-lede">Explore climate history, add what you know about your soil, and compare crop rotation options with the evidence in view.</p>
         <p class="plain-warning"><strong>Decision support only.</strong> FieldShift does not predict yield or prescribe what to plant. Confirm decisions with local experts and field measurements.</p>
       </div>
       <aside class="scope-card" aria-label="Current data coverage">
@@ -41,19 +44,23 @@
       </aside>
     </section>
 
+    <aside class="dashboard-map surface" aria-labelledby="map-heading">
+      <div class="map-header"><div><p class="section-kicker">Explore anywhere</p><h2 id="map-heading">Choose a place</h2></div><span class="map-source-label">Satellite view</span></div>
+      <div class="map-field">
+        <div class="map-toolbar"><p class="map-instructions">Tap to drop a pin. Zoom or drag to refine it.</p><div class="map-style-switch" role="group" aria-label="Map style"><button id="satelliteStyle" type="button" class="active" aria-pressed="true">Satellite</button><button id="streetStyle" type="button" aria-pressed="false">Streets</button></div></div>
+        <div id="fieldMap" aria-label="Interactive location map. Pan with arrow keys, then use the Use map center button."></div>
+        <div class="map-actions"><button id="useMapCenter" class="button button-secondary" type="button">Use map center</button><button id="clearPin" class="button button-quiet" type="button" disabled>Clear pin</button></div>
+        <p id="selectedPlace" class="selected-place" role="status" aria-live="polite">No place selected. Tap the map, use its center, or choose an example.</p>
+        <p id="mapStatus" class="supporting-text" role="status" aria-live="polite">Loading the map…</p>
+        <p class="map-privacy">Satellite tiles are provided by Esri and its imagery partners; street tiles by OpenStreetMap. Viewing either map shares the viewed area with its provider. Imagery is a basemap, not a live crop-health reading.</p>
+      </div>
+    </aside>
+
     <section id="location" class="workflow-section section-anchor" aria-labelledby="location-heading">
       <header class="section-header"><span class="step-number" aria-hidden="true">1</span><div><p class="section-kicker">Choose the field</p><h2 id="location-heading">Location and time period</h2><p>Drop a pin anywhere in the world. Coverage is checked after every location change.</p></div></header>
       <div class="surface location-panel" aria-labelledby="location-title">
-        <div class="panel-heading"><div><h3 id="location-title">Select a point</h3><p>The selected coordinate is used for Earth-observation requests.</p></div><span class="coverage-chip">Global location</span></div>
+        <div class="panel-heading"><div><h3 id="location-title">Your field setup</h3><p>Use the map or a public example, then select a history period.</p></div><span class="coverage-chip">Global location</span></div>
         <div class="location-workspace">
-          <div class="map-field">
-            <p class="map-instructions">Tap the map to place a pin. Drag the pin or zoom in to refine it.</p>
-            <div id="fieldMap" aria-label="Interactive location map. Pan with arrow keys, then use the Use map center button."></div>
-            <div class="map-actions"><button id="useMapCenter" class="button button-secondary" type="button">Use map center</button><button id="clearPin" class="button button-quiet" type="button" disabled>Clear pin</button></div>
-            <p id="selectedPlace" class="selected-place" role="status" aria-live="polite">No place selected. Tap the map, use its center, or choose an example.</p>
-            <p id="mapStatus" class="supporting-text" role="status" aria-live="polite">Loading the map…</p>
-            <p class="map-privacy">OpenStreetMap supplies the visible tiles. Viewing the map sends tile requests to that service; FieldShift does not store tiles offline.</p>
-          </div>
           <div class="location-settings" aria-label="Location and climate period settings">
             <label class="field"><span>Field or farm name <small>optional</small></span><input id="fieldName" type="text" placeholder="e.g. North Farm"></label>
             <label class="field"><span>Public example location <small>optional</small></span><select id="demoLocation"><option value="">Use my map pin</option></select><small class="hint">City-area examples for testing—not verified farms.</small></label>
@@ -65,7 +72,7 @@
         <div id="coverageStatus" class="status" role="status" aria-live="polite">Choose a location to check available data and regional evidence.</div>
         <div id="offlineBanner" class="status status-error" role="status" hidden>You appear to be offline. The app shell can reopen, but live NASA and soil data need a connection.</div>
         <div class="primary-action-row"><p>Your field notes stay in this browser page. Loading data sends the selected point to the named data providers.</p><button id="loadClimate" class="button button-primary"><span aria-hidden="true">↓</span> Load available data</button></div>
-        <details class="privacy-details"><summary>Data and privacy details</summary><p>Field name, crop history, priorities, and soil notes are not saved by this prototype. Map tiles reveal the viewed area to OpenStreetMap. Selected coordinates are sent in live data requests; providers or a future host may keep request logs. See <a href="./docs/PRIVACY.md">the complete data-flow inventory</a>.</p></details>
+        <details class="privacy-details"><summary>Data and privacy details</summary><p>Field name, crop history, priorities, and soil notes are not saved by this prototype. Map tiles reveal the viewed area to Esri or OpenStreetMap, depending on the chosen view. Selected coordinates are sent in live data requests; providers or a future host may keep request logs. See <a href="./docs/PRIVACY.md">the complete data-flow inventory</a>.</p></details>
         <div id="climateStatus" class="status" role="status" aria-live="polite">Ready to load historical climate context.</div>
       </div>
     </section>
@@ -83,6 +90,7 @@
       </div>
       <section class="surface imerg-panel" aria-labelledby="satellite-title"><div><p class="section-kicker">Second NASA dataset</p><h3 id="satellite-title">GPM IMERG rainfall cross-check</h3><p id="imergStatus">Load data to compare IMERG with NASA POWER on the wettest valid day in the selected end year. This is historical context, not a forecast.</p></div><div id="imergMetric" class="observation-value">—</div></section>
     </section>
+    </div>
 
     <section id="farm" class="workflow-section section-anchor" aria-labelledby="farm-heading">
       <header class="section-header"><span class="step-number" aria-hidden="true">3</span><div><p class="section-kicker">Add local knowledge</p><h2 id="farm-heading">Describe the field</h2><p>Only farmer-entered lab results and notes are treated as local field information.</p></div></header>
@@ -116,5 +124,6 @@
   </main>
 
   <footer class="site-footer"><div><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">F</span><span>FieldShift</span></a><p>NASA data informs the conversation; local expertise makes the decision.</p></div><nav aria-label="Data source links"><a href="https://power.larc.nasa.gov/" target="_blank" rel="noreferrer">NASA POWER</a><a href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noreferrer">NASA GPM IMERG</a><a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">USDA SSURGO</a></nav></footer>
+  </div>
 </body>
 </html>

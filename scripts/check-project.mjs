@@ -4,6 +4,7 @@ const requiredFiles = [
   "AGENTS.md",
   "index.html",
   "styles.css",
+  "dashboard.css",
   "accessibility.css",
   "server.js",
   "src/main.js",

@@ -40,6 +40,7 @@ Last updated: 2026-10-09
 - The long-form interface now has a sticky section navigator. On desktop and tablet widths, the map and its field settings share a two-column workspace; phones retain the single-column order. This reduces the location step's height without hiding map status, privacy, precision-entry, or coverage information.
 - The interface is now a restrained four-step planning workspace using system fonts, plain data surfaces, and an explicit worldwide-climate versus Central-Iowa-evidence boundary. Climate trends use separate monthly series so a missing rainfall reading cannot remove a valid temperature reading, or vice versa. On 2026-10-09, `npm run verify` passed 47 tests with no skips. Mocked end-to-end browser journeys passed at 320, 375, 390, 430, and 1024 px; additional layout checks passed at 768 and 1366 px with one app header, 44 px primary controls, no horizontal overflow, working anchor/keyboard disclosures, and no page errors. These checks are automated browser QA, not physical-device or human accessibility testing.
 - On 2026-10-09, the opt-in live NASA POWER check again returned all 366 temperature and rainfall days for the six 2024 public example points. The combined live API check returned POWER and SSURGO successfully but intentionally failed overall because IMERG supplied only 47 of 48 required half-hour slots; no daily IMERG total was calculated.
+- The planning screen now uses a compact two-column farm dashboard with a large attributed Esri satellite basemap on the right at laptop widths and a stacked map on tablets and phones. Users can switch to OpenStreetMap streets; satellite tile failures switch to streets automatically. Real satellite tiles returned successfully in automated browser checks at 320, 390, 768, 1024, 1366, and 1600 px. The selected map point still reaches NASA POWER requests; no visual soil-health scores or plot alerts are invented from imagery.
 
 ## Not yet verified
 
@@ -49,7 +50,7 @@ Last updated: 2026-10-09
 - Hosted Render health-check behavior. The Docker image was built and smoke-tested in CI, but no public deployment has been checked.
 - Installation and offline reopening on real iOS and Android devices.
 - Browser compatibility and mobile visual QA on physical devices.
-- Public OpenStreetMap tile availability, latency, and provider capacity under a hosted production workload; the service has no SLA and the app does not cache tiles offline.
+- Public Esri World Imagery and OpenStreetMap tile availability, latency, provider terms, and capacity under a hosted production workload; the app does not cache tiles offline.
 
 ## Not yet implemented
 

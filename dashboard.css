@@ -1,0 +1,185 @@
+:root {
+  --canvas: #f6f8f5;
+  --surface-soft: #f7f9f6;
+  --green: #2d704f;
+  --green-dark: #194e36;
+  --green-soft: #e9f4e9;
+  --line: #e0e8df;
+  --line-strong: #cfdbd0;
+  --radius: 17px;
+  --shadow: 0 6px 22px rgba(22, 49, 29, .05);
+}
+
+body { padding: 22px; background: #a8c99b; }
+.app-frame {
+  max-width: 1720px;
+  min-height: calc(100vh - 44px);
+  margin: 0 auto;
+  overflow: clip;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 28px;
+  background: var(--canvas);
+  box-shadow: 0 24px 80px rgba(27, 66, 38, .13);
+}
+.app-header { border-color: #ecf0e9; background: rgba(255, 255, 255, .97); }
+.header-inner, .page-shell, .site-footer { width: calc(100% - 72px); max-width: none; }
+.header-inner { min-height: 75px; }
+.brand { font-size: 20px; }
+.brand-mark { width: 38px; height: 38px; border-radius: 12px; background: #49a669; font-size: 18px; }
+.primary-nav { gap: 5px; }
+.primary-nav a { padding: 9px 13px; border-radius: 10px; font-size: 13px; }
+.prototype-label { border-radius: 20px; background: #f7f9f6; }
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .98fr) minmax(420px, 1.02fr);
+  grid-template-areas: "intro map" "location map" "climate map";
+  gap: 0 22px;
+  align-items: start;
+  padding-top: 24px;
+}
+.dashboard-layout > #top { grid-area: intro; }
+.dashboard-layout > #location { grid-area: location; }
+.dashboard-layout > #climate { grid-area: climate; }
+.dashboard-layout > .dashboard-map { grid-area: map; }
+
+.product-intro {
+  display: block;
+  padding: 12px 4px 18px;
+  border: 0;
+}
+.product-intro h1 { max-width: 630px; font-size: clamp(36px, 3.4vw, 54px); line-height: 1.04; }
+.intro-lede { max-width: 620px; margin-top: 13px; font-size: 15px; line-height: 1.55; }
+.plain-warning { margin-top: 14px; font-size: 11px; }
+.scope-card {
+  margin-top: 18px;
+  padding: 15px 17px;
+  border-radius: 15px;
+  box-shadow: none;
+}
+.scope-card h2 { margin: 0 0 7px; font-size: 13px; }
+.scope-card dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
+.scope-card dl div { padding: 9px 10px 0; border-top: 1px solid var(--line); }
+.scope-card dl div:first-child { padding-left: 0; }
+.scope-card dt { font-size: 10px; }
+.scope-card dd { font-size: 10px; line-height: 1.45; }
+
+.dashboard-layout .workflow-section { padding-top: 22px; }
+.dashboard-layout .section-header { gap: 10px; margin-bottom: 11px; }
+.dashboard-layout .section-header h2 { font-size: clamp(23px, 2vw, 29px); }
+.dashboard-layout .section-header > div > p:last-child { font-size: 12px; }
+.dashboard-layout .step-number { width: 29px; height: 29px; border-radius: 9px; font-size: 12px; }
+.dashboard-layout .location-panel, .dashboard-layout .climate-panel, .dashboard-layout .provenance-panel { padding: 17px; }
+.dashboard-layout .panel-heading h3 { font-size: 15px; }
+.dashboard-layout .location-workspace { display: block; margin-top: 12px; }
+.dashboard-layout .location-settings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.dashboard-layout .location-settings .exact-coordinate-details,
+.dashboard-layout .location-settings .period-grid,
+.dashboard-layout .location-settings .settings-note { grid-column: 1 / -1; }
+.dashboard-layout .location-settings .settings-note { margin: 0; padding-top: 9px; }
+.dashboard-layout .location-settings .period-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.dashboard-layout .primary-action-row { margin-top: 10px; padding-top: 12px; gap: 12px; }
+.dashboard-layout .primary-action-row p { max-width: 290px; font-size: 10px; }
+.dashboard-layout .primary-action-row .button { white-space: nowrap; }
+.dashboard-layout .privacy-details { margin-top: 8px; }
+.dashboard-layout .status { font-size: 11px; }
+
+.dashboard-map {
+  position: sticky;
+  top: 90px;
+  min-width: 0;
+  padding: 12px;
+  border-color: #d5e2d2;
+  border-radius: 22px;
+  background: #fdfefd;
+}
+.map-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 5px 7px 11px; }
+.map-header h2 { margin: 0; font-size: 20px; line-height: 1.1; letter-spacing: -.03em; }
+.map-header .section-kicker { margin-bottom: 2px; }
+.map-source-label { padding: 6px 10px; border-radius: 20px; background: var(--green-soft); color: var(--green-dark); font-size: 10px; font-weight: 800; white-space: nowrap; }
+.dashboard-map .map-field { padding: 0; border: 0; border-radius: 14px; background: transparent; }
+.map-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0 7px 10px; }
+.dashboard-map .map-instructions { margin: 0; font-size: 11px; }
+.map-style-switch { display: inline-flex; flex: 0 0 auto; gap: 3px; padding: 3px; border: 1px solid var(--line); border-radius: 11px; background: #f2f5f0; }
+.map-style-switch button { min-height: 44px; padding: 0 12px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font-size: 11px; font-weight: 800; cursor: pointer; }
+.map-style-switch button.active { background: white; color: var(--green-dark); box-shadow: 0 1px 4px rgba(25, 78, 54, .13); }
+.map-style-switch button:disabled { opacity: .45; cursor: default; }
+.dashboard-map #fieldMap { height: min(68vh, 720px); min-height: 460px; border: 0; border-radius: 13px; background: #233e2b; }
+.dashboard-map .map-actions { margin-top: 12px; }
+.dashboard-map .selected-place { margin-top: 10px; font-size: 12px; }
+.dashboard-map .supporting-text { margin-top: 3px; font-size: 11px; }
+.dashboard-map .map-privacy { margin-top: 8px; font-size: 10px; }
+.dashboard-map .leaflet-control-attribution { max-width: 90%; font-size: 9px; background: rgba(255, 255, 255, .88); }
+.dashboard-map .leaflet-control-attribution a { color: #174e35; }
+.dashboard-map .leaflet-touch .leaflet-bar a { width: 44px; height: 44px; line-height: 44px; }
+
+.dashboard-layout .climate-layout { grid-template-columns: 1fr; gap: 10px; }
+.dashboard-layout .metrics { margin: 12px 0; }
+.dashboard-layout .metric { padding: 11px; }
+.dashboard-layout .metric strong { font-size: clamp(22px, 2vw, 27px); }
+.dashboard-layout .provenance-panel { display: block; }
+.dashboard-layout .source-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 10px; margin-bottom: 9px; }
+.dashboard-layout .source-list div { grid-template-columns: 76px minmax(0, 1fr); padding: 6px 0; }
+.dashboard-layout .imerg-panel { margin-top: 10px; padding: 16px 18px; }
+
+.page-shell > .workflow-section, .research-section { padding-top: 50px; }
+.farm-panel, .research-panel { border-radius: 18px; }
+.strategy-card { border-radius: 18px; }
+.site-footer { margin-top: 30px; }
+
+@media (max-width: 1100px) {
+  body { padding: 12px; }
+  .app-frame { min-height: calc(100vh - 24px); border-radius: 22px; }
+  .header-inner, .page-shell, .site-footer { width: calc(100% - 40px); }
+  .dashboard-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "intro" "map" "location" "climate"; gap: 0; }
+  .product-intro { padding-bottom: 16px; }
+  .dashboard-map { position: relative; top: auto; }
+  .dashboard-map #fieldMap { height: 450px; min-height: 0; }
+  .dashboard-layout .climate-layout { grid-template-columns: minmax(0, 1.7fr) minmax(250px, .8fr); }
+  .dashboard-layout .source-list { display: block; }
+  .dashboard-layout .scope-card { display: block; }
+}
+
+@media (max-width: 900px) {
+  .header-inner { display: flex; justify-content: space-between; gap: 14px; }
+  .primary-nav { flex: 0 1 auto; min-width: 0; }
+  .prototype-label { display: none; }
+}
+
+@media (max-width: 720px) {
+  body { padding: 0; background: var(--canvas); }
+  .app-frame { min-height: 100vh; border: 0; border-radius: 0; box-shadow: none; }
+  .header-inner, .page-shell, .site-footer { width: calc(100% - 28px); }
+  .header-inner { min-height: 60px; }
+  .brand { font-size: 16px; }
+  .brand-mark { width: 32px; height: 32px; border-radius: 9px; }
+  .dashboard-layout { padding-top: 10px; }
+  .product-intro h1 { font-size: clamp(35px, 9vw, 47px); }
+  .scope-card dl { grid-template-columns: 1fr; }
+  .scope-card dl div { padding: 7px 0; }
+  .dashboard-map { padding: 10px; border-radius: 16px; }
+  .dashboard-map #fieldMap { height: 360px; }
+  .dashboard-layout .climate-layout { grid-template-columns: 1fr; }
+  .dashboard-layout .metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dashboard-layout .metric { padding: 9px; }
+  .dashboard-layout .metric-label { font-size: 8px; }
+  .dashboard-layout .metric strong { font-size: 20px; }
+}
+
+@media (max-width: 440px) {
+  .header-inner, .page-shell, .site-footer { width: calc(100% - 20px); }
+  .map-toolbar { align-items: flex-start; flex-direction: column; }
+  .dashboard-map #fieldMap { height: 320px; }
+  .dashboard-layout .location-settings { grid-template-columns: 1fr; }
+  .dashboard-layout .location-settings .period-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dashboard-layout .primary-action-row { flex-direction: column; align-items: stretch; }
+  .dashboard-layout .primary-action-row p { max-width: none; }
+  .dashboard-layout .metrics { grid-template-columns: 1fr; }
+}

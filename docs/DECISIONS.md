@@ -95,3 +95,9 @@
 **Decision:** Organize the interface as four explicit tasks—choose the field, review available data, add local knowledge, and compare supported strategies. Use the operating system font stack and quiet data surfaces instead of decorative marketing artwork. Plot temperature and rainfall in separate monthly panels and aggregate each variable from its own valid readings.
 
 **Reason:** The product needs to look and behave like a trustworthy decision-support tool on phones, tablets, and laptops. A clear task hierarchy keeps source coverage, uncertainty, and next actions visible. Independent aggregation prevents missing values in one NASA POWER variable from silently removing valid observations from another.
+
+## 2026-10-09 — Put an attributed satellite basemap beside the planning controls
+
+**Decision:** Present the location picker as a large right-side satellite map on wide screens and a full-width map before field settings on smaller screens. Use the public [Esri World Imagery](https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9) tile layer by default, with an OpenStreetMap street-view switch and automatic street-view fallback if satellite tiles fail. Do not cache or export either provider's tiles. Continue accepting global points and keep exact coordinates as a map-independent alternative.
+
+**Reason:** A realistic aerial map makes field selection easier and matches the visual direction requested for the app. The basemap only shows location context; imagery dates and resolution vary, and it cannot justify a field-health score, nutrient reading, or plot alert. Provider attribution and the map-view privacy disclosure stay visible.

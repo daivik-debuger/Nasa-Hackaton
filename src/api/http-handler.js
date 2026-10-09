@@ -4,7 +4,7 @@ import { querySoil } from "./soil-service.js";
 import { queryImergDay } from "./imerg-service.js";
 
 const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".md": "text/markdown", ".webmanifest": "application/manifest+json" };
-const publicRootFiles = new Set(["index.html", "styles.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "docs/PRIVACY.md"]);
+const publicRootFiles = new Set(["index.html", "styles.css", "dashboard.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "docs/PRIVACY.md"]);
 const vendorFiles = new Map([["vendor/leaflet.js", "node_modules/leaflet/dist/leaflet.js"], ["vendor/leaflet.css", "node_modules/leaflet/dist/leaflet.css"]]);
 const responseHeaders = {
   "Cache-Control": "no-store",

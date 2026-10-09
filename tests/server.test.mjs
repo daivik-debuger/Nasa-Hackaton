@@ -41,6 +41,7 @@ test("public server serves app assets but not repository internals", async () =>
   assert.equal((await call("/data/regions/central-iowa.json")).status, 200);
   assert.equal((await call("/src/main.js")).status, 200);
   assert.equal((await call("/research.css")).status, 200);
+  assert.equal((await call("/dashboard.css")).status, 200);
   assert.equal((await call("/location-map.css")).status, 200);
   assert.equal((await call("/vendor/leaflet.js")).status, 200);
   assert.equal((await call("/vendor/leaflet.css")).status, 200);
