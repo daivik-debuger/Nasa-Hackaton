@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { summarizePowerPayload, validateFieldQuery } from "../src/climate.js";
+import { buildMonthlySeries } from "../src/ui/climate-view.js";
 
 const fixture = JSON.parse(await readFile(new URL("./fixtures/nasa-power-des-moines-2025-01-01-to-2025-01-07.json", import.meta.url), "utf8"));
 const location = { lat: 41.5868, lon: -93.625, start: 2025, end: 2025 };
@@ -52,6 +53,14 @@ test("does not turn absent NASA values into measured zeroes", () => {
   assert.equal(summary.count, 6);
   assert.equal(summary.rainfallCount, 6);
   assert.ok(Math.abs(summary.totalRain - 0.22) < 1e-12);
+});
+
+test("monthly chart series keep valid temperature and rainfall days independent", () => {
+  const keys = ["20250101", "20250102", "20250103"];
+  const temperature = buildMonthlySeries({ "20250101": 10, "20250102": -999, "20250103": 20 }, keys, -999, "mean");
+  const rainfall = buildMonthlySeries({ "20250101": -999, "20250102": 3, "20250103": 2 }, keys, -999, "sum");
+  assert.deepEqual(temperature, [{ key: "202501", sum: 30, count: 2, value: 15 }]);
+  assert.deepEqual(rainfall, [{ key: "202501", sum: 5, count: 2, value: 5 }]);
 });
 
 test("rejects a payload with no usable temperature data", () => {

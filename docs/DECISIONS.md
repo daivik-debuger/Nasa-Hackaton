@@ -89,3 +89,9 @@
 **Decision:** Use a locally served, pinned Leaflet map library with OpenStreetMap raster tiles for click/drag pin selection. Keep public example locations and a collapsed exact-coordinate form as keyboard, precision, and map-failure alternatives. Do not cache map tiles in the app's offline shell.
 
 **Reason:** A map is easier than typing latitude and longitude for exploratory use worldwide. The small fixed dependency and local assets avoid a proprietary map API key, while the [OpenStreetMap tile policy](https://operations.osmfoundation.org/policies/tiles/) requires attribution, normal browser caching, and a browser referrer. The map exposes the viewed area to the tile provider before the farmer loads observations, so the interface and privacy inventory disclose that tradeoff. Map selection changes location input only; it does not expand regional soil or rotation evidence.
+
+## 2026-10-09 — Use a restrained planning workspace and independent climate series
+
+**Decision:** Organize the interface as four explicit tasks—choose the field, review available data, add local knowledge, and compare supported strategies. Use the operating system font stack and quiet data surfaces instead of decorative marketing artwork. Plot temperature and rainfall in separate monthly panels and aggregate each variable from its own valid readings.
+
+**Reason:** The product needs to look and behave like a trustworthy decision-support tool on phones, tablets, and laptops. A clear task hierarchy keeps source coverage, uncertainty, and next actions visible. Independent aggregation prevents missing values in one NASA POWER variable from silently removing valid observations from another.

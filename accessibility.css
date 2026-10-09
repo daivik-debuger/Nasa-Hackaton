@@ -4,22 +4,15 @@ button:focus-visible,
 a:focus-visible,
 summary:focus-visible,
 .check-option:focus-within {
-  outline: 3px solid #a36727;
+  outline: 3px solid rgba(185, 103, 39, .55);
   outline-offset: 3px;
 }
 
-.privacy-details {
-  margin-top: 10px;
-  color: #51675a;
-  font-size: 11px;
-}
+.privacy-details { margin-top: 10px; color: var(--muted); font-size: 11px; }
+.privacy-details summary { width: fit-content; color: var(--ink-soft); font-weight: 750; cursor: pointer; }
+.privacy-details p { max-width: 82ch; }
+.privacy-details a { color: var(--green); }
 
-.privacy-details summary {
-  width: fit-content;
-  cursor: pointer;
-  font-weight: 700;
+@media (prefers-contrast: more) {
+  :root { --line: #a7b0a9; --line-strong: #7c8880; --muted: #3f4e45; }
 }
-
-.privacy-details p { max-width: 78ch; }
-.privacy-details a { color: #225a46; }
-.priority-note { color: #486853; font-size: 11px; }

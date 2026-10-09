@@ -1,6 +1,6 @@
 # Project status
 
-Last updated: 2026-10-08
+Last updated: 2026-10-09
 
 ## Confirmed
 
@@ -38,6 +38,8 @@ Last updated: 2026-10-08
 - The opt-in live 2024 NASA POWER smoke check passed at six public city-area points with 366 valid temperature and precipitation days each. A live browser request for Brasília also displayed 366 valid days; its IMERG result was deliberately mocked unavailable for browser isolation. A separate live Iowa check returned POWER and SSURGO map unit L107 with four possible components, while IMERG timed out. None of this establishes worldwide agronomic validity or a dependable IMERG daily total.
 - On 2026-10-08, a map-first location picker was added with Leaflet 1.9.4 and OpenStreetMap tiles. `npm run verify` passed 46 tests with no skips. Scripted browser checks at 320, 375, 390, 430, and 1024 px exercised map click, marker drag, public-example sync, center pin, clear pin, exact-coordinate entry, and map-library failure fallback without page errors or horizontal overflow. A keyboard-pan/center-pin flow sent the chosen coordinates to the mocked NASA POWER request; eight map tiles returned HTTP 200, and the server's origin-only referrer policy was present. A screenshot confirmed actual map tiles and attribution at 390 px. The existing Iowa/global data journeys, validation, retry, offline banner, and stale-request cancellation still passed. This is browser automation, not physical-device, screen-reader, live NASA, or full tile-service reliability testing.
 - The long-form interface now has a sticky section navigator. On desktop and tablet widths, the map and its field settings share a two-column workspace; phones retain the single-column order. This reduces the location step's height without hiding map status, privacy, precision-entry, or coverage information.
+- The interface is now a restrained four-step planning workspace using system fonts, plain data surfaces, and an explicit worldwide-climate versus Central-Iowa-evidence boundary. Climate trends use separate monthly series so a missing rainfall reading cannot remove a valid temperature reading, or vice versa. On 2026-10-09, `npm run verify` passed 47 tests with no skips. Mocked end-to-end browser journeys passed at 320, 375, 390, 430, and 1024 px; additional layout checks passed at 768 and 1366 px with one app header, 44 px primary controls, no horizontal overflow, working anchor/keyboard disclosures, and no page errors. These checks are automated browser QA, not physical-device or human accessibility testing.
+- On 2026-10-09, the opt-in live NASA POWER check again returned all 366 temperature and rainfall days for the six 2024 public example points. The combined live API check returned POWER and SSURGO successfully but intentionally failed overall because IMERG supplied only 47 of 48 required half-hour slots; no daily IMERG total was calculated.
 
 ## Not yet verified
 

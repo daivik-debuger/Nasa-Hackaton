@@ -8,7 +8,7 @@
 | Field coordinates and selected period | Browser request to NASA POWER; browser request to this app's `/api/imerg` when a reference day is available; `/api/soil` only for the Central Iowa demo. The server forwards requested coordinates to NASA GPM IMERG or USDA Soil Data Access as applicable | The app does not intentionally save these requests |
 | Crop history, farmer priorities, optional soil notes | Used in the current browser page to compare strategies | No account, database, or intentional persistent storage |
 | Public app files, source/crop/evidence JSON | Browser and service-worker app-shell cache | May remain on the device until cache removal |
-| Fonts | Browser requests to Google Fonts | Third-party behavior is outside this prototype's control |
+| Interface fonts | Uses the device's built-in system font stack | No third-party font request |
 
 The app does not currently have authentication, analytics, or a farmer database. API query strings can appear in browser history, reverse-proxy logs, hosting logs, or upstream-service logs; the absence of an app database does **not** guarantee that no service retains coordinates. We have not audited a production host or third-party retention policies.
 
