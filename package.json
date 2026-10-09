@@ -15,5 +15,8 @@
     "api:smoke:global": "node scripts/smoke-global-power.mjs",
     "test": "node --test",
     "verify": "npm run check && npm test"
+  },
+  "dependencies": {
+    "leaflet": "1.9.4"
   }
 }

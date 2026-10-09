@@ -83,3 +83,9 @@
 **Decision:** Start with no region preselected. Let users at valid locations outside the Iowa evidence pack enter free-text crop notes and review their own NASA climate and soil-test notes as a non-prescriptive field snapshot. Keep Iowa crop traits, mapped SSURGO lookup, and three rotation patterns gated to their documented region. Treat each live data source as independently available or unavailable, and withhold malformed soil or incomplete IMERG results.
 
 **Reason:** Worldwide is the product goal, so a disabled comparison button should not prevent a farmer elsewhere from using supported global climate data. But a working button cannot imply that Iowa agronomy is valid worldwide. The field snapshot is useful while additional regional soil, crop, season, and rule catalogs are researched and reviewed.
+
+## 2026-10-08 — Make location selection map-first
+
+**Decision:** Use a locally served, pinned Leaflet map library with OpenStreetMap raster tiles for click/drag pin selection. Keep public example locations and a collapsed exact-coordinate form as keyboard, precision, and map-failure alternatives. Do not cache map tiles in the app's offline shell.
+
+**Reason:** A map is easier than typing latitude and longitude for exploratory use worldwide. The small fixed dependency and local assets avoid a proprietary map API key, while the [OpenStreetMap tile policy](https://operations.osmfoundation.org/policies/tiles/) requires attribution, normal browser caching, and a browser referrer. The map exposes the viewed area to the tile provider before the farmer loads observations, so the interface and privacy inventory disclose that tradeoff. Map selection changes location input only; it does not expand regional soil or rotation evidence.

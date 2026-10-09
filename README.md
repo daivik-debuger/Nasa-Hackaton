@@ -4,7 +4,7 @@ FieldShift is being built as a worldwide, mobile-first crop-rotation **explorati
 
 ## Run
 
-Node 22 or newer; no npm dependencies or build step.
+Node 22 or newer. `npm ci` installs the pinned Leaflet map library; there is no build step.
 
 ```sh
 npm ci
@@ -12,13 +12,13 @@ npm run verify
 npm start
 ```
 
-Open <http://localhost:8000>. A generic static file server will display the page but **cannot provide mapped soil or IMERG data**, because `/api/soil` and `/api/imerg` require the included small Node server. NASA POWER is requested directly by the browser. USDA SSURGO and NASA IMERG are requested by the local server; all require internet. Set `PORT` to choose another port. Deployment needs a Node-capable host and HTTPS for phone installation.
+Open <http://localhost:8000>. Use the map to drop or drag a pin, choose a public example, or expand **Exact coordinates** for precise entry and keyboard fallback. The map library is served locally, but OpenStreetMap tiles require internet; the app does not download them for offline use. A generic static file server will display the page but **cannot provide mapped soil or IMERG data**, because `/api/soil` and `/api/imerg` require the included small Node server. NASA POWER is requested directly by the browser. USDA SSURGO and NASA IMERG are requested by the local server; all require internet. Set `PORT` to choose another port. Deployment needs a Node-capable host and HTTPS for phone installation.
 
 ## What the pilot includes
 
-- Central Iowa is the first research/demo catalog, not the intended worldwide product boundary. Global locations can request climate context; only the Iowa area enables mapped SSURGO soil and exploratory rotation patterns. The default example point near Ames is not a verified field.
+- Central Iowa is the first research/demo catalog, not the intended worldwide product boundary. Global locations can request climate context; only the Iowa area enables mapped SSURGO soil and exploratory rotation patterns. No location is preselected; the public Ames-area example is not a verified field.
 - Eight source-linked crop records under `data/crops/`; crop families, seasons, temperature/water/soil considerations, pH where supported, root-depth uncertainty, benefits, risks, confidence, and limitations.
-- Nine evidence records and five transparent rules under `data/`. Every rule is `research-only`, `humanApproved: false` until a named agronomist reviews it. No numeric yield, profit, water-saving, or soil-health score is asserted.
+- Eleven evidence records and five transparent rules under `data/`. Every rule is `research-only`, `humanApproved: false` until a named agronomist reviews it. No numeric yield, profit, water-saving, or soil-health score is asserted.
 - USDA Soil Data Access lookup showing map unit, possible components, component percentages, drainage, texture by depth, horizon available water capacity, map-unit 0–100 cm available water storage, flooding frequency, missing values, and uncertainty. It is **not a lab soil test**; field pH and nutrients are not inferred.
 - POWER daily temperature and rainfall history; IMERG half-hourly precipitation rates are sampled for the wettest valid POWER day in the selected end year. A matched daily amount is shown **only if all 48 in-day half-hour slots are valid**. The current public service returned 47 for the Iowa case-study day, so the IMERG total is withheld rather than guessed. IMERG failures remain visible and do not erase usable POWER context.
 - Three exploratory patterns—lowest change, climate/cover, and soil/diversity—each with a “Why this strategy?” panel showing inputs, NASA and soil data, triggered rules, evidence links, missing inputs, confidence, benefits, risks, and local checks.
@@ -31,7 +31,7 @@ The region was selected for this implementation because [USDA NASS](https://www.
 
 The worldwide expansion architecture and honest coverage states are defined in [docs/GLOBAL_COVERAGE.md](docs/GLOBAL_COVERAGE.md). The present app has a global location/climate path but is not a worldwide soil or crop-rotation tool yet. ISRIC currently says the SoilGrids beta REST API is paused, so no global soil lookup is claimed.
 
-No human reviewer, farmer interview, physical-device test, HTTPS installation test, production security review, or economic feasibility study has been completed. The live NASA and USDA services can fail or change. When they fail, missing sources remain visible and the app does not invent replacements. Farmer notes stay in the current browser page; coordinates are transmitted to the requested data services when **Load available data** is pressed. The Node server does not intentionally store requests.
+No human reviewer, farmer interview, physical-device test, HTTPS installation test, production security review, or economic feasibility study has been completed. The live NASA and USDA services can fail or change. When they fail, missing sources remain visible and the app does not invent replacements. Farmer notes stay in the current browser page. Opening or moving the map requests tiles for the visible area from OpenStreetMap, before **Load available data** is pressed; selected coordinates are transmitted to the requested NASA and soil services only when data is loaded. The Node server does not intentionally store requests. See [the privacy inventory](docs/PRIVACY.md).
 
 ## Files and checks
 

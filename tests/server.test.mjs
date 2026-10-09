@@ -23,7 +23,7 @@ test("server health and unsupported soil responses do not require live services"
   const health = await call("/health");
   assert.deepEqual(health.body, { status: "ok" });
   assert.equal(health.headers["X-Content-Type-Options"], "nosniff");
-  assert.equal(health.headers["Referrer-Policy"], "no-referrer");
+  assert.equal(health.headers["Referrer-Policy"], "strict-origin-when-cross-origin");
   const outside = await call("/api/soil?latitude=-15.7939&longitude=-47.8828", { soilLookup: () => { throw new Error("Should not call USDA."); } });
   assert.equal(outside.status, 422);
   assert.match(outside.body.error, /Central Iowa/);
@@ -41,7 +41,10 @@ test("public server serves app assets but not repository internals", async () =>
   assert.equal((await call("/data/regions/central-iowa.json")).status, 200);
   assert.equal((await call("/src/main.js")).status, 200);
   assert.equal((await call("/research.css")).status, 200);
-  for (const path of ["/package.json", "/data/AGENTS.md", "/docs/STATUS.md", "/tests/fixtures/nasa-power-des-moines-2025-01-01-to-2025-01-07.json", "/.git/config"]) assert.equal((await call(path)).status, 404, path);
+  assert.equal((await call("/location-map.css")).status, 200);
+  assert.equal((await call("/vendor/leaflet.js")).status, 200);
+  assert.equal((await call("/vendor/leaflet.css")).status, 200);
+  for (const path of ["/package.json", "/node_modules/leaflet/dist/leaflet.js", "/vendor/not-approved.js", "/data/AGENTS.md", "/docs/STATUS.md", "/tests/fixtures/nasa-power-des-moines-2025-01-01-to-2025-01-07.json", "/.git/config"]) assert.equal((await call(path)).status, 404, path);
 });
 
 test("real HTTP listener serves health, data, and errors without live upstream calls", async (t) => {

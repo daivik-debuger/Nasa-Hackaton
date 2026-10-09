@@ -11,20 +11,41 @@ import { renderClimate, renderImerg } from "./ui/climate-view.js";
 import { renderSoil } from "./ui/soil-view.js";
 import { renderStrategies } from "./ui/strategy-view.js";
 import { renderResearch } from "./ui/research-view.js";
+import { createLocationPicker } from "./ui/location-picker.js";
 import { setStatus } from "./ui/status-view.js";
 
 const $ = (id) => document.getElementById(id);
 const lastFullYear = new Date().getUTCFullYear() - 1;
 const state = { region: null, crops: [], rules: [], evidence: [], sources: [], power: null, soil: null, imerg: null, requestId: 0 };
+const locationPicker = createLocationPicker({
+  onSelect(point) {
+    $("latitude").value = String(point.lat);
+    $("longitude").value = String(point.lon);
+    $("demoLocation").value = "";
+    clearLoadedData();
+  },
+  onClear() {
+    $("latitude").value = "";
+    $("longitude").value = "";
+    $("demoLocation").value = "";
+    clearLoadedData();
+  }
+});
 
 for (const location of GLOBAL_DEMO_LOCATIONS) $("demoLocation").add(new Option(location.label, location.id));
 $("demoLocation").addEventListener("change", () => {
   const selected = demoLocation($("demoLocation").value);
   $("latitude").value = selected ? String(selected.lat) : "";
   $("longitude").value = selected ? String(selected.lon) : "";
+  if (selected) locationPicker.showPin(selected, `${selected.label} selected as a public example point. This is not a verified farm field.`);
+  else locationPicker.clearPin();
   clearLoadedData();
 });
-for (const id of ["latitude", "longitude"]) $(id).addEventListener("input", () => { $("demoLocation").value = ""; clearLoadedData(); });
+for (const id of ["latitude", "longitude"]) $(id).addEventListener("input", () => { $("demoLocation").value = ""; locationPicker.clearPin(); clearLoadedData(); });
+for (const id of ["latitude", "longitude"]) $(id).addEventListener("change", () => {
+  try { locationPicker.showPin(locationInput(), "Exact coordinate point selected. The entered coordinates will be used for data requests."); }
+  catch { locationPicker.clearPin(); }
+});
 
 for (const id of ["startYear", "endYear"]) {
   for (let year = lastFullYear; year >= 1981; year--) $(id).add(new Option(String(year), String(year)));
@@ -54,6 +75,7 @@ async function loadCatalog() {
 }
 
 function locationInput() {
+  if (!$("latitude").value && !$("longitude").value) throw new Error("Drop a pin, choose a public example, or enter exact coordinates before loading data.");
   return validateFieldQuery({ latitude: $("latitude").value, longitude: $("longitude").value, startYear: $("startYear").value, endYear: $("endYear").value }, { lastFullYear });
 }
 
@@ -64,7 +86,7 @@ function coverage() {
 function updateCoverage() {
   if (!$("latitude").value && !$("longitude").value) {
     $("researchCoverage").textContent = "The research library below applies to the Central Iowa pilot only; NASA climate context can be requested for locations worldwide.";
-    setStatus($("coverageStatus"), "Choose a public example or enter your own coordinates anywhere in the world to check available data.");
+    setStatus($("coverageStatus"), "Drop a pin on the map, use its center, choose a public example, or enter exact coordinates anywhere in the world.");
     for (const id of ["lastCrop", "priorCrop", "summarize"]) $(id).disabled = true;
     for (const id of ["iowaLastCropField", "iowaPriorCropField"]) $(id).hidden = true;
     for (const id of ["globalLastCropField", "globalPriorCropField"]) $(id).hidden = false;

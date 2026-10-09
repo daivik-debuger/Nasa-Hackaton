@@ -4,11 +4,12 @@ import { querySoil } from "./soil-service.js";
 import { queryImergDay } from "./imerg-service.js";
 
 const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".md": "text/markdown", ".webmanifest": "application/manifest+json" };
-const publicRootFiles = new Set(["index.html", "styles.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "docs/PRIVACY.md"]);
+const publicRootFiles = new Set(["index.html", "styles.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "docs/PRIVACY.md"]);
+const vendorFiles = new Map([["vendor/leaflet.js", "node_modules/leaflet/dist/leaflet.js"], ["vendor/leaflet.css", "node_modules/leaflet/dist/leaflet.css"]]);
 const responseHeaders = {
   "Cache-Control": "no-store",
   "X-Content-Type-Options": "nosniff",
-  "Referrer-Policy": "no-referrer",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
   "X-Frame-Options": "DENY",
   "Permissions-Policy": "camera=(), microphone=()"
 };
@@ -16,7 +17,7 @@ const responseHeaders = {
 function publicFile(pathname) {
   try {
     const relative = decodeURIComponent(pathname === "/" ? "/index.html" : pathname).replace(/^\/+/, "");
-    return publicRootFiles.has(relative) || /^src\/[a-z0-9/-]+\.js$/.test(relative) || /^data\/[a-z0-9/-]+\.json$/.test(relative) ? relative : null;
+    return publicRootFiles.has(relative) || vendorFiles.has(relative) || /^src\/[a-z0-9/-]+\.js$/.test(relative) || /^data\/[a-z0-9/-]+\.json$/.test(relative) ? relative : null;
   } catch { return null; }
 }
 
@@ -53,7 +54,7 @@ export function createRequestHandler({ root, region, soilLookup = querySoil, ime
       if (url.pathname === "/api/imerg") return sendJson(res, 200, await imergLookup(coordinates(url), url.searchParams.get("day") || ""));
       const relative = publicFile(url.pathname);
       if (!relative) return sendJson(res, 404, { error: "Not found." });
-      const path = resolve(rootDir, relative);
+      const path = resolve(rootDir, vendorFiles.get(relative) || relative);
       if (!path.startsWith(rootDir + sep) || !types[extname(path)]) return sendJson(res, 404, { error: "Not found." });
       const body = await readFile(path);
       res.writeHead(200, { ...responseHeaders, "Content-Type": `${types[extname(path)]}; charset=utf-8` });

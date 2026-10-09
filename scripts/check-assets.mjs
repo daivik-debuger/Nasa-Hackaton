@@ -5,7 +5,8 @@ const root = process.cwd();
 const checked = new Set();
 
 async function requireLocal(path, label) {
-  const absolute = resolve(root, path);
+  const localPath = path === "./vendor/leaflet.js" ? "node_modules/leaflet/dist/leaflet.js" : path === "./vendor/leaflet.css" ? "node_modules/leaflet/dist/leaflet.css" : path;
+  const absolute = resolve(root, localPath);
   if (absolute !== root && !absolute.startsWith(root + sep)) throw new Error(`${label} escapes the project: ${path}`);
   if (absolute !== root) await access(absolute);
   checked.add(path);
