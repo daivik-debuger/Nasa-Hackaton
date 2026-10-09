@@ -66,6 +66,7 @@ export function summarizePowerPayload(payload, location) {
     start: location.start,
     end: location.end,
     count: temp.length,
+    maxTemperatureCount: maxTemp.length,
     rainfallCount: rain.length,
     wettestReferenceDay,
     fillValue

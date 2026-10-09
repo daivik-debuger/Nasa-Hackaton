@@ -42,6 +42,7 @@ export async function fetchSoilData(location, fetchImpl = globalThis.fetch) {
   const query = new URLSearchParams({ latitude: String(location.lat), longitude: String(location.lon) });
   const response = await fetchImpl(`/api/soil?${query}`, { headers: { Accept: "application/json" } });
   const body = await response.json();
-  if (!response.ok) throw new Error(body.error || `Soil service returned ${response.status}.`);
+  if (!response.ok) throw new Error(body?.error || `Soil service returned ${response.status}.`);
+  if (body?.sourceId !== "usda-ssurgo" || !body.mapUnit?.key || !Array.isArray(body.components) || !body.components.length || !body.components.every((component) => Array.isArray(component.horizons)) || !Array.isArray(body.missing)) throw new Error("Soil service returned an incomplete mapped-soil response.");
   return body;
 }

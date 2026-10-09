@@ -77,3 +77,9 @@
 **Decision:** Show the complete registered source, claim, and crop-trait catalog in an in-app research library with citations, applicability, limitations, and review status. Add USDA ERS cover-crop persistence and Iowa State cover-crop economics worksheets as context-only evidence. Do not turn either into a rotation rule, numerical benefit, or ranking.
 
 **Reason:** Users and reviewers need to inspect the basis for the pilot, including negative and economic considerations. Neither source proves a field-specific outcome, and no named agronomist has approved the current rules. The library remains Central Iowa-specific even when global NASA observations are available.
+
+## 2026-10-08 — Make worldwide field exploration functional without exporting Iowa rules
+
+**Decision:** Start with no region preselected. Let users at valid locations outside the Iowa evidence pack enter free-text crop notes and review their own NASA climate and soil-test notes as a non-prescriptive field snapshot. Keep Iowa crop traits, mapped SSURGO lookup, and three rotation patterns gated to their documented region. Treat each live data source as independently available or unavailable, and withhold malformed soil or incomplete IMERG results.
+
+**Reason:** Worldwide is the product goal, so a disabled comparison button should not prevent a farmer elsewhere from using supported global climate data. But a working button cannot imply that Iowa agronomy is valid worldwide. The field snapshot is useful while additional regional soil, crop, season, and rule catalogs are researched and reviewed.

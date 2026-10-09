@@ -2,8 +2,9 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { validatePilotLocation } from "../src/validation/field-inputs.js";
-import { buildSoilQuery, parseSoilResponse } from "../src/api/soil-data.js";
+import { buildSoilQuery, parseSoilResponse, fetchSoilData } from "../src/api/soil-data.js";
 import { querySoil } from "../src/api/soil-service.js";
+import { fetchImergDay } from "../src/api/imerg.js";
 import { buildImergUrl, summarizeImergSamples, queryImergDay } from "../src/api/imerg-service.js";
 import { compareStrategies } from "../src/engine/compare-strategies.js";
 import { buildIndicators } from "../src/engine/indicators.js";
@@ -41,6 +42,16 @@ test("soil lookup does not invent data after a failed request", async () => {
   await assert.rejects(() => querySoil({ lat: 42.035, lon: -93.55 }, async () => ({ ok: true, json: async () => { throw new SyntaxError("bad"); } })), /invalid JSON/);
   await assert.rejects(() => querySoil({ lat: 42.035, lon: -93.55 }, async () => { throw new DOMException("Timeout", "TimeoutError"); }), /timed out/);
   assert.throws(() => parseSoilResponse({ Table: [] }), /No SSURGO map unit/);
+});
+
+test("browser soil and IMERG clients reject incomplete success payloads", async () => {
+  const success = (body) => async () => ({ ok: true, json: async () => body });
+  await assert.rejects(() => fetchSoilData({ lat: 42.035, lon: -93.55 }, success({ sourceId: "usda-ssurgo", mapUnit: { key: "1" }, components: [] })), /incomplete mapped-soil/);
+  await assert.rejects(() => fetchImergDay({ lat: 42.035, lon: -93.55 }, "20250520", success({ sourceId: "nasa-gpm-imerg", sampleCount: 47, value: 2, time: "2025-05-20 UTC", unit: "mm" })), /incomplete daily estimate/);
+  const validSoil = parseSoilResponse({ Table: [["1", "Q", "QA soil", "None", "12", "2", "QA", "80", "Well drained", "0", "20", "0.15", "L"]] });
+  assert.equal((await fetchSoilData({ lat: 42.035, lon: -93.55 }, success(validSoil))).mapUnit.symbol, "Q");
+  const validImerg = { sourceId: "nasa-gpm-imerg", sampleCount: 48, value: 2, time: "2025-05-20 UTC", unit: "mm" };
+  assert.equal((await fetchImergDay({ lat: 42.035, lon: -93.55 }, "20250520", success(validImerg))).value, 2);
 });
 
 test("IMERG URL and incomplete sample response are explicit", () => {

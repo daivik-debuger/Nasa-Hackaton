@@ -17,5 +17,5 @@ export function validateFarmInputs(input, cropIds) {
     if (!Number.isFinite(ph) || ph < 0 || ph > 14) errors.push("Soil pH must be between 0 and 14, or left blank.");
   }
   if (errors.length) throw new Error(errors.join(" "));
-  return { ...input, soilPh: input.soilPh === "" ? null : Number(input.soilPh) };
+  return { ...input, soilPh: input.soilPh === "" || input.soilPh === null || input.soilPh === undefined ? null : Number(input.soilPh) };
 }

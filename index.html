@@ -44,8 +44,8 @@
       <div class="form-grid location-grid">
         <label class="field wide"><span>Field or farm name <small>optional</small></span><input id="fieldName" type="text" placeholder="e.g. North Farm"></label>
         <label class="field wide"><span>Try a public example location <small>optional</small></span><select id="demoLocation"><option value="">Enter my own coordinates</option></select><small class="hint">Examples are public city-area points, not verified farms. NASA climate data can be requested worldwide; local crop evidence may be unavailable.</small></label>
-        <label class="field"><span>Latitude</span><input id="latitude" type="number" step="any" min="-90" max="90" value="42.035" required><small class="hint">Decimal degrees; examples are not verified farm fields</small></label>
-        <label class="field"><span>Longitude</span><input id="longitude" type="number" step="any" min="-180" max="180" value="-93.55" required><small class="hint">Global climate context; regional crop evidence may be unavailable</small></label>
+        <label class="field"><span>Latitude</span><input id="latitude" type="number" step="any" min="-90" max="90" required><small class="hint">Decimal degrees; examples are not verified farm fields</small></label>
+        <label class="field"><span>Longitude</span><input id="longitude" type="number" step="any" min="-180" max="180" required><small class="hint">Global climate context; regional crop evidence may be unavailable</small></label>
         <label class="field"><span>Climate history starts</span><select id="startYear"></select></label>
         <label class="field"><span>Climate history ends</span><select id="endYear"></select></label>
       </div>
@@ -62,7 +62,7 @@
         <div class="panel-title-row"><div><h3>What the recent record shows</h3><p id="climateSubhead">Load NASA POWER data to populate this view.</p></div><span class="nasa-badge">NASA <b>POWER</b></span></div>
         <div id="climateMetrics" class="metrics">
           <div class="metric"><span class="metric-label">MEAN AIR TEMP</span><strong>—</strong><span class="metric-unit">°C · daily mean</span></div>
-          <div class="metric"><span class="metric-label">TOTAL RAINFALL</span><strong>—</strong><span class="metric-unit">mm · period total</span></div>
+          <div class="metric"><span class="metric-label">SUMMED RAINFALL</span><strong>—</strong><span class="metric-unit">mm · valid days only</span></div>
           <div class="metric"><span class="metric-label">HOT DAYS</span><strong>—</strong><span class="metric-unit">days · max ≥ 30°C</span></div>
         </div>
         <div class="chart-wrap"><div class="chart-legend"><span><i class="legend-temp"></i>Daily temperature</span><span><i class="legend-rain"></i>Rainfall</span></div><div id="chart" class="chart-empty">Your NASA data chart will appear here.</div></div>
@@ -75,8 +75,10 @@
     <div class="section-heading"><div><p class="eyebrow">YOUR FARM KNOWLEDGE</p><h2>Add what satellites can’t see</h2><p class="section-intro">You do not need your own weather station or satellite data. A few details about the field make the exploration more useful.</p></div><span class="step-label">02 / 03</span></div>
     <section class="panel farm-panel">
       <div class="form-grid farm-grid">
-        <label class="field"><span>What grew here last season? <small>Central Iowa catalog</small></span><select id="lastCrop"><option value="">Choose one</option></select></label>
-        <label class="field"><span>What grew the season before? <small>Central Iowa catalog</small></span><select id="priorCrop"><option value="">Choose one</option></select></label>
+        <label class="field" id="iowaLastCropField"><span>What grew here last season? <small>Central Iowa catalog</small></span><select id="lastCrop"><option value="">Choose one</option></select></label>
+        <label class="field" id="iowaPriorCropField"><span>What grew the season before? <small>Central Iowa catalog</small></span><select id="priorCrop"><option value="">Choose one</option></select></label>
+        <label class="field" id="globalLastCropField" hidden><span>Last season's crop <small>your note, optional</small></span><input id="globalLastCrop" type="text" maxlength="80" placeholder="e.g. maize or rice"><small class="hint">Recorded only on this page; not used to recommend a rotation.</small></label>
+        <label class="field" id="globalPriorCropField" hidden><span>Crop before that <small>your note, optional</small></span><input id="globalPriorCrop" type="text" maxlength="80" placeholder="e.g. beans"><small class="hint">No regional crop traits are assumed from this note.</small></label>
         <label class="field"><span>Soil texture, if known <small>optional</small></span><select id="soilTexture"><option value="">Not sure / not tested</option><option>Sand or sandy loam</option><option>Loam or silt loam</option><option>Clay or clay loam</option><option>Other / mixed</option></select></label>
         <label class="field"><span>Soil pH from a recent test <small>optional</small></span><input id="soilPh" type="number" step="0.1" min="0" max="14" placeholder="e.g. 6.4"><small class="hint">Leave blank if you don’t have a lab result.</small></label>
         <label class="field field-full"><span>What matters most this season?</span><div class="priority-options"><label class="check-option"><input type="checkbox" value="water"> <span class="checkmark"></span><span>Use water carefully</span></label><label class="check-option"><input type="checkbox" value="cover"> <span class="checkmark"></span><span>Keep soil covered</span></label><label class="check-option"><input type="checkbox" value="diversity"> <span class="checkmark"></span><span>Diversify crop families</span></label><label class="check-option"><input type="checkbox" value="market"> <span class="checkmark"></span><span>Protect my main crop / market</span></label></div></label>
@@ -89,6 +91,7 @@
     <section class="strategy-intro"><span class="idea-star">✳</span><p>Research-only scenarios, not approved recommendations or a ranked “best.” A named agronomy reviewer still needs to approve the crop evidence and rules.</p></section>
     <div class="strategy-grid" id="strategies"><p>Add crop history and choose a priority, then compare three exploratory patterns.</p></div>
     <section class="history-summary panel"><div><p class="eyebrow">YOUR INPUT SUMMARY</p><h3>Field notes for this exploration</h3><p id="inputSummary">Entries stay on this page and are not saved.</p></div><button id="summarize" class="button button-secondary">Compare three strategies</button></section>
+    <div id="comparisonStatus" class="status" role="status" aria-live="polite">Choose crop history to compare supported strategies, or review a global field snapshot.</div>
 
     <section class="research-section" id="research" aria-labelledby="research-title">
       <div class="section-heading"><div><p class="eyebrow">OPEN RESEARCH RECORD</p><h2 id="research-title">Research &amp; sources</h2></div><span class="step-label">EVIDENCE, NOT APPROVAL</span></div>

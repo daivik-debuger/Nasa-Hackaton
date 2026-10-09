@@ -23,6 +23,7 @@ test("rejects an invalid year range", () => {
 test("summarizes the saved real NASA POWER response", () => {
   const summary = summarizePowerPayload(fixture, location);
   assert.equal(summary.count, 7);
+  assert.equal(summary.maxTemperatureCount, 7);
   assert.equal(summary.rainfallCount, 7);
   assert.equal(summary.hotDays, 0);
   assert.ok(Math.abs(summary.mean - (-8.314285714285715)) < 1e-12);
@@ -34,9 +35,11 @@ test("summarizes the saved real NASA POWER response", () => {
 test("excludes the documented fill value from summaries", () => {
   const syntheticMissingCase = structuredClone(fixture);
   syntheticMissingCase.properties.parameter.T2M["20250101"] = -999;
+  syntheticMissingCase.properties.parameter.T2M_MAX["20250103"] = -999;
   syntheticMissingCase.properties.parameter.PRECTOTCORR["20250102"] = -999;
   const summary = summarizePowerPayload(syntheticMissingCase, location);
   assert.equal(summary.count, 6);
+  assert.equal(summary.maxTemperatureCount, 6);
   assert.equal(summary.rainfallCount, 6);
   assert.ok(Math.abs(summary.totalRain - 0.22) < 1e-12);
 });
