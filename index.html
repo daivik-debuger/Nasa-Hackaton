@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="research.css">
   <link rel="stylesheet" href="accessibility.css">
   <script src="src/main.js" type="module"></script>
 </head>
@@ -88,6 +89,17 @@
     <section class="strategy-intro"><span class="idea-star">✳</span><p>Research-only scenarios, not approved recommendations or a ranked “best.” A named agronomy reviewer still needs to approve the crop evidence and rules.</p></section>
     <div class="strategy-grid" id="strategies"><p>Add crop history and choose a priority, then compare three exploratory patterns.</p></div>
     <section class="history-summary panel"><div><p class="eyebrow">YOUR INPUT SUMMARY</p><h3>Field notes for this exploration</h3><p id="inputSummary">Entries stay on this page and are not saved.</p></div><button id="summarize" class="button button-secondary">Compare three strategies</button></section>
+
+    <section class="research-section" id="research" aria-labelledby="research-title">
+      <div class="section-heading"><div><p class="eyebrow">OPEN RESEARCH RECORD</p><h2 id="research-title">Research &amp; sources</h2></div><span class="step-label">EVIDENCE, NOT APPROVAL</span></div>
+      <div class="panel research-panel">
+        <p id="researchSummary">Loading the research catalog…</p>
+        <p id="researchCoverage" class="research-warning">The crop and rotation research below applies to the Central Iowa pilot only.</p>
+        <p class="research-warning">No agronomist has approved this catalog. It does not predict yield, profit, water savings, or field suitability. Verify local soils, timing, equipment, costs, and markets before acting.</p>
+        <div id="researchBody">The research catalog is loading. Source links and limitations will appear here.</div>
+        <button id="retryResearch" class="button button-secondary" type="button" hidden>Retry research catalog</button>
+      </div>
+    </section>
 
     <footer class="footer"><a class="brand footer-brand" href="#top"><span class="brand-mark">F</span><span>fieldshift</span></a><p>Built as a decision-support concept with NASA Earth observations. Data informs questions; it does not replace local expertise.</p><div><a href="https://power.larc.nasa.gov/" target="_blank" rel="noreferrer">NASA POWER</a><span>·</span><a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">USDA NRCS SSURGO</a><span>·</span><a href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noreferrer">NASA GPM IMERG</a></div><small>FieldShift prototype · Climate values are not a forecast · Verify locally before acting</small></footer>
   </main>

@@ -71,3 +71,9 @@
 **Decision:** Keep NASA POWER requests coordinate-based worldwide, add public example points across six continents and a repeatable live POWER smoke check, and continue withholding Iowa soil and crop strategies outside the pilot region. Treat IMERG as independently optional until complete-day samples are dependable.
 
 **Reason:** An Iowa default location obscured the already-global observation path. Example points and live checks make that path testable and visible while preserving the scientific boundary between global gridded climate context and region-specific agronomic evidence.
+
+## 2026-10-08 — Expose the research and preserve its review boundary
+
+**Decision:** Show the complete registered source, claim, and crop-trait catalog in an in-app research library with citations, applicability, limitations, and review status. Add USDA ERS cover-crop persistence and Iowa State cover-crop economics worksheets as context-only evidence. Do not turn either into a rotation rule, numerical benefit, or ranking.
+
+**Reason:** Users and reviewers need to inspect the basis for the pilot, including negative and economic considerations. Neither source proves a field-specific outcome, and no named agronomist has approved the current rules. The library remains Central Iowa-specific even when global NASA observations are available.

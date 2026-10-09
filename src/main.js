@@ -10,6 +10,7 @@ import { compareStrategies } from "./engine/compare-strategies.js";
 import { renderClimate, renderImerg } from "./ui/climate-view.js";
 import { renderSoil } from "./ui/soil-view.js";
 import { renderStrategies } from "./ui/strategy-view.js";
+import { renderResearch } from "./ui/research-view.js";
 import { setStatus } from "./ui/status-view.js";
 
 const $ = (id) => document.getElementById(id);
@@ -45,6 +46,8 @@ async function loadCatalog() {
   if (manifest.regionId !== region.id || evidence.regionId !== region.id || rules.regionId !== region.id) throw new Error("Pilot data has mismatched region IDs.");
   const crops = await Promise.all(manifest.cropFiles.map((id) => json(`./data/crops/${id}.json`)));
   Object.assign(state, { region, crops, evidence: evidence.records, rules: rules.rules, sources: sources.sources });
+  renderResearch(state);
+  $("retryResearch").hidden = true;
   const historyCrops = crops.filter((crop) => crop.roles.some((role) => role !== "cover"));
   for (const id of ["lastCrop", "priorCrop"]) for (const crop of historyCrops) $(id).add(new Option(crop.commonName, crop.id));
   updateCoverage();
@@ -63,6 +66,7 @@ function updateCoverage() {
   try {
     const result = coverage();
     const supported = Boolean(result.region);
+    $("researchCoverage").textContent = supported ? "This research pack applies to the Central Iowa pilot. Its crop and rotation records still need named agronomist review." : "This research pack applies only to Central Iowa. It is displayed for transparency, not as crop or rotation advice for your selected location.";
     setStatus($("coverageStatus"), supported ? "NASA POWER climate context is available to request worldwide. At this Iowa point, mapped SSURGO soil and research-only rotation patterns can also be explored." : "NASA POWER climate context is available to request worldwide. Mapped soil and regional crop-rotation evidence are not yet supported for this location.");
     for (const id of ["lastCrop", "priorCrop", "summarize"]) $(id).disabled = !supported;
     if (!supported) {
@@ -168,7 +172,20 @@ $("summarize").addEventListener("click", () => {
   catch (error) { setStatus($("climateStatus"), error.message, "error"); }
 });
 
-loadCatalog().catch((error) => { updateCoverage(); setStatus($("climateStatus"), `Regional catalog could not load: ${error.message}. Climate context can still be requested, but no rotation comparison is available.`, "error"); });
+function reportCatalogError(error) {
+  Object.assign(state, { region: null, crops: [], evidence: [], rules: [], sources: [] });
+  $("researchSummary").textContent = "Research catalog unavailable. No source or crop claims are being shown.";
+  $("researchBody").textContent = `Could not load the research catalog: ${error.message}`;
+  $("retryResearch").hidden = false;
+  updateCoverage();
+  setStatus($("climateStatus"), `Regional catalog could not load: ${error.message}. Climate context can still be requested, but no rotation comparison is available.`, "error");
+}
+$("retryResearch").addEventListener("click", () => {
+  $("retryResearch").hidden = true;
+  $("researchSummary").textContent = "Retrying the research catalog…";
+  loadCatalog().catch(reportCatalogError);
+});
+loadCatalog().catch(reportCatalogError);
 
 for (const id of ["latitude", "longitude", "startYear", "endYear"]) $(id).addEventListener("change", clearLoadedData);
 const offlineBanner = $("offlineBanner");

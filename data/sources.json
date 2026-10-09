@@ -111,6 +111,28 @@
       "intendedUse": "Potential long-term climate-scenario comparison",
       "limitations": "Climate scenarios are not next-season weather forecasts.",
       "lastReviewed": "2026-10-03"
+    },
+    {
+      "id": "usda-ers-cover-crop-persistence-2026",
+      "name": "Persistence of Cover Crop Use in Crop Production in the United States, 2012–2022",
+      "owner": "USDA Economic Research Service",
+      "url": "https://www.ers.usda.gov/publications/113869",
+      "sourceType": "official-research-report",
+      "integrationStatus": "research-only",
+      "intendedUse": "National context that cover-crop adoption and persistence vary; not a field-level success prediction",
+      "limitations": "U.S. multi-source historical analysis; the overview does not provide a central-Iowa field estimate or explain the reason for any individual farm discontinuing use.",
+      "lastReviewed": "2026-10-08"
+    },
+    {
+      "id": "isu-cover-crop-economics-tool",
+      "name": "Economics of Cover Crops",
+      "owner": "Iowa State University Extension Ag Decision Maker",
+      "url": "https://www.extension.iastate.edu/Agdm/crops/html/a1-91.html",
+      "sourceType": "university-extension-decision-tool",
+      "integrationStatus": "research-only",
+      "intendedUse": "Identify the farm-specific projected and actual cost/benefit scenarios needed before an economic claim",
+      "limitations": "Worksheets require local numbers; the page does not prove a particular field's net return or supply an app-ready price model.",
+      "lastReviewed": "2026-10-08"
     }
   ]
 }
