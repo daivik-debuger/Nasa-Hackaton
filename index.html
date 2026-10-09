@@ -25,40 +25,28 @@
   <header class="app-header">
     <div class="header-inner">
       <a class="brand" href="#top" aria-label="FieldShift home"><span class="brand-mark" aria-hidden="true">F</span><span>FieldShift</span></a>
-      <nav class="primary-nav" aria-label="Planning sections"><a href="#top">Overview</a><a href="#location">Location</a><a href="#climate">Climate</a><a href="#farm">Field</a><a href="#crops">Crops</a><a href="#strategies-section">Strategies</a><a href="#research">Sources</a></nav>
+      <nav class="primary-nav" aria-label="Main sections"><a href="#top" data-tab-link="dashboard">Dashboard</a><a href="#farm" data-tab-link="plan">Plan</a><a href="#crops" data-tab-link="crops">Crops</a><a href="#research" data-tab-link="research">Research</a></nav>
       <span class="prototype-label">Research prototype</span>
     </div>
   </header>
 
   <main id="main-content" class="page-shell">
+    <div id="dashboardView" class="app-view" data-view="dashboard">
     <section id="top" class="farm-hero section-anchor" aria-labelledby="page-title">
       <div class="farm-hero-header">
-        <div><p class="hero-eyebrow">FIELD / CLIMATE / EVIDENCE</p><h1 id="page-title">Your farm, in context.</h1><p>See the climate history for a place, then explore crop rotations with the research behind them.</p></div>
+        <div><p class="hero-eyebrow">YOUR FARM DASHBOARD</p><h1 id="page-title">Your field at a glance.</h1><p>Choose a point on the map and load NASA climate history. Then explore field planning and crop research in their own tabs.</p></div>
         <a class="hero-action" href="#location">Choose a location <span aria-hidden="true">↗</span></a>
       </div>
       <div class="farm-overview-grid">
-        <aside class="hero-glass hero-climate-card" aria-labelledby="overview-climate-title">
-          <div class="hero-card-top"><h2 id="overview-climate-title">NASA climate history</h2><span>POWER</span></div>
-          <div class="hero-reading"><strong id="overviewTemp">—</strong><span>Mean air temperature <small>°C · valid days</small></span></div>
-          <div class="hero-reading"><strong id="overviewRain">—</strong><span>Valid-day rainfall sum <small>mm · coverage shown below</small></span></div>
-          <div class="hero-reading"><strong id="overviewHotDays">—</strong><span>Hot days in period <small>Max air temp ≥ 30°C</small></span></div>
-          <p id="overviewPeriod" class="hero-card-foot">Choose a place and load NASA POWER history.</p>
-        </aside>
-
         <div class="hero-glass hero-feature" aria-labelledby="overview-feature-title">
-          <div class="hero-card-top"><div><p class="hero-eyebrow">OBSERVATION QUALITY</p><h2 id="overview-feature-title">How complete is the climate record?</h2></div><span>NASA POWER</span></div>
-          <div class="hero-feature-visual"><div id="overviewRing" class="coverage-ring" style="--coverage: 0%" role="img" aria-label="Climate data coverage unavailable until NASA data is loaded"><div class="coverage-ring-center"><strong id="overviewCoverage">—</strong><span id="overviewCoverageLabel">Load data to check</span></div></div><img class="hero-wheat" src="./assets/wheat-ear.png" alt="" loading="eager"></div>
+          <div class="hero-card-top"><div><p class="hero-eyebrow">NASA POWER DATA COVERAGE</p><h2 id="overview-feature-title">How complete is the climate record?</h2></div><span>HISTORICAL</span></div>
+          <div class="hero-feature-visual"><div id="overviewRing" class="coverage-ring" style="--coverage: 0%" role="img" aria-label="Climate data coverage unavailable until NASA data is loaded"><div class="coverage-ring-center"><strong id="overviewCoverage">—</strong><span id="overviewCoverageLabel">Load data to check</span></div></div></div>
           <div class="hero-feature-footer"><div><span class="hero-dot hero-dot-lime"></span><strong id="overviewTempDays">—</strong><small>Temperature days</small></div><div><span class="hero-dot hero-dot-gold"></span><strong id="overviewRainDays">—</strong><small>Rainfall days</small></div><div><span class="hero-dot hero-dot-cream"></span><strong id="overviewRequestedDays">—</strong><small>Requested days</small></div></div>
           <p class="hero-feature-note">The ring shows the least complete of the temperature and rainfall series. It is a data-coverage measure, not a farm-health score.</p>
+          <div class="hero-place"><span>SELECTED PLACE</span><strong id="overviewPlace">No location selected</strong></div>
         </div>
-
-        <aside class="hero-side" aria-label="Research and field context">
-          <div class="hero-glass hero-research-card"><div class="hero-card-top"><h2>Research library</h2><span>IOWA PILOT</span></div><div class="hero-mini-stat"><strong id="overviewCrops">—</strong><span>crop records</span></div><div class="hero-mini-stat"><strong id="overviewEvidence">—</strong><span>evidence claims</span></div><p>Source-linked, research-only records awaiting agronomist review.</p><a href="#crops">Explore crops <span aria-hidden="true">↗</span></a></div>
-          <a class="hero-photo-link" href="#farm"><span>Bring your own field knowledge <b aria-hidden="true">↗</b></span></a>
-          <div class="hero-glass hero-location-card"><span>SELECTED PLACE</span><strong id="overviewPlace">No location selected</strong><small>Worldwide NASA climate access; regional crop advice is currently limited to the Iowa pilot.</small></div>
-        </aside>
       </div>
-      <p class="hero-disclosure">Photographs are decorative illustrations. NASA observations are gridded historical context, not field measurements or a forecast.</p>
+      <p class="hero-disclosure">The background photograph is decorative. NASA observations are gridded historical context, not field measurements or a forecast.</p>
     </section>
     <div class="dashboard-layout">
     <aside class="dashboard-map surface" aria-labelledby="map-heading">
@@ -108,7 +96,9 @@
       <section class="surface imerg-panel" aria-labelledby="satellite-title"><div><p class="section-kicker">Second NASA dataset</p><h3 id="satellite-title">GPM IMERG rainfall cross-check</h3><p id="imergStatus">Load data to compare IMERG with NASA POWER on the wettest valid day in the selected end year. This is historical context, not a forecast.</p></div><div id="imergMetric" class="observation-value">—</div></section>
     </section>
     </div>
+    </div>
 
+    <div id="planView" class="app-view" data-view="plan" hidden>
     <section id="farm" class="workflow-section section-anchor" aria-labelledby="farm-heading">
       <header class="section-header"><span class="step-number" aria-hidden="true">3</span><div><p class="section-kicker">Add local knowledge</p><h2 id="farm-heading">Describe the field</h2><p>Only farmer-entered lab results and notes are treated as local field information.</p></div></header>
       <div class="surface farm-panel">
@@ -126,16 +116,6 @@
       </div>
     </section>
 
-    <section id="crops" class="crops-section section-anchor" aria-labelledby="crops-heading">
-      <header class="crop-section-header"><div><p class="section-kicker">THE REGIONAL CROP LIBRARY</p><h2 id="crops-heading">Know the crops behind the rotation.</h2><p>Explore growing windows, water considerations, possible benefits, and risks from the sourced Central Iowa pilot records.</p></div><a class="text-link" href="#research">View all research and sources <span aria-hidden="true">↗</span></a></header>
-      <div class="crop-explorer surface">
-        <div class="crop-explorer-top"><div><h3>Your crop context</h3><p id="selectedCropContext">Choose a field and enter crop history to connect your notes to this pilot catalog.</p></div><span class="crop-scope">Central Iowa · research only</span></div>
-        <div class="crop-tools"><label class="field"><span>Find a crop</span><input id="cropSearch" type="search" placeholder="Search crop or family" autocomplete="off"></label><label class="field"><span>Show</span><select id="cropRole"><option value="all">All pilot crops</option><option value="cash-grain">Grain and cash crops</option><option value="cover">Cover crops</option><option value="forage">Forage crops</option></select></label></div>
-        <p id="cropCount" class="crop-count" role="status" aria-live="polite">Loading source-linked crop records…</p>
-        <div id="cropCards" class="crop-card-grid"><p class="empty-state">The crop catalog is loading. Crop traits and source links will appear here.</p></div>
-      </div>
-    </section>
-
     <section id="strategies-section" class="workflow-section section-anchor" aria-labelledby="strategies-heading">
       <header class="section-header"><span class="step-number" aria-hidden="true">4</span><div><p class="section-kicker">Compare tradeoffs</p><h2 id="strategies-heading">Rotation strategies to discuss</h2><p>Three distinct patterns are shown where the regional evidence pack applies. They are not ranked recommendations.</p></div></header>
       <div class="research-boundary"><strong>Research-only output.</strong><span>No named agronomist has approved the current rules. Confirm local timing, seed, equipment, pest pressure, costs, markets, and water constraints.</span></div>
@@ -143,11 +123,26 @@
       <div id="comparisonStatus" class="status" role="status" aria-live="polite">Choose crop history to compare supported strategies, or review a worldwide field snapshot.</div>
       <div class="strategy-grid" id="strategies"><p class="empty-state">Choose a location, load available data, and add field information to begin.</p></div>
     </section>
+    </div>
 
+    <div id="cropsView" class="app-view" data-view="crops" hidden>
+    <section id="crops" class="crops-section section-anchor" aria-labelledby="crops-heading">
+      <header class="crop-section-header"><div><p class="section-kicker">CROP FIELD GUIDE</p><h2 id="crops-heading">See the plants. Explore the evidence.</h2><p>Illustrative plant portraits, growing windows, water considerations, possible benefits, and risks from the sourced Central Iowa pilot records. Illustrations are not for plant identification.</p></div><a class="text-link" href="#research">View all research and sources <span aria-hidden="true">↗</span></a></header>
+      <div class="crop-explorer surface">
+        <div class="crop-explorer-top"><div><h3>Your crop context</h3><p id="selectedCropContext">Choose a field and enter crop history to connect your notes to this pilot catalog.</p></div><span class="crop-scope">Central Iowa · research only</span></div>
+        <div class="crop-tools"><label class="field"><span>Find a crop</span><input id="cropSearch" type="search" placeholder="Search crop or family" autocomplete="off"></label><label class="field"><span>Show</span><select id="cropRole"><option value="all">All pilot crops</option><option value="cash-grain">Grain and cash crops</option><option value="cover">Cover crops</option><option value="forage">Forage crops</option></select></label></div>
+        <p id="cropCount" class="crop-count" role="status" aria-live="polite">Loading source-linked crop records…</p>
+        <div id="cropCards" class="crop-card-grid"><p class="empty-state">The crop catalog is loading. Crop traits and source links will appear here.</p></div>
+      </div>
+    </section>
+    </div>
+
+    <div id="researchView" class="app-view" data-view="research" hidden>
     <section class="research-section section-anchor" id="research" aria-labelledby="research-title">
       <header class="section-header compact-header"><div><p class="section-kicker">Trace every claim</p><h2 id="research-title">Research and sources</h2><p>Inspect applicability, limitations, confidence, review status, and direct source links.</p></div><span class="section-state">Evidence—not approval</span></header>
       <div class="surface research-panel"><p id="researchSummary">Loading the research catalog…</p><p id="researchCoverage" class="research-warning">The crop and rotation research below applies to the Central Iowa pilot only.</p><p class="research-warning">No agronomist has approved this catalog. It does not predict yield, profit, water savings, or field suitability.</p><div id="researchBody">The research catalog is loading. Source links and limitations will appear here.</div><button id="retryResearch" class="button button-secondary" type="button" hidden>Retry research catalog</button></div>
     </section>
+    </div>
   </main>
 
   <footer class="site-footer"><div><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">F</span><span>FieldShift</span></a><p>NASA data informs the conversation; local expertise makes the decision.</p></div><nav aria-label="Data source links"><a href="https://power.larc.nasa.gov/" target="_blank" rel="noreferrer">NASA POWER</a><a href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noreferrer">NASA GPM IMERG</a><a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">USDA SSURGO</a></nav></footer>

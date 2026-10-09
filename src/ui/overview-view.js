@@ -9,10 +9,8 @@ export function climateCoverage(power) {
   return { days, percent: Math.max(0, Math.min(100, Math.round(Math.min(power.count, power.rainfallCount) / days * 100))) };
 }
 
-export function renderOverview({ power = null, crops = [], evidence = [], point = null, fieldName = "" } = {}) {
+export function renderOverview({ power = null, point = null, fieldName = "" } = {}) {
   const $ = (id) => document.getElementById(id);
-  $("overviewCrops").textContent = crops.length ? number(crops.length) : "—";
-  $("overviewEvidence").textContent = evidence.length ? number(evidence.length) : "—";
 
   const name = fieldName.trim();
   const validPoint = Number.isFinite(point?.lat) && Number.isFinite(point?.lon) && Math.abs(point.lat) <= 90 && Math.abs(point.lon) <= 180;
@@ -21,12 +19,6 @@ export function renderOverview({ power = null, crops = [], evidence = [], point 
     : "No location selected";
 
   const coverage = climateCoverage(power);
-  $("overviewTemp").textContent = power ? `${number(power.mean, 1)}°C` : "—";
-  $("overviewRain").textContent = power ? `${number(power.totalRain)} mm` : "—";
-  $("overviewHotDays").textContent = power ? number(power.hotDays) : "—";
-  $("overviewPeriod").textContent = power
-    ? `${power.start}–${power.end} · NASA POWER daily grid values. Details and limitations below.`
-    : "Choose a place and load NASA POWER history.";
   $("overviewTempDays").textContent = power ? number(power.count) : "—";
   $("overviewRainDays").textContent = power ? number(power.rainfallCount) : "—";
   $("overviewRequestedDays").textContent = coverage ? number(coverage.days) : "—";

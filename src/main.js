@@ -13,6 +13,7 @@ import { renderStrategies } from "./ui/strategy-view.js";
 import { renderResearch } from "./ui/research-view.js";
 import { renderOverview } from "./ui/overview-view.js";
 import { renderCropExplorer, renderSelectedCropContext } from "./ui/crop-view.js";
+import { createViewRouter } from "./ui/view-router.js";
 import { createLocationPicker } from "./ui/location-picker.js";
 import { setStatus } from "./ui/status-view.js";
 
@@ -43,6 +44,7 @@ const locationPicker = createLocationPicker({
     clearLoadedData();
   }
 });
+createViewRouter({ onChange: (view) => { if (view === "dashboard") locationPicker.refresh?.(); } });
 
 for (const location of GLOBAL_DEMO_LOCATIONS) $("demoLocation").add(new Option(location.label, location.id));
 $("demoLocation").addEventListener("change", () => {

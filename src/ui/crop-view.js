@@ -9,6 +9,7 @@ const labels = {
   rotationBenefits: "Possible rotation benefit",
   rotationRisks: "Possible rotation risk"
 };
+const portraitIds = new Set(["alfalfa", "cereal-rye", "corn", "oats", "oilseed-radish", "red-clover", "soybean", "winter-wheat"]);
 
 function valueText(value) {
   if (value === null || value === undefined) return "Not established for this pilot";
@@ -34,7 +35,8 @@ export function cropCardsMarkup(crops, sources, { search = "", role = "all" } = 
   const html = filtered.map((crop) => {
     const period = crop.traits.find((trait) => trait.trait === "growingPeriod");
     const details = crop.traits.map((trait) => `<p><b>${esc(labels[trait.trait] || trait.trait)}:</b> ${esc(valueText(trait.value))}${trait.unit ? ` ${esc(trait.unit)}` : ""}. <span>Limit: ${esc(trait.limitations)}</span><br>${sourceLinks(trait.sourceIds, byId)}</p>`).join("");
-    return `<article class="crop-profile"><div class="crop-profile-top"><span class="crop-profile-mark" aria-hidden="true">${esc(crop.commonName.charAt(0))}</span><span class="crop-profile-role">${esc(crop.roles.join(" · "))}</span></div><h3>${esc(crop.commonName)}</h3><em>${esc(crop.scientificName)}</em><p class="crop-family">${esc(crop.cropFamily)} family</p><p class="crop-period">${esc(valueText(period?.value))}</p><details><summary>Explore traits and sources</summary><div class="crop-profile-details"><p><b>Applies to:</b> ${esc(crop.applicability)}</p>${details}</div></details><p class="crop-profile-note">${esc(crop.review?.status || "unreviewed")} · Central Iowa pilot</p></article>`;
+    const portrait = portraitIds.has(crop.id) ? `<figure class="crop-portrait"><img src="./assets/crops/${crop.id}.jpg" alt="Illustration of ${esc(crop.commonName)} plant" loading="lazy"><figcaption>Illustration</figcaption></figure>` : "";
+    return `<article class="crop-profile">${portrait}<div class="crop-profile-top"><span class="crop-profile-mark" aria-hidden="true">${esc(crop.commonName.charAt(0))}</span><span class="crop-profile-role">${esc(crop.roles.join(" · "))}</span></div><h3>${esc(crop.commonName)}</h3><em>${esc(crop.scientificName)}</em><p class="crop-family">${esc(crop.cropFamily)} family</p><p class="crop-period">${esc(valueText(period?.value))}</p><details><summary>Explore traits and sources</summary><div class="crop-profile-details"><p><b>Applies to:</b> ${esc(crop.applicability)}</p>${details}</div></details><p class="crop-profile-note">${esc(crop.review?.status || "unreviewed")} · Central Iowa pilot</p></article>`;
   }).join("");
   return { count: filtered.length, html: html || '<p class="empty-state">No pilot crop records match this search. Try another term or filter.</p>' };
 }

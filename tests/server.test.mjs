@@ -47,6 +47,8 @@ test("public server serves app assets but not repository internals", async () =>
   assert.equal(overviewImage.status, 200);
   assert.equal(overviewImage.headers["Content-Type"], "image/jpeg");
   assert.equal((await call("/assets/harvest-card.jpg")).status, 200);
+  assert.equal((await call("/assets/crops/oats.jpg")).headers["Content-Type"], "image/jpeg");
+  assert.equal((await call("/assets/crops/unknown.jpg")).status, 404);
   const wheatImage = await call("/assets/wheat-ear.png");
   assert.equal(wheatImage.status, 200);
   assert.equal(wheatImage.headers["Content-Type"], "image/png");

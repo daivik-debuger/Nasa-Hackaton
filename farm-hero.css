@@ -102,20 +102,46 @@
 .crop-profile-note { margin-top: 15px; color: #786127; font-size: 10px; }
 .crop-card-grid .empty-state { grid-column: 1 / -1; }
 
+/* The landing tab is intentionally just place selection and Earth-observation context. */
+.app-view[hidden] { display: none !important; }
+.app-view[data-view="plan"], .app-view[data-view="crops"], .app-view[data-view="research"] { padding-top: 24px; }
+.primary-nav a[aria-current="page"] { background: var(--green-soft); color: var(--green-dark); }
+.farm-overview-grid { grid-template-columns: minmax(0, 1fr); }
+.hero-feature-visual { min-height: 185px; }
+.coverage-ring { width: min(185px, 70%); }
+.hero-climate-card { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; align-content: start; }
+.hero-climate-card .hero-card-top, .hero-climate-card .hero-card-foot, .hero-climate-card .hero-place { grid-column: 1 / -1; }
+.hero-climate-card .hero-reading { padding: 9px 0; }
+.hero-climate-card .hero-reading strong { font-size: 34px; }
+.hero-climate-card .hero-card-foot { margin-top: 10px; }
+.hero-climate-card .hero-place { margin-top: 12px; padding-top: 10px; }
+.hero-place { margin-top: 21px; padding-top: 17px; border-top: 1px solid rgba(225, 242, 211, .23); }
+.hero-place span { display: block; color: #cce8a2; font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+.hero-place strong { display: block; margin-top: 7px; font-size: 15px; overflow-wrap: anywhere; }
+.crop-portrait { position: relative; height: 180px; margin: -8px -8px 0; overflow: hidden; border-radius: 13px; background: #f4f0e6; }
+.crop-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; }
+.crop-portrait figcaption { position: absolute; right: 7px; bottom: 7px; padding: 4px 7px; border-radius: 20px; background: rgba(251, 250, 245, .92); color: #536250; font-size: 9px; font-weight: 750; }
+.crop-profile-top { margin-top: 12px; }
+
+@media (min-width: 1101px) {
+  #dashboardView { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 22px; align-items: start; }
+  #dashboardView > .farm-hero { grid-column: 1; grid-row: 1; }
+  #dashboardView > .dashboard-layout { display: contents; }
+  #dashboardView .dashboard-map { grid-column: 2; grid-row: 1 / 3; margin-top: 24px; }
+  #dashboardView #location { grid-column: 1; grid-row: 2; }
+  #dashboardView #climate { grid-column: 1 / -1; grid-row: 3; }
+}
+
 @media (max-width: 1180px) {
-  .farm-overview-grid { grid-template-columns: minmax(170px, .65fr) minmax(350px, 1.4fr) minmax(170px, .65fr); gap: 10px; }
+  .farm-overview-grid { grid-template-columns: minmax(0, 1fr); }
   .hero-climate-card, .hero-feature, .hero-research-card, .hero-location-card { padding: 15px; }
-  .hero-feature-visual { min-height: 300px; }
-  .coverage-ring { width: min(275px, 78%); }
+  .hero-feature-visual { min-height: 205px; }
+  .coverage-ring { width: min(190px, 78%); }
   .crop-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 960px) {
-  .farm-overview-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); }
-  .hero-feature { grid-column: 1; grid-row: 1; }
-  .hero-climate-card { grid-column: 2; grid-row: 1; }
-  .hero-side { grid-column: 1 / -1; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto; }
-  .hero-photo-link { min-height: 190px; }
+  .farm-overview-grid { grid-template-columns: minmax(0, 1fr); }
   .hero-reading { padding: 16px 0 14px; }
   .hero-reading strong { font-size: 35px; }
 }
@@ -126,14 +152,11 @@
   .farm-hero h1 { font-size: clamp(39px, 10vw, 54px); }
   .farm-hero-header p:last-child { font-size: 13px; }
   .farm-overview-grid { grid-template-columns: 1fr; gap: 11px; }
-  .hero-feature, .hero-climate-card, .hero-side { grid-column: 1; grid-row: auto; }
+  .hero-feature, .hero-climate-card { grid-column: 1; grid-row: auto; }
   .hero-feature { order: 1; }
   .hero-climate-card { order: 2; }
-  .hero-side { order: 3; grid-template-columns: 1fr 1fr; }
-  .hero-location-card { grid-column: 1 / -1; }
-  .hero-feature-visual { min-height: 305px; }
-  .coverage-ring { width: 260px; }
-  .hero-wheat { width: 370px; }
+  .hero-feature-visual { min-height: 235px; }
+  .coverage-ring { width: 210px; }
   .hero-climate-card { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 10px; }
   .hero-climate-card .hero-card-top, .hero-climate-card .hero-card-foot { grid-column: 1 / -1; }
   .hero-reading { min-width: 0; padding: 13px 0; }
@@ -147,15 +170,13 @@
 @media (max-width: 500px) {
   .farm-hero { padding: 18px 12px; }
   .farm-hero-header { margin-bottom: 20px; }
-  .farm-hero h1 { font-size: 39px; }
-  .hero-feature-visual { min-height: 260px; }
-  .coverage-ring { width: min(230px, 78%); }
-  .hero-wheat { width: 300px; }
+  .farm-hero h1 { font-size: 34px; }
+  .hero-feature-visual { min-height: 175px; }
+  .coverage-ring { width: 165px; }
+  .coverage-ring-center { min-height: 74px; }
+  .hero-climate-card { display: none; }
   .hero-feature-footer strong { font-size: 19px; }
   .hero-feature-footer small { margin-left: 0; font-size: 9px; }
-  .hero-side { grid-template-columns: 1fr; }
-  .hero-location-card { grid-column: 1; }
-  .hero-climate-card { display: block; }
   .hero-reading { padding: 14px 0; }
   .hero-reading strong { font-size: 34px; }
   .crop-explorer { padding: 16px; }

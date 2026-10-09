@@ -13,3 +13,18 @@ The images under `assets/` were made with the built-in image-generation tool for
 ## `assets/harvest-card.jpg`
 
 > Use case: photorealistic-natural. Asset type: small landscape photo card on a farm dashboard. Realistic modern combine harvester working through a green agricultural field near sunset, seen from a slight distance at field level, warm sky glow, deep natural greens, documentary editorial style, clean composition with subject in right half and room for a dark text overlay on the left. No logos, labels, text, numbers, watermark, artificial status indicators, or exaggerated yields. The photograph is decorative and does not represent a specific user's farm.
+
+## `assets/crops/*.jpg`
+
+Eight crop portraits were generated with the built-in image tool as separate images, then resized to JPEG for mobile loading. They are illustrations, not verified identification references or agronomic evidence. Every prompt used this exact frame, replacing only `{subject}` with the line below:
+
+> Use case: scientific-educational. Asset type: one square botanical crop portrait for a farm education app. Subject: {subject}. Style: accurate natural-history editorial illustration, life-like proportions, clean warm cream background, plant fills frame with enough breathing room. Clear distinctive morphology, no other species, no hands, no tools, no field, no chart. No labels, text, letters, numbers, logos, borders, or watermark. This is an illustrative reference, not diagnostic evidence.
+
+- `corn.jpg`: Mature corn (maize) plant, tall upright stalk, broad blade-like leaves and one visible ear with husk and silk
+- `soybean.jpg`: Mature soybean plant, branching bushy habit, trifoliate oval leaves and several small fuzzy pods
+- `winter-wheat.jpg`: Mature winter wheat plant, slim upright stems, narrow leaves and multiple golden grain heads with short awns
+- `oats.jpg`: Mature oats plant, narrow grassy leaves and characteristic open branching drooping panicles with oat grains
+- `alfalfa.jpg`: Flowering alfalfa plant, slender branching stems, trifoliate narrow oval leaves, small clusters of purple pea-like flowers
+- `cereal-rye.jpg`: Mature cereal rye grass plant, tall slender stems with long narrow awned seed heads and narrow leaves
+- `oilseed-radish.jpg`: Oilseed radish plant, leafy rosette with lobed rough leaves, white four-petal brassica flowers, and one visible thick white taproot
+- `red-clover.jpg`: Flowering red clover plant, rounded pink-purple flower heads and trifoliate oval leaves with pale chevron markings

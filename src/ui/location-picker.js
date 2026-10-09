@@ -66,7 +66,7 @@ export function createLocationPicker({ onSelect, onClear }) {
     streetButton.disabled = true;
     exactCoordinates.open = true;
     status.textContent = "The map could not load. Enter exact coordinates below or choose a public example.";
-    return { showPin, clearPin };
+    return { showPin, clearPin, refresh() {} };
   }
 
   map = leaflet.map(mapElement, { worldCopyJump: true, minZoom: 2, maxZoom: 18 }).setView([20, 0], 2);
@@ -108,5 +108,5 @@ export function createLocationPicker({ onSelect, onClear }) {
   streetButton.addEventListener("click", () => setMapStyle("streets"));
   setMapStyle("satellite");
   map.on("click", (event) => selectPoint(event.latlng, "Pin placed. Drag it to refine the point."));
-  return { showPin, clearPin };
+  return { showPin, clearPin, refresh() { map.invalidateSize(); } };
 }

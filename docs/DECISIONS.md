@@ -107,3 +107,9 @@
 **Decision:** Use a dark agricultural photograph, olive data cards, a wheat accent, and a lime coverage ring to follow the supplied visual reference. Populate the data cards from actual NASA POWER response coverage and the local evidence catalog; show placeholders before loading. Put the Central Iowa crop profiles in a separate searchable research section with limitations and direct sources. Label generated photographs as decorative, never as farm imagery or a crop diagnosis.
 
 **Reason:** The user asked for a closer visual match and an “all about crops” area. The reference contains financial, soil-health, and productivity numbers that this app cannot establish, so its composition is adapted without copying unsupported claims. The ring measures valid observation days, not farm performance or crop suitability.
+
+## 2026-10-09 — Separate dashboard, planning, crops, and research
+
+**Decision:** Keep the home dashboard focused on location selection, a NASA POWER valid-day coverage circle, historical climate summaries, trends, and the IMERG status. Move farmer inputs and strategy comparison into a Plan view, source-linked crop profiles and illustrative plant portraits into a Crops view, and the full evidence catalog into a Research view. Preserve hash deep links to each subsection and do not imply generated plant artwork is identification evidence.
+
+**Reason:** A single long page made important climate context and field controls compete with the crop library. Focused views make the map and observations immediately legible without discarding the uncertainty and source detail required by the challenge.

@@ -16,6 +16,8 @@ test("crop explorer filters sourced pilot records and escapes research text", ()
   const matching = cropCardsMarkup([crop], [source], { search: "poaceae", role: "cover" });
   assert.equal(matching.count, 1);
   assert.match(matching.html, /Spring grain/);
+  assert.match(matching.html, /assets\/crops\/oats\.jpg/);
+  assert.match(matching.html, /Illustration of Oats plant/);
   assert.match(matching.html, /https:\/\/example.edu\/guide/);
   assert.doesNotMatch(matching.html, /<script>/);
   assert.equal(cropCardsMarkup([crop], [source], { role: "forage" }).count, 0);
