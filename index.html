@@ -23,6 +23,7 @@
 <body>
   <header class="topbar">
     <a class="brand" href="#top" aria-label="FieldShift home"><span class="brand-mark">F</span><span>fieldshift</span></a>
+    <nav class="topbar-nav" aria-label="Page sections"><a href="#location">Place</a><a href="#climate">Climate</a><a href="#farm">Farm</a><a href="#strategies-section">Strategies</a></nav>
     <div class="topbar-right"><span class="prototype-tag"><span class="pulse"></span> EARLY PROTOTYPE</span><span class="avatar">FS</span></div>
   </header>
 
@@ -41,12 +42,11 @@
       </div>
     </section>
 
-    <div class="section-heading"><div><p class="eyebrow">YOUR FIELD SNAPSHOT</p><h2>Start with a place</h2></div><span class="step-label">01 / 03</span></div>
+    <div id="location" class="section-heading section-anchor"><div><p class="eyebrow">YOUR FIELD SNAPSHOT</p><h2>Start with a place</h2></div><span class="step-label">01 / 03</span></div>
     <section class="panel location-panel" aria-labelledby="location-title">
       <div class="panel-title-row"><div><h3 id="location-title">Where is the field?</h3><p>Drop a pin or choose a public example. Your selected point is used to request NASA climate context.</p></div><span class="data-chip"><span class="chip-dot"></span> LOCATION-BASED</span></div>
-      <div class="form-grid location-grid">
-        <label class="field wide"><span>Field or farm name <small>optional</small></span><input id="fieldName" type="text" placeholder="e.g. North Farm"></label>
-        <div class="map-field field-full">
+      <div class="location-workspace">
+        <div class="map-field">
           <p class="map-instructions">Tap the map to drop a pin, then drag it or zoom in to refine the point.</p>
           <div id="fieldMap" aria-label="Interactive location map. Pan with arrow keys, then use the Drop pin at map center button."></div>
           <div class="map-actions"><button id="useMapCenter" class="button button-secondary" type="button">Drop pin at map center</button><button id="clearPin" class="button button-secondary" type="button" disabled>Clear pin</button></div>
@@ -54,10 +54,14 @@
           <p id="mapStatus" role="status" aria-live="polite">Loading the map…</p>
           <p class="map-privacy">Map tiles for the visible area come from OpenStreetMap; viewing the map sends tile requests to that service. Tiles are not stored for offline use by FieldShift.</p>
         </div>
-        <label class="field wide"><span>Or choose a public example location <small>optional</small></span><select id="demoLocation"><option value="">Use my map pin or exact coordinates</option></select><small class="hint">Examples are public city-area points, not verified farms. NASA climate data can be requested worldwide; local crop evidence may be unavailable.</small></label>
-        <details id="exactCoordinates" class="exact-coordinate-details field-full"><summary>Enter exact coordinates instead</summary><div class="form-grid exact-coordinate-grid"><label class="field"><span>Latitude</span><input id="latitude" type="number" step="any" min="-90" max="90" required><small class="hint">Decimal degrees, −90 to 90</small></label><label class="field"><span>Longitude</span><input id="longitude" type="number" step="any" min="-180" max="180" required><small class="hint">Decimal degrees, −180 to 180</small></label></div></details>
-        <label class="field"><span>Climate history starts</span><select id="startYear"></select></label>
-        <label class="field"><span>Climate history ends</span><select id="endYear"></select></label>
+        <div class="location-settings" aria-label="Location and climate period settings">
+          <p class="settings-kicker">FIELD SETTINGS</p>
+          <label class="field"><span>Field or farm name <small>optional</small></span><input id="fieldName" type="text" placeholder="e.g. North Farm"></label>
+          <label class="field"><span>Or choose a public example <small>optional</small></span><select id="demoLocation"><option value="">Use my map pin or exact coordinates</option></select><small class="hint">Public city-area examples, not verified farms.</small></label>
+          <details id="exactCoordinates" class="exact-coordinate-details"><summary>Enter exact coordinates instead</summary><div class="form-grid exact-coordinate-grid"><label class="field"><span>Latitude</span><input id="latitude" type="number" step="any" min="-90" max="90" required><small class="hint">−90 to 90</small></label><label class="field"><span>Longitude</span><input id="longitude" type="number" step="any" min="-180" max="180" required><small class="hint">−180 to 180</small></label></div></details>
+          <div class="period-grid"><label class="field"><span>Climate history starts</span><select id="startYear"></select></label><label class="field"><span>Climate history ends</span><select id="endYear"></select></label></div>
+          <p class="settings-note">NASA climate context can be requested worldwide. Local crop and soil evidence may still be unavailable.</p>
+        </div>
       </div>
       <div id="coverageStatus" class="status" role="status" aria-live="polite">Checking available data and regional evidence for this location…</div>
       <div id="offlineBanner" class="status error" role="status" hidden>You appear to be offline. The app shell can reopen, but live NASA and soil data need a connection. Retry when online.</div>
@@ -66,7 +70,7 @@
       <div id="climateStatus" class="status" role="status" aria-live="polite">Ready when you are. Load data to see the recent climate context.</div>
     </section>
 
-    <section class="section-heading climate-heading"><div><p class="eyebrow">NASA EARTH OBSERVATIONS</p><h2>Climate context</h2></div><span id="periodBadge" class="step-label">WAITING FOR DATA</span></section>
+    <section id="climate" class="section-heading climate-heading section-anchor"><div><p class="eyebrow">NASA EARTH OBSERVATIONS</p><h2>Climate context</h2></div><span id="periodBadge" class="step-label">WAITING FOR DATA</span></section>
     <section class="climate-grid">
       <article class="panel climate-panel">
         <div class="panel-title-row"><div><h3>What the recent record shows</h3><p id="climateSubhead">Load NASA POWER data to populate this view.</p></div><span class="nasa-badge">NASA <b>POWER</b></span></div>
@@ -82,7 +86,7 @@
     </section>
     <section class="panel observation-panel" aria-labelledby="satellite-title"><div><p class="eyebrow">SECOND NASA DATASET · GPM IMERG</p><h3 id="satellite-title">Satellite rainfall cross-check</h3><p id="imergStatus">Load data to compare IMERG with NASA POWER on the wettest valid day in your selected end year. This is historical context, not a forecast.</p></div><div id="imergMetric" class="observation-value">—</div></section>
 
-    <div class="section-heading"><div><p class="eyebrow">YOUR FARM KNOWLEDGE</p><h2>Add what satellites can’t see</h2><p class="section-intro">You do not need your own weather station or satellite data. A few details about the field make the exploration more useful.</p></div><span class="step-label">02 / 03</span></div>
+    <div id="farm" class="section-heading farm-heading section-anchor"><div><p class="eyebrow">YOUR FARM KNOWLEDGE</p><h2>Add what satellites can’t see</h2><p class="section-intro">You do not need your own weather station or satellite data. A few details about the field make the exploration more useful.</p></div><span class="step-label">02 / 03</span></div>
     <section class="panel farm-panel">
       <div class="form-grid farm-grid">
         <label class="field" id="iowaLastCropField"><span>What grew here last season? <small>Central Iowa catalog</small></span><select id="lastCrop"><option value="">Choose one</option></select></label>
@@ -97,7 +101,7 @@
       <div id="soilPanel" class="soil-results" aria-live="polite">Load data to see mapped soil components, horizons, drainage, water storage, flooding, and uncertainty.</div>
     </section>
 
-    <div class="section-heading strategies-heading"><div><p class="eyebrow">ROTATION EXPLORER</p><h2>Ideas to discuss—not instructions</h2></div><span class="step-label">03 / 03</span></div>
+    <div id="strategies-section" class="section-heading strategies-heading section-anchor"><div><p class="eyebrow">ROTATION EXPLORER</p><h2>Ideas to discuss—not instructions</h2></div><span class="step-label">03 / 03</span></div>
     <section class="strategy-intro"><span class="idea-star">✳</span><p>Research-only scenarios, not approved recommendations or a ranked “best.” A named agronomy reviewer still needs to approve the crop evidence and rules.</p></section>
     <div class="strategy-grid" id="strategies"><p>Add crop history and choose a priority, then compare three exploratory patterns.</p></div>
     <section class="history-summary panel"><div><p class="eyebrow">YOUR INPUT SUMMARY</p><h3>Field notes for this exploration</h3><p id="inputSummary">Entries stay on this page and are not saved.</p></div><button id="summarize" class="button button-secondary">Compare three strategies</button></section>

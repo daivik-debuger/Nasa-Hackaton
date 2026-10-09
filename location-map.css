@@ -1,6 +1,7 @@
-.map-field { min-width: 0; }
+.location-workspace { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(280px, .75fr); gap: 18px; align-items: stretch; margin-top: 22px; }
+.map-field { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: #fbfcfa; }
 .map-instructions { margin: 0 0 9px; color: var(--ink); font-size: 13px; font-weight: 600; }
-#fieldMap { width: 100%; height: 330px; border: 1px solid var(--line); border-radius: 10px; background: #e7ece9; z-index: 0; }
+#fieldMap { width: 100%; height: 360px; border: 1px solid var(--line); border-radius: 10px; background: #e7ece9; z-index: 0; }
 #fieldMap:focus-visible { outline: 3px solid #7ca686; outline-offset: 2px; }
 .map-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 11px; }
 .map-actions .button { min-height: 40px; }
@@ -10,9 +11,20 @@
 .exact-coordinate-details > summary { color: var(--ink); cursor: pointer; font-size: 13px; font-weight: 700; }
 .exact-coordinate-details > summary:focus-visible { outline: 3px solid #7ca686; outline-offset: 2px; }
 .exact-coordinate-grid { margin-top: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.location-settings { display: flex; flex-direction: column; gap: 17px; min-width: 0; padding: 18px; border: 1px solid #dfe8de; border-radius: 12px; background: linear-gradient(180deg, #f5f8f2 0%, #fbfcfa 100%); }
+.settings-kicker { margin: 0; color: #718179; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; }
+.period-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.settings-note { margin: auto 0 0; padding-top: 13px; border-top: 1px solid #e2e9df; color: var(--muted); font-size: 10px; line-height: 1.55; }
 .field-pin-icon span { display: block; width: 26px; height: 26px; border: 3px solid #fff; border-radius: 50% 50% 50% 0; background: #b14f38; box-shadow: 0 2px 8px #17372980; transform: rotate(-45deg); }
 .field-pin-icon span::after { content: ""; display: block; width: 7px; height: 7px; margin: 6px; border-radius: 50%; background: #fff; }
 @media (max-width: 620px) {
+  .location-workspace { grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
+  .map-field { padding: 10px; }
   #fieldMap { height: 280px; }
   .map-actions .button { flex: 1 1 135px; }
+  .location-settings { padding: 15px; gap: 14px; }
+}
+@media (min-width: 621px) and (max-width: 900px) {
+  .location-workspace { grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); }
+  #fieldMap { height: 330px; }
 }
