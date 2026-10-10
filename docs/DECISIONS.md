@@ -113,3 +113,9 @@
 **Decision:** Keep the home dashboard focused on location selection, a NASA POWER valid-day coverage circle, historical climate summaries, trends, and the IMERG status. Move farmer inputs and strategy comparison into a Plan view, source-linked crop profiles and illustrative plant portraits into a Crops view, and the full evidence catalog into a Research view. Preserve hash deep links to each subsection and do not imply generated plant artwork is identification evidence.
 
 **Reason:** A single long page made important climate context and field controls compete with the crop library. Focused views make the map and observations immediately legible without discarding the uncertainty and source detail required by the challenge.
+
+## 2026-10-09 — Refine interaction hierarchy without changing scientific meaning
+
+**Decision:** Use one consistent raised-surface, segmented-navigation, button-feedback, disclosure, and selected-input system across Dashboard, Plan, Crops, and Research. Keep the full FieldShift wordmark and all four tabs visible at 320 px by placing navigation on its own mobile row. Renumber the standalone Plan workflow from one to two without changing its input, engine, evidence, or coverage behavior.
+
+**Reason:** The focused views were functional but still felt visually disconnected, and Plan displayed step numbers inherited from the former long page. A shared interaction language makes controls easier to recognize across phone, tablet, and laptop layouts while preserving the source-linked data and regional safety gates.

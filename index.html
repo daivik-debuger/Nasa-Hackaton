@@ -100,7 +100,7 @@
 
     <div id="planView" class="app-view" data-view="plan" hidden>
     <section id="farm" class="workflow-section section-anchor" aria-labelledby="farm-heading">
-      <header class="section-header"><span class="step-number" aria-hidden="true">3</span><div><p class="section-kicker">Add local knowledge</p><h2 id="farm-heading">Describe the field</h2><p>Only farmer-entered lab results and notes are treated as local field information.</p></div></header>
+      <header class="section-header"><span class="step-number" aria-hidden="true">1</span><div><p class="section-kicker">Add local knowledge</p><h2 id="farm-heading">Describe the field</h2><p>Only farmer-entered lab results and notes are treated as local field information.</p></div></header>
       <div class="surface farm-panel">
         <div class="form-grid farm-grid">
           <label class="field" id="iowaLastCropField"><span>Last season’s crop <small>Central Iowa catalog</small></span><select id="lastCrop"><option value="">Choose one</option></select></label>
@@ -117,7 +117,7 @@
     </section>
 
     <section id="strategies-section" class="workflow-section section-anchor" aria-labelledby="strategies-heading">
-      <header class="section-header"><span class="step-number" aria-hidden="true">4</span><div><p class="section-kicker">Compare tradeoffs</p><h2 id="strategies-heading">Rotation strategies to discuss</h2><p>Three distinct patterns are shown where the regional evidence pack applies. They are not ranked recommendations.</p></div></header>
+      <header class="section-header"><span class="step-number" aria-hidden="true">2</span><div><p class="section-kicker">Compare tradeoffs</p><h2 id="strategies-heading">Rotation strategies to discuss</h2><p>Three distinct patterns are shown where the regional evidence pack applies. They are not ranked recommendations.</p></div></header>
       <div class="research-boundary"><strong>Research-only output.</strong><span>No named agronomist has approved the current rules. Confirm local timing, seed, equipment, pest pressure, costs, markets, and water constraints.</span></div>
       <section class="surface compare-bar"><div><p class="section-kicker">Your input summary</p><h3>Field notes for this exploration</h3><p id="inputSummary">Entries stay on this page and are not saved.</p></div><button id="summarize" class="button button-primary">Compare strategies</button></section>
       <div id="comparisonStatus" class="status" role="status" aria-live="polite">Choose crop history to compare supported strategies, or review a worldwide field snapshot.</div>
@@ -140,7 +140,7 @@
     <div id="researchView" class="app-view" data-view="research" hidden>
     <section class="research-section section-anchor" id="research" aria-labelledby="research-title">
       <header class="section-header compact-header"><div><p class="section-kicker">Trace every claim</p><h2 id="research-title">Research and sources</h2><p>Inspect applicability, limitations, confidence, review status, and direct source links.</p></div><span class="section-state">Evidence—not approval</span></header>
-      <div class="surface research-panel"><p id="researchSummary">Loading the research catalog…</p><p id="researchCoverage" class="research-warning">The crop and rotation research below applies to the Central Iowa pilot only.</p><p class="research-warning">No agronomist has approved this catalog. It does not predict yield, profit, water savings, or field suitability.</p><div id="researchBody">The research catalog is loading. Source links and limitations will appear here.</div><button id="retryResearch" class="button button-secondary" type="button" hidden>Retry research catalog</button></div>
+      <div class="surface research-panel"><p id="researchSummary">Loading the research catalog…</p><div class="research-alerts"><p id="researchCoverage" class="research-warning">The crop and rotation research below applies to the Central Iowa pilot only.</p><p class="research-warning">No agronomist has approved this catalog. It does not predict yield, profit, water savings, or field suitability.</p></div><div id="researchBody">The research catalog is loading. Source links and limitations will appear here.</div><button id="retryResearch" class="button button-secondary" type="button" hidden>Retry research catalog</button></div>
     </section>
     </div>
   </main>
