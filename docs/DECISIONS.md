@@ -119,3 +119,9 @@
 **Decision:** Use one consistent raised-surface, segmented-navigation, button-feedback, disclosure, and selected-input system across Dashboard, Plan, Crops, and Research. Keep the full FieldShift wordmark and all four tabs visible at 320 px by placing navigation on its own mobile row. Renumber the standalone Plan workflow from one to two without changing its input, engine, evidence, or coverage behavior.
 
 **Reason:** The focused views were functional but still felt visually disconnected, and Plan displayed step numbers inherited from the former long page. A shared interaction language makes controls easier to recognize across phone, tablet, and laptop layouts while preserving the source-linked data and regional safety gates.
+
+## 2026-10-11 — Lead with the map on phones
+
+**Decision:** Show the map before the climate overview at phone widths, with a direct link to the period controls. Keep the overview and its valid-day coverage circle on the Dashboard. Preserve Dashboard hash navigation at the actual top of the view and offset section links below the sticky mobile header. Group Plan inputs by crop history and soil information.
+
+**Reason:** The previous phone layout put a tall overview ahead of the first action, while some section links landed under the sticky header. The revised sequence makes place selection and the next action visible earlier without changing the NASA metrics, regional evidence gate, or comparison rules.

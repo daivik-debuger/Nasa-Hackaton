@@ -213,6 +213,9 @@ a { color: var(--green); }
 
 .form-grid { display: grid; gap: 18px; }
 .farm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.form-group-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px 12px; margin: 3px 0 -7px; padding-bottom: 8px; border-bottom: 1px solid var(--line); color: var(--ink); font-size: 15px; line-height: 1.35; }
+.form-group-title:not(:first-child) { margin-top: 10px; }
+.form-group-title span { color: var(--muted); font-size: 12px; font-weight: 500; }
 .field-full { grid-column: 1 / -1; }
 .field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
 .field > span, .priority-field legend { color: var(--ink-soft); font-size: 12px; font-weight: 750; }
@@ -231,7 +234,7 @@ a { color: var(--green); }
 .field input:hover, .field select:hover { border-color: #aebbb1; background: white; }
 .field input:focus, .field select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(29, 90, 66, .13); }
 .field input::placeholder { color: #98a39d; }
-.hint { margin-top: -2px; color: var(--muted); font-size: 10px; }
+.hint { margin-top: -2px; color: var(--muted); font-size: 11px; }
 .priority-field { min-width: 0; margin: 2px 0 0; padding: 0; border: 0; }
 .priority-field legend { margin-bottom: 9px; }
 .priority-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
@@ -296,9 +299,9 @@ a { color: var(--green); }
 .climate-layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(280px, .65fr); gap: 16px; }
 .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 22px 0; }
 .metric { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-soft); }
-.metric-label { display: block; margin-bottom: 8px; color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .08em; }
+.metric-label { display: block; margin-bottom: 8px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .06em; }
 .metric strong { display: block; font-size: clamp(24px, 3vw, 32px); line-height: 1.1; letter-spacing: -.04em; }
-.metric-unit { display: block; margin-top: 6px; color: var(--muted); font-size: 10px; }
+.metric-unit { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
 .chart-empty { display: grid; place-items: center; min-height: 210px; border: 1px dashed var(--line-strong); border-radius: 9px; color: var(--muted); font-size: 12px; }
 .trend-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .trend-card { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 9px; background: white; }
@@ -413,6 +416,7 @@ a { color: var(--green); }
   .scope-card { display: block; padding: 18px; }
   .scope-card h2 { margin-top: 0; }
   .workflow-section, .research-section { padding-top: 44px; }
+  .section-anchor { scroll-margin-top: 132px; }
   .section-header { grid-template-columns: auto minmax(0, 1fr); gap: 11px; }
   .section-header .section-state { grid-column: 2; justify-self: start; margin-top: 2px; }
   .compact-header { grid-template-columns: minmax(0, 1fr); }

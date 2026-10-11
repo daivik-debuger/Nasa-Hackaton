@@ -16,3 +16,7 @@ summary:focus-visible,
 @media (prefers-contrast: more) {
   :root { --line: #a7b0a9; --line-strong: #7c8880; --muted: #3f4e45; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

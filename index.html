@@ -56,6 +56,7 @@
         <div id="fieldMap" aria-label="Interactive location map. Pan with arrow keys, then use the Use map center button."></div>
         <div class="map-actions"><button id="useMapCenter" class="button button-secondary" type="button">Use map center</button><button id="clearPin" class="button button-quiet" type="button" disabled>Clear pin</button></div>
         <p id="selectedPlace" class="selected-place" role="status" aria-live="polite">No place selected. Tap the map, use its center, or choose an example.</p>
+        <a class="map-next-link" href="#location">Next: set your time period <span aria-hidden="true">→</span></a>
         <p id="mapStatus" class="supporting-text" role="status" aria-live="polite">Loading the map…</p>
         <p class="map-privacy">Satellite tiles are provided by Esri and its imagery partners; street tiles by OpenStreetMap. Viewing either map shares the viewed area with its provider. Imagery is a basemap, not a live crop-health reading.</p>
       </div>
@@ -103,10 +104,12 @@
       <header class="section-header"><span class="step-number" aria-hidden="true">1</span><div><p class="section-kicker">Add local knowledge</p><h2 id="farm-heading">Describe the field</h2><p>Only farmer-entered lab results and notes are treated as local field information.</p></div></header>
       <div class="surface farm-panel">
         <div class="form-grid farm-grid">
+          <h3 class="form-group-title field-full">Crop history <span>What grew here before?</span></h3>
           <label class="field" id="iowaLastCropField"><span>Last season’s crop <small>Central Iowa catalog</small></span><select id="lastCrop"><option value="">Choose one</option></select></label>
           <label class="field" id="iowaPriorCropField"><span>Crop before that <small>Central Iowa catalog</small></span><select id="priorCrop"><option value="">Choose one</option></select></label>
           <label class="field" id="globalLastCropField" hidden><span>Last season’s crop <small>your note, optional</small></span><input id="globalLastCrop" type="text" maxlength="80" placeholder="e.g. maize or rice"><small class="hint">Shown in your summary; not used to infer a recommendation.</small></label>
           <label class="field" id="globalPriorCropField" hidden><span>Crop before that <small>your note, optional</small></span><input id="globalPriorCrop" type="text" maxlength="80" placeholder="e.g. beans"><small class="hint">No regional crop traits are assumed from this note.</small></label>
+          <h3 class="form-group-title field-full">Soil information <span>Use a lab result only if you have one.</span></h3>
           <label class="field"><span>Soil texture, if known <small>optional note</small></span><select id="soilTexture"><option value="">Not sure / not tested</option><option>Sand or sandy loam</option><option>Loam or silt loam</option><option>Clay or clay loam</option><option>Other / mixed</option></select></label>
           <label class="field"><span>Soil pH from a recent lab test <small>optional</small></span><input id="soilPh" type="number" step="0.1" min="0" max="14" placeholder="e.g. 6.4"><small class="hint">Leave blank when no laboratory result is available.</small></label>
           <fieldset class="priority-field field-full"><legend>Priorities for this season</legend><div class="priority-options"><label class="check-option"><input type="checkbox" value="water"><span class="checkmark"></span><span>Use water carefully</span></label><label class="check-option"><input type="checkbox" value="cover"><span class="checkmark"></span><span>Keep soil covered</span></label><label class="check-option"><input type="checkbox" value="diversity"><span class="checkmark"></span><span>Diversify crop families</span></label><label class="check-option"><input type="checkbox" value="market"><span class="checkmark"></span><span>Protect the main crop or market</span></label></div></fieldset>

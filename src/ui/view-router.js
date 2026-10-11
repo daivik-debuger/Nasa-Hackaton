@@ -20,7 +20,8 @@ export function createViewRouter({ onChange = () => {} } = {}) {
     requestAnimationFrame(() => {
       onChange(view);
       const target = document.getElementById(hash);
-      if (target && !target.closest(".app-view")?.hidden) target.scrollIntoView({ block: "start" });
+      if (hash === "top") window.scrollTo(0, 0);
+      else if (target && !target.closest(".app-view")?.hidden) target.scrollIntoView({ block: "start" });
       else if (hash) window.scrollTo(0, 0);
     });
   }
