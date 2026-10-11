@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { resolve, extname, sep } from "node:path";
 import { querySoil } from "./soil-service.js";
 import { queryImergDay } from "./imerg-service.js";
+import { searchGlobalPlants } from "./global-crops-service.js";
 
 const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".png": "image/png", ".md": "text/markdown", ".webmanifest": "application/manifest+json" };
 const publicRootFiles = new Set(["index.html", "styles.css", "dashboard.css", "farm-hero.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "assets/farm-overview.jpg", "assets/harvest-card.jpg", "assets/wheat-ear.png", ...["alfalfa", "cereal-rye", "corn", "oats", "oilseed-radish", "red-clover", "soybean", "winter-wheat"].map((id) => `assets/crops/${id}.jpg`), "docs/PRIVACY.md"]);
@@ -43,7 +44,7 @@ function sendJson(res, code, value) {
   res.end(JSON.stringify(value));
 }
 
-export function createRequestHandler({ root, region, soilLookup = querySoil, imergLookup = queryImergDay }) {
+export function createRequestHandler({ root, region, soilLookup = querySoil, imergLookup = queryImergDay, cropLookup = searchGlobalPlants }) {
   const rootDir = resolve(root);
   return async (req, res) => {
     try {
@@ -52,6 +53,7 @@ export function createRequestHandler({ root, region, soilLookup = querySoil, ime
       if (url.pathname === "/health") return sendJson(res, 200, { status: "ok" });
       if (url.pathname === "/api/soil") return sendJson(res, 200, await soilLookup(soilCoordinates(url, region)));
       if (url.pathname === "/api/imerg") return sendJson(res, 200, await imergLookup(coordinates(url), url.searchParams.get("day") || ""));
+      if (url.pathname === "/api/crops/search") return sendJson(res, 200, await cropLookup(url.searchParams.get("q") || ""));
       const relative = publicFile(url.pathname);
       if (!relative) return sendJson(res, 404, { error: "Not found." });
       const path = resolve(rootDir, vendorFiles.get(relative) || relative);

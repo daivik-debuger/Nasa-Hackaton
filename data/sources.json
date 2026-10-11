@@ -1,6 +1,28 @@
 {
   "sources": [
     {
+      "id": "gbif-species-api",
+      "name": "GBIF Species API and Catalogue of Life eXtended Release",
+      "owner": "Global Biodiversity Information Facility",
+      "url": "https://techdocs.gbif.org/en/openapi/v1/species",
+      "sourceType": "official-api-documentation",
+      "integrationStatus": "integrated",
+      "intendedUse": "Live worldwide plant-name and family lookup in the Crops discovery view, separate from agronomic evidence",
+      "limitations": "Taxonomic matches can include plants that are not crops. Species identity and family do not establish local suitability, growing requirements, or rotation benefits. Service requires internet access.",
+      "lastReviewed": "2026-10-11"
+    },
+    {
+      "id": "fao-ecocrop-directory",
+      "name": "FAO Ecocrop crop library",
+      "owner": "Food and Agriculture Organization of the United Nations",
+      "url": "https://www.fao.org/geospatial/data-and-tools/data-portals/ecocrop/en",
+      "sourceType": "official-dataset-documentation",
+      "integrationStatus": "research-only",
+      "intendedUse": "External route to a broader worldwide crop reference; no Ecocrop traits are imported into FieldShift recommendations",
+      "limitations": "FAO says the original catalog was discontinued around 2015. Its broad environmental descriptors need current, locally relevant confirmation.",
+      "lastReviewed": "2026-10-11"
+    },
+    {
       "id": "nasa-power-daily",
       "name": "NASA POWER Daily API",
       "owner": "NASA Langley Research Center",

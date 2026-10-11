@@ -4,6 +4,7 @@ import { GLOBAL_DEMO_LOCATIONS, demoLocation } from "./global-demo-locations.js"
 import { fetchPowerData } from "./api/nasa-power.js";
 import { fetchSoilData } from "./api/soil-data.js";
 import { fetchImergDay } from "./api/imerg.js";
+import { fetchGlobalPlants } from "./api/global-crops.js";
 import { validateFarmInputs } from "./validation/field-inputs.js";
 import { buildIndicators } from "./engine/indicators.js";
 import { compareStrategies } from "./engine/compare-strategies.js";
@@ -12,7 +13,7 @@ import { renderSoil } from "./ui/soil-view.js";
 import { renderStrategies } from "./ui/strategy-view.js";
 import { renderResearch } from "./ui/research-view.js";
 import { renderOverview } from "./ui/overview-view.js";
-import { renderCropExplorer, renderSelectedCropContext } from "./ui/crop-view.js";
+import { renderCropExplorer, renderSelectedCropContext, renderGlobalPlantResults } from "./ui/crop-view.js";
 import { createViewRouter } from "./ui/view-router.js";
 import { createLocationPicker } from "./ui/location-picker.js";
 import { setStatus } from "./ui/status-view.js";
@@ -206,6 +207,45 @@ for (const id of ["lastCrop", "priorCrop", "soilTexture"]) $(id).addEventListene
 for (const element of document.querySelectorAll(".priority-options input")) element.addEventListener("change", markComparisonStale);
 for (const id of ["cropSearch", "cropRole"]) $(id).addEventListener(id === "cropSearch" ? "input" : "change", () => {
   renderCropExplorer(state, { search: $("cropSearch").value, role: $("cropRole").value });
+});
+
+for (const button of document.querySelectorAll("[data-crop-mode]")) button.addEventListener("click", () => {
+  const global = button.dataset.cropMode === "global";
+  $("globalCropExplorer").hidden = !global;
+  $("regionalCropExplorer").hidden = global;
+  for (const tab of document.querySelectorAll("[data-crop-mode]")) {
+    tab.setAttribute("aria-pressed", String(tab === button));
+  }
+  (global ? $("globalCropSearch") : $("cropSearch")).focus();
+});
+
+let cropSearchRequest = 0;
+$("globalCropForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const request = ++cropSearchRequest;
+  const button = $("globalCropSubmit");
+  const query = $("globalCropSearch").value.trim();
+  if (query.length < 2) {
+    $("globalCropStatus").textContent = "Enter at least two letters to search plant names.";
+    $("globalCropCards").textContent = "";
+    return;
+  }
+  button.disabled = true;
+  $("globalCropStatus").textContent = `Searching GBIF for “${query}”…`;
+  $("globalCropCards").textContent = "";
+  try {
+    const result = await fetchGlobalPlants(query);
+    if (request === cropSearchRequest) renderGlobalPlantResults(result);
+  } catch (error) {
+    if (request === cropSearchRequest) {
+      $("globalCropStatus").textContent = `Live lookup unavailable: ${error.message}`;
+      $("globalCropCards").textContent = "No local crop names were substituted for a failed live response. You can retry or open FAO Ecocrop below.";
+    }
+  } finally { if (request === cropSearchRequest) button.disabled = false; }
+});
+for (const button of document.querySelectorAll("[data-example-crop]")) button.addEventListener("click", () => {
+  $("globalCropSearch").value = button.dataset.exampleCrop;
+  $("globalCropForm").requestSubmit();
 });
 
 $("loadClimate").addEventListener("click", async () => {

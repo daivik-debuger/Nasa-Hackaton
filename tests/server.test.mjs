@@ -36,6 +36,16 @@ test("IMERG route accepts global coordinates and preserves the requested day", a
   assert.deepEqual(result.body, { point: { lat: -15.7939, lon: -47.8828 }, day: "20250101" });
 });
 
+test("global crop-name route is separate from regional rules and propagates lookup errors", async () => {
+  const result = await call("/api/crops/search?q=cassava", { cropLookup: (query) => ({ sourceId: "gbif-species-api", query, matches: [] }) });
+  assert.equal(result.status, 200);
+  assert.deepEqual(result.body, { sourceId: "gbif-species-api", query: "cassava", matches: [] });
+  const invalid = await call("/api/crops/search", { cropLookup: () => { const error = new Error("Enter a crop name."); error.status = 400; throw error; } });
+  assert.equal(invalid.status, 400);
+  const failed = await call("/api/crops/search?q=rice", { cropLookup: () => { throw new Error("GBIF unavailable."); } });
+  assert.equal(failed.status, 502);
+});
+
 test("public server serves app assets but not repository internals", async () => {
   assert.equal((await call("/")).status, 200);
   assert.equal((await call("/data/regions/central-iowa.json")).status, 200);

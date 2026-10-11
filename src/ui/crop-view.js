@@ -68,3 +68,19 @@ export function renderSelectedCropContext({ selectedRegion = null, crops = [], l
     ? `Your last crop: ${crop.commonName}. Open its card for sourced traits, limitations, and rotation considerations.`
     : "Select last season's crop in the field section to connect your history to this pilot catalog.";
 }
+
+export function globalPlantCardsMarkup(result) {
+  if (result?.sourceId !== "gbif-species-api" || !Array.isArray(result.matches)) throw new Error("Live plant-name results are incomplete.");
+  const cards = result.matches.map((plant) => {
+    if (!Number.isSafeInteger(plant.key) || !plant.scientificName || plant.url !== `https://www.gbif.org/species/${plant.key}`) throw new Error("Live plant-name result has an invalid source link.");
+    return `<article class="global-plant-card"><span class="crop-profile-role">GBIF plant name</span><h3>${esc(plant.scientificName)}</h3><p>${plant.family ? `${esc(plant.family)} family` : "Family not listed"}</p><a class="text-link" href="${esc(plant.url)}" target="_blank" rel="noopener noreferrer">View taxonomy at GBIF <span aria-hidden="true">↗</span></a></article>`;
+  }).join("");
+  return cards || '<p class="empty-state">No accepted plant species matched this search. Try a scientific name or browse FAO Ecocrop.</p>';
+}
+
+export function renderGlobalPlantResults(result) {
+  const count = document.getElementById("globalCropStatus");
+  const cards = document.getElementById("globalCropCards");
+  count.textContent = `${result.matches.length} live plant-name matches for “${result.query}” from GBIF. Taxonomy is not crop suitability or a regional recommendation.`;
+  cards.innerHTML = globalPlantCardsMarkup(result);
+}

@@ -80,6 +80,21 @@
 .crop-section-header p:last-child { max-width: 660px; margin: 11px 0 0; color: var(--muted); font-size: 13px; }
 .crop-section-header .text-link { flex: 0 0 auto; }
 .crop-explorer { padding: 26px; box-shadow: var(--shadow-raised); }
+.crop-mode-switch { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.crop-mode-button { min-height: 44px; padding: 10px 17px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink-soft); font: inherit; font-size: 12px; font-weight: 750; cursor: pointer; }
+.crop-mode-button[aria-pressed="true"] { border-color: var(--green); background: var(--green-soft); color: var(--green-dark); }
+.crop-mode-button:focus-visible, .crop-examples button:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+.global-crop-form { display: flex; align-items: end; gap: 12px; max-width: 680px; margin: 22px 0 12px; }
+.global-crop-form .field { flex: 1 1 auto; min-width: 0; }
+.global-crop-form .button { flex: 0 0 auto; min-height: 44px; }
+.crop-examples { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-bottom: 20px; color: var(--muted); font-size: 12px; }
+.crop-examples button { padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--green-dark); font: inherit; font-weight: 700; cursor: pointer; }
+.global-plant-card { min-width: 0; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: #fbfcfa; }
+.global-plant-card h3 { overflow-wrap: anywhere; margin: 15px 0 5px; font-size: 17px; }
+.global-plant-card p { margin: 0 0 20px; color: var(--muted); font-size: 12px; }
+.global-plant-card .text-link { font-size: 12px; }
+.crop-source-note { margin: 21px 0 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.6; }
+.crop-source-note a { color: var(--green-dark); font-weight: 750; }
 .crop-explorer-top { display: flex; justify-content: space-between; gap: 24px; align-items: start; }
 .crop-explorer-top h3 { margin: 0; font-size: 19px; }
 .crop-explorer-top p { max-width: 760px; margin: 6px 0 0; color: var(--muted); font-size: 12px; }
@@ -189,5 +204,7 @@
   .crop-explorer { padding: 16px; }
   .crop-explorer-top { flex-direction: column; gap: 10px; }
   .crop-tools { grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
+  .global-crop-form { align-items: stretch; flex-direction: column; }
+  .global-crop-form .button { width: 100%; }
   .crop-card-grid { grid-template-columns: 1fr; }
 }
