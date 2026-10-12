@@ -1,0 +1,96 @@
+{
+  "note": "Worldwide context and non-Iowa examples only. None of these records activates a crop trait, field suitability test, or rotation rule.",
+  "records": [
+    {
+      "id": "global-power-daily",
+      "category": "data",
+      "title": "Historical climate at a world coordinate",
+      "claim": "NASA POWER's Daily API supplies analysis-ready daily meteorological time series for a requested point. FieldShift uses it for historical temperature and precipitation context.",
+      "geography": "Worldwide gridded data",
+      "applicability": "Only dates and variables returned with valid values for the selected coordinate and period.",
+      "confidence": "high",
+      "limitations": "The grid is not a field weather station; resolution varies by source variable. Missing days and differences from local conditions must remain visible. This is not a seasonal forecast.",
+      "allowedUse": "context-only",
+      "sourceIds": ["nasa-power-daily"],
+      "review": { "status": "research-only", "reviewer": null, "date": null }
+    },
+    {
+      "id": "global-imerg-rain",
+      "category": "data",
+      "title": "Satellite precipitation context",
+      "claim": "NASA GPM IMERG combines satellite observations into half-hourly precipitation estimates over most of Earth.",
+      "geography": "Near-global product; coverage and inputs vary by latitude and run",
+      "applicability": "Historical precipitation context only where the exact service returns complete, valid samples.",
+      "confidence": "high",
+      "limitations": "A satellite-grid estimate is not a field rain gauge or soil-moisture measurement. FieldShift's tested service has returned incomplete days, so no daily total is shown unless all required intervals are valid.",
+      "allowedUse": "context-only",
+      "sourceIds": ["nasa-gpm-imerg-overview", "nasa-gpm-imerg"],
+      "review": { "status": "research-only", "reviewer": null, "date": null }
+    },
+    {
+      "id": "global-soilgrids-access",
+      "category": "data",
+      "title": "Global mapped soil: a candidate, not an active lookup",
+      "claim": "ISRIC offers global SoilGrids maps, but reports that its beta REST API is temporarily paused; WCS and WebDAV remain alternative access routes.",
+      "geography": "Global mapped-soil product",
+      "applicability": "Researching a future worldwide soil layer; not currently used for a field result in FieldShift.",
+      "confidence": "high",
+      "limitations": "No global soil result is integrated or validated here. Modeled grid values would not replace local soil sampling, and API availability can change.",
+      "allowedUse": "context-only",
+      "sourceIds": ["isric-soilgrids"],
+      "review": { "status": "research-only", "reviewer": null, "date": null }
+    },
+    {
+      "id": "global-crop-directories",
+      "category": "data",
+      "title": "Crop names are not growing advice",
+      "claim": "GBIF's species service supports worldwide plant-name lookup, while FAO Ecocrop is a broader library of crop descriptors.",
+      "geography": "Worldwide reference catalogs",
+      "applicability": "Discovering names and external reference material; no crop is admitted to a local rotation comparison from these sources alone.",
+      "confidence": "high",
+      "limitations": "GBIF is taxonomy, not a crop-only suitability database. FAO says the original Ecocrop database was discontinued around 2015. Neither provides current, field-validated advice for the selected location.",
+      "allowedUse": "context-only",
+      "sourceIds": ["gbif-species-api", "fao-ecocrop-directory"],
+      "review": { "status": "research-only", "reviewer": null, "date": null }
+    },
+    {
+      "id": "global-rotation-principles",
+      "category": "principle",
+      "title": "Diversification is a design question, not a universal recipe",
+      "claim": "FAO describes crop rotations with different roots and species as a way to explore soil layers, nutrient cycling, and crop-specific pest and disease breaks.",
+      "geography": "General FAO conservation-agriculture guidance",
+      "applicability": "A question to investigate when considering locally feasible crops, seasons, residue, water, markets, and management.",
+      "confidence": "medium",
+      "limitations": "This guidance does not identify the best sequence, guarantee a benefit, or quantify an effect for any field. Outcomes depend on local conditions and the whole management system.",
+      "allowedUse": "context-only",
+      "sourceIds": ["fao-species-diversification"],
+      "review": { "status": "research-only", "reviewer": null, "date": null }
+    },
+    {
+      "id": "north-china-rotation-study",
+      "category": "case",
+      "title": "North China Plain: a six-year field experiment",
+      "claim": "A six-year North China Plain experiment compared wheat–maize double-cropping with diversified systems including legumes and cash crops, and reported improvements in several measured production, emissions, and soil-health outcomes.",
+      "geography": "North China Plain, China",
+      "applicability": "Evidence from the studied crops, site, management, and 2016–2022 period; an example of how a regional rotation can be evaluated.",
+      "confidence": "medium",
+      "limitations": "Study findings and modeled regional extrapolations cannot be transferred as predicted yield, carbon, emissions, or income benefits for another field. The original study needs local comparison and agronomist review before a rule is created.",
+      "allowedUse": "context-only",
+      "sourceIds": ["yang-china-rotation-2024"],
+      "review": { "status": "research-only", "reviewer": null, "date": null }
+    },
+    {
+      "id": "burkina-farmer-discovery",
+      "category": "case",
+      "title": "Burkina Faso: adaptation with farmers",
+      "claim": "An FAO report describes farmer-led testing of conservation-agriculture and crop-diversification practices in five communities in south-western Burkina Faso.",
+      "geography": "South-western Burkina Faso, West Africa",
+      "applicability": "A process example for local evaluation of crop-livestock systems, not a validated crop sequence for the app.",
+      "confidence": "medium",
+      "limitations": "This is a 2010 case report, not a controlled global effect estimate. Its cropping system, climate, and available resources differ from other regions.",
+      "allowedUse": "context-only",
+      "sourceIds": ["fao-burkina-discovery-2010"],
+      "review": { "status": "research-only", "reviewer": null, "date": null }
+    }
+  ]
+}

@@ -128,3 +128,9 @@
 ## 2026-10-11 — Separate worldwide crop discovery from reviewed regional evidence
 
 FieldShift will expose a live GBIF plant-name lookup using the Catalogue of Life eXtended Release checklist in the Crops view and link to FAO Ecocrop's broader crop library. GBIF taxonomy supports name and family discovery, not agricultural suitability. FAO states that the original Ecocrop database was discontinued around 2015. Neither source feeds rotation rules or field-specific crop advice. Central Iowa's eight research-only records remain a separate regional evidence view. A bounded same-origin server proxy avoids browser cross-origin dependence and validates upstream responses. This is a discovery feature, not a claim of global scientific coverage.
+
+## 2026-10-12 — Separate worldwide research context from regional agronomy
+
+**Decision:** Put global observation products, broad rotation principles, and explicitly scoped non-Iowa studies at the start of Research, followed by the Central Iowa facts, evidence, and crop traits. Add source-linked context records with geographic applicability and limitations; validate that each remains `context-only` and `research-only`. Do not pass any of these records into the comparison engine.
+
+**Reason:** The research page appeared to cover only Iowa even though farmers can inspect NASA climate context worldwide. A global data footprint is not global agronomic validation. Separating the two lets users research other locations without exporting Iowa-specific crop rules or implying a universal recommendation.

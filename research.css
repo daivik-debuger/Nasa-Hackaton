@@ -27,6 +27,9 @@
 .research-crops .research-detail { padding: 10px 0 0; }
 .research-crops .research-detail li { padding-top: 8px; border-top: 1px solid var(--line); }
 .research-group-note { padding: 0 14px; color: var(--muted); font-size: 12px; }
+.research-scope { display: inline-block; margin: 0 0 10px !important; padding: 4px 8px; border-radius: 999px; background: var(--green-soft); color: var(--green-dark); font-size: 10px; font-weight: 800; }
+.global-research-item h4 { margin-bottom: 9px; font-size: 14px; }
+.global-research-item p { line-height: 1.55; }
 
 @media (max-width: 720px) {
   .research-alerts { grid-template-columns: 1fr; }

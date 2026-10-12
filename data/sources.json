@@ -1,6 +1,39 @@
 {
   "sources": [
     {
+      "id": "fao-species-diversification",
+      "name": "Species diversification in conservation agriculture",
+      "owner": "Food and Agriculture Organization of the United Nations",
+      "url": "https://www.fao.org/conservation-agriculture/in-practice/species-diversification/en/",
+      "sourceType": "official-guidance",
+      "integrationStatus": "research-only",
+      "intendedUse": "General mechanisms and objectives to investigate when designing locally relevant rotations",
+      "limitations": "Broad guidance does not quantify field outcomes or validate a particular crop sequence for any location.",
+      "lastReviewed": "2026-10-12"
+    },
+    {
+      "id": "yang-china-rotation-2024",
+      "name": "Diversifying crop rotation increases food production, reduces net greenhouse gas emissions and improves soil health",
+      "owner": "Yang et al., Nature Communications",
+      "url": "https://www.nature.com/articles/s41467-023-44464-9",
+      "sourceType": "peer-reviewed-field-study",
+      "integrationStatus": "research-only",
+      "intendedUse": "North China Plain example of measuring diversified rotation tradeoffs",
+      "limitations": "Six-year experiment in one regional production system; reported effects and extrapolations are not predictions for other farms.",
+      "lastReviewed": "2026-10-12"
+    },
+    {
+      "id": "fao-burkina-discovery-2010",
+      "name": "Enhancing Crop-Livestock Systems in Conservation Agriculture: Burkina Faso",
+      "owner": "Food and Agriculture Organization of the United Nations",
+      "url": "https://www.fao.org/4/i1437e/i1437e.pdf",
+      "sourceType": "official-case-report",
+      "integrationStatus": "research-only",
+      "intendedUse": "Example of participatory, local testing of crop diversification in five south-western Burkina Faso communities",
+      "limitations": "2010 case report; not a controlled global effect estimate or a transferable field prescription.",
+      "lastReviewed": "2026-10-12"
+    },
+    {
       "id": "gbif-species-api",
       "name": "GBIF Species API and Catalogue of Life eXtended Release",
       "owner": "Global Biodiversity Information Facility",
@@ -116,12 +149,12 @@
       "id": "isric-soilgrids",
       "name": "SoilGrids",
       "owner": "ISRIC World Soil Information",
-      "url": "https://docs.isric.org/globaldata/soilgrids/index.html",
+      "url": "https://docs.isric.org/globaldata/soilgrids/SoilGrids_faqs_02.html",
       "sourceType": "official-dataset-documentation",
       "integrationStatus": "unavailable",
       "intendedUse": "Potential modeled global soil context after a stable access method is validated",
       "limitations": "ISRIC currently says its beta REST API is paused. WCS and WebDAV are alternatives but have not been integrated or validated here. Modeled estimates include spatial and prediction uncertainty.",
-      "lastReviewed": "2026-10-03"
+      "lastReviewed": "2026-10-12"
     },
     {
       "id": "nasa-nex-gddp-cmip6",

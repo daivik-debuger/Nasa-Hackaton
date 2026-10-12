@@ -55,6 +55,7 @@ const requiredFiles = [
   "docs/PROJECT_PLAN.md",
   "docs/DEVELOPMENT.md",
   "docs/GLOBAL_COVERAGE.md",
+  "docs/GLOBAL_RESEARCH.md",
   "docs/DEPLOYMENT.md",
   "docs/BRANCHING.md",
   "docs/API_READINESS.md",
@@ -69,6 +70,7 @@ const requiredFiles = [
   "docs/SCIENTIFIC_SAFETY.md",
   "docs/COMPETITION_SCORECARD.md",
   "data/sources.json",
+  "data/global-research.json",
   "data/crop-record.schema.json",
   "data/crops.json"
 ];

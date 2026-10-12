@@ -20,7 +20,7 @@ import { setStatus } from "./ui/status-view.js";
 
 const $ = (id) => document.getElementById(id);
 const lastFullYear = new Date().getUTCFullYear() - 1;
-const state = { region: null, crops: [], rules: [], evidence: [], sources: [], power: null, soil: null, imerg: null, requestId: 0 };
+const state = { region: null, crops: [], rules: [], evidence: [], globalResearch: [], sources: [], power: null, soil: null, imerg: null, requestId: 0 };
 function selectedPoint() {
   const lat = Number($("latitude").value), lon = Number($("longitude").value);
   return $("latitude").value && $("longitude").value ? { lat, lon } : null;
@@ -75,12 +75,13 @@ async function json(path) {
 }
 
 async function loadCatalog() {
-  const [region, manifest, evidence, rules, sources] = await Promise.all([
-    json("./data/regions/central-iowa.json"), json("./data/crops.json"), json("./data/evidence.json"), json("./data/rotation-rules.json"), json("./data/sources.json")
+  const [region, manifest, evidence, globalResearch, rules, sources] = await Promise.all([
+    json("./data/regions/central-iowa.json"), json("./data/crops.json"), json("./data/evidence.json"), json("./data/global-research.json"), json("./data/rotation-rules.json"), json("./data/sources.json")
   ]);
   if (manifest.regionId !== region.id || evidence.regionId !== region.id || rules.regionId !== region.id) throw new Error("Pilot data has mismatched region IDs.");
+  if (!Array.isArray(globalResearch.records) || !globalResearch.records.length) throw new Error("Worldwide research catalog is incomplete.");
   const crops = await Promise.all(manifest.cropFiles.map((id) => json(`./data/crops/${id}.json`)));
-  Object.assign(state, { region, crops, evidence: evidence.records, rules: rules.rules, sources: sources.sources });
+  Object.assign(state, { region, crops, evidence: evidence.records, globalResearch: globalResearch.records, rules: rules.rules, sources: sources.sources });
   renderResearch(state);
   renderCropExplorer(state, { search: $("cropSearch").value, role: $("cropRole").value });
   syncOverview();
@@ -103,7 +104,7 @@ function coverage() {
 function updateCoverage() {
   if (!$("latitude").value && !$("longitude").value) {
     syncCropContext();
-    $("researchCoverage").textContent = "The research library below applies to the Central Iowa pilot only; NASA climate context can be requested for locations worldwide.";
+    $("researchCoverage").textContent = "Worldwide data and research principles are shown first. Detailed crop traits and rotation evidence remain Central Iowa-only until other regional packs are reviewed.";
     setStatus($("coverageStatus"), "Drop a pin on the map, use its center, choose a public example, or enter exact coordinates anywhere in the world.");
     for (const id of ["lastCrop", "priorCrop", "summarize"]) $(id).disabled = true;
     for (const id of ["iowaLastCropField", "iowaPriorCropField"]) $(id).hidden = true;
@@ -116,7 +117,7 @@ function updateCoverage() {
     const result = coverage();
     const supported = Boolean(result.region);
     syncCropContext(result.region);
-    $("researchCoverage").textContent = supported ? "This research pack applies to the Central Iowa pilot. Its crop and rotation records still need named agronomist review." : "This research pack applies only to Central Iowa. It is displayed for transparency, not as crop or rotation advice for your selected location.";
+    $("researchCoverage").textContent = supported ? "Worldwide context and the Central Iowa pilot are shown separately. Iowa crop and rotation records still need named agronomist review." : "Worldwide context may inform questions about this location; the Iowa crop and rotation records below do not apply to your selected field.";
     setStatus($("coverageStatus"), supported ? "NASA POWER climate context is available to request worldwide. At this Iowa point, mapped SSURGO soil and research-only rotation patterns can also be explored." : "NASA POWER climate context is available to request worldwide. Mapped soil and regional crop-rotation evidence are not yet supported for this location.");
     for (const id of ["lastCrop", "priorCrop"]) $(id).disabled = !supported;
     for (const id of ["iowaLastCropField", "iowaPriorCropField"]) $(id).hidden = !supported;
@@ -132,7 +133,7 @@ function updateCoverage() {
     return result;
   } catch (error) {
     syncCropContext();
-    $("researchCoverage").textContent = "Location is invalid; regional research applicability cannot be determined.";
+    $("researchCoverage").textContent = "Worldwide research remains available, but this location is invalid, so regional applicability cannot be determined.";
     setStatus($("coverageStatus"), error.message, "error");
     for (const id of ["lastCrop", "priorCrop", "summarize"]) $(id).disabled = true;
     return null;
@@ -312,7 +313,7 @@ $("summarize").addEventListener("click", () => {
 });
 
 function reportCatalogError(error) {
-  Object.assign(state, { region: null, crops: [], evidence: [], rules: [], sources: [] });
+  Object.assign(state, { region: null, crops: [], evidence: [], globalResearch: [], rules: [], sources: [] });
   renderCropExplorer(state);
   syncOverview();
   $("researchSummary").textContent = "Research catalog unavailable. No source or crop claims are being shown.";

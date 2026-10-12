@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { validateCropCollection } from "../src/data-validation.js";
+import { validateGlobalResearch } from "../src/global-research-validation.js";
 
 const sourcesDocument = JSON.parse(await readFile("data/sources.json", "utf8"));
 const cropsDocument = JSON.parse(await readFile("data/crops.json", "utf8"));
@@ -7,6 +8,7 @@ const region = JSON.parse(await readFile(`data/regions/${cropsDocument.regionId}
 const evidence = JSON.parse(await readFile("data/evidence.json", "utf8"));
 const rotationRules = JSON.parse(await readFile("data/rotation-rules.json", "utf8"));
 const schema = JSON.parse(await readFile("data/crop-record.schema.json", "utf8"));
+const globalResearch = JSON.parse(await readFile("data/global-research.json", "utf8"));
 
 if (!schema?.properties || !Array.isArray(schema.required)) throw new Error("Crop schema is missing properties or required fields.");
 if (!Array.isArray(sourcesDocument.sources)) throw new Error("data/sources.json must contain a sources array.");
@@ -16,6 +18,7 @@ const duplicateSourceIds = sourceIds.filter((id, index) => sourceIds.indexOf(id)
 if (duplicateSourceIds.length) throw new Error(`Duplicate source IDs: ${[...new Set(duplicateSourceIds)].join(", ")}`);
 
 const errors = [];
+errors.push(...validateGlobalResearch(globalResearch, new Set(sourceIds)));
 for (const source of sourcesDocument.sources) {
   if (!source.id || !source.name || !source.owner || !source.url || !source.limitations) errors.push(`Source ${source.id || "(missing ID)"} lacks required provenance.`);
   if (!/^https:\/\//.test(source.url || "")) errors.push(`Source ${source.id} must use a direct HTTPS URL.`);
@@ -50,4 +53,4 @@ for (const rule of rotationRules.rules) {
 for (const id of [...region.majorCropSourceIds, ...region.additionalCropSourceIds, ...region.normalRotations.flatMap((item) => item.sourceIds), ...region.climateRisks.flatMap((item) => item.sourceIds), ...region.soilDataSourceIds, ...Object.values(region.seasons).flatMap((item) => item.sourceIds)]) if (!sourceIds.includes(id)) errors.push(`Region references unknown source ${id}.`);
 if (errors.length) throw new Error(`Crop data validation failed:\n- ${errors.join("\n- ")}`);
 
-console.log(`Data validation passed: ${sourceIds.length} source IDs, ${crops.length} crop records, ${evidence.records.length} evidence records, ${rotationRules.rules.length} rules.`);
+console.log(`Data validation passed: ${sourceIds.length} source IDs, ${globalResearch.records.length} worldwide context records, ${crops.length} regional crop records, ${evidence.records.length} regional evidence records, ${rotationRules.rules.length} rules.`);
