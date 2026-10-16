@@ -1,6 +1,6 @@
 # Project status
 
-Last updated: 2026-10-12
+Last updated: 2026-10-15
 
 ## Confirmed
 
@@ -13,11 +13,11 @@ Last updated: 2026-10-12
 - Node built-in unit tests cover field-query validation, NASA missing values, request failures, crop record structure, source-ID integrity, and map-point normalization.
 - GitHub Actions configuration runs source/data checks and unit tests.
 - Development setup pins Node 22, a lockfile with Leaflet 1.9.4, a complete JavaScript syntax scan, and one `npm run verify` path shared by local work and CI.
-- Local setup also checks app-shell/import paths and includes privacy, architecture, security, issue, and release-review guidance. The map-picker change is on `feature/map-pin-picker`, based on `feature/functional-global-qa`; `develop` and `main` remain separate.
+- Local setup also checks app-shell/import paths and includes privacy, architecture, security, issue, and release-review guidance. Current worldwide-scope work is on a topic branch; the research library from 2026-10-12 has already been merged and pushed to `main`.
 - Central Iowa is the bounded implementation pilot; the example point near Ames is synthetic, not a verified field.
 - Worldwide use is the product requirement. Global historical climate context is now available to request; regional soil and crop evidence are not yet worldwide.
 - The current build accepts global coordinates for NASA POWER context, while gating SSURGO and crop strategies to the Central Iowa evidence catalog. A public point near Brasília returned 2025 POWER values in browser testing; IMERG was unavailable for that request and was shown as missing.
-- Eight source-linked Central Iowa crop records, eleven Iowa evidence records, five research-only rules, seven worldwide-context/non-Iowa example records, and 31 registered sources validate against the source registry. The in-app research library separates global data and principles, two non-Iowa case examples, and Iowa-only traits and rules, with applicability, limitations, review status, and source links. No global record changes a rotation rule. Source-location audits live in `RESEARCH_EVIDENCE_AUDIT.md` and `GLOBAL_RESEARCH.md`.
+- Eight source-linked Central Iowa crop records, eleven Iowa evidence records, five research-only rules, eight worldwide-context/non-Iowa example records, and 32 registered sources validate against the source registry. The in-app research library separates global data and principles, one six-continent synthesis, two non-Iowa case examples, and Iowa-only traits and rules, with applicability, limitations, review status, and source links. No global record changes a rotation rule. Source-location audits live in `RESEARCH_EVIDENCE_AUDIT.md` and `GLOBAL_RESEARCH.md`.
 - NASA POWER and USDA SSURGO returned the expected live response shapes at the public Iowa demonstration point. IMERG returned live samples but **not a complete day**: only 47 of 48 valid in-day half-hour slots were present on 2025-05-20, with an extra next-day boundary timestamp. The former 58.02 mm day-total claim has been retracted in `CASE_STUDY.md`.
 - The IMERG parser now rejects incomplete or conflicting days rather than turning a partial sample into a daily total. A reproducible `npm run api:smoke` command and `API_READINESS.md` document the gate.
 - The 2026-10-03 live `npm run api:smoke` result was POWER pass, SSURGO pass, IMERG fail (47/48 valid UTC slots). The command intentionally exited nonzero; the integration is not declared fully ready.
@@ -46,6 +46,7 @@ Last updated: 2026-10-12
 - On 2026-10-11, the phone Dashboard leads with the map and a link to period setup; its overview follows. Plan groups crop history and soil information, small data labels are more readable, and section links clear the sticky phone header. `npm run verify` passed 51 tests with no skips. Browser checks at 320, 375, 390, 430, 768, 1024, 1100, 1101, and 1366 px passed for tab switching, map controls, no horizontal overflow, and the saved NASA/soil/IMERG journey. Phone checks also confirmed the Plan heading remains visible and Dashboard navigation returns to the map. No live provider, physical-device, or screen-reader test was performed in this pass.
 - The Crops view now separates worldwide plant-name discovery from Central Iowa trait evidence. The live GBIF lookup returns accepted plant species names/families through a bounded server proxy; FAO Ecocrop is linked for wider crop browsing. Neither source is used as a worldwide rotation rule or crop-suitability determination. Live lookup failures show an unavailable state rather than substitute invented records.
 - On 2026-10-12, the Research view separated five worldwide data/principle records, two non-Iowa regional examples, and the existing Central Iowa evidence. `npm run verify` passed 58 tests with one localhost-listener test skipped by the sandbox; the restarted local preview rendered all seven global records and 31 source links. Browser checks at 320, 390, and 1024 px showed no horizontal overflow. The browser logged only an unrelated extension message. This check did not validate agronomy outside Iowa, live data availability, or physical-device accessibility.
+- On 2026-10-15, the Dashboard and footer explicitly describe worldwide location/climate exploration, and the Research page displays its observation, multi-region research, and Iowa-only comparison layers separately. A 2025 multi-continent meta-analysis was added as context-only evidence with its limitations. The page also links to the full worldwide and Iowa source-location audits; only those two audit documents were added to the server's public-file allowlist, and the worldwide link returned HTTP 200. `npm run verify` passed 59 tests with one sandbox-skipped localhost-listener test. Local browser checks at 320, 375, 390, 430, and 1024 px found no horizontal overflow on Dashboard or Research; all eight global records and 32 registered sources rendered, and no app-origin console warnings/errors were observed. This does not establish a worldwide crop recommendation, current live-service reliability, or physical-device accessibility.
 
 ## Not yet verified
 
@@ -64,7 +65,6 @@ Last updated: 2026-10-12
 - A validated global soil provider and more region-scoped crop/rule catalogs. The ISRIC SoilGrids beta REST API is currently paused; WCS/WebDAV alternatives have not been integrated.
 - Farmer validation of the interface and economic/operational feasibility of the options.
 - Published HTTPS deployment.
-- Review and merge of the current integration work into `develop`, then a reviewed release to `main`.
 - Final three-minute narrated pitch and backup recording. Only the script exists.
 
 ## Current scientific boundary

@@ -134,3 +134,9 @@ FieldShift will expose a live GBIF plant-name lookup using the Catalogue of Life
 **Decision:** Put global observation products, broad rotation principles, and explicitly scoped non-Iowa studies at the start of Research, followed by the Central Iowa facts, evidence, and crop traits. Add source-linked context records with geographic applicability and limitations; validate that each remains `context-only` and `research-only`. Do not pass any of these records into the comparison engine.
 
 **Reason:** The research page appeared to cover only Iowa even though farmers can inspect NASA climate context worldwide. A global data footprint is not global agronomic validation. Separating the two lets users research other locations without exporting Iowa-specific crop rules or implying a universal recommendation.
+
+## 2026-10-15 — Make worldwide product scope visible across the site
+
+**Decision:** State worldwide location and NASA climate exploration on the Dashboard, show three distinct coverage layers at the top of Research, and add a six-continent peer-reviewed rotation synthesis to the context-only library. Keep Central Iowa mapped soil, crop traits, and strategy comparisons explicitly regional. The new synthesis never feeds the comparison engine.
+
+**Reason:** A visitor should not have to infer the product's worldwide aim from the map alone, but a globally sampled paper cannot approve a crop sequence for an arbitrary field. The source itself reports variation, nonsignificant outcomes, and unfavorable tradeoffs for some comparisons, so the UI must retain those limits rather than promising a universal benefit.

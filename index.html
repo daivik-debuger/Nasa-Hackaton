@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#173f30">
-  <meta name="description" content="Explore NASA climate context, mapped soil information, and evidence-linked crop rotation strategies.">
+  <meta name="description" content="Explore NASA climate history for locations worldwide, with clearly scoped soil and crop-rotation research where regional evidence is available.">
   <title>FieldShift — Climate-aware rotation explorer</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
@@ -34,7 +34,7 @@
     <div id="dashboardView" class="app-view" data-view="dashboard">
     <section id="top" class="farm-hero section-anchor" aria-labelledby="page-title">
       <div class="farm-hero-header">
-        <div><p class="hero-eyebrow">YOUR FARM DASHBOARD</p><h1 id="page-title">Your field at a glance.</h1><p>Choose a point on the map and load NASA climate history. Then explore field planning and crop research in their own tabs.</p></div>
+        <div><p class="hero-eyebrow">A WORLDWIDE FARM EXPLORER</p><h1 id="page-title">Explore your field, wherever you farm.</h1><p>Choose a point anywhere on Earth for NASA climate history. Explore worldwide research and plant names, with regional crop comparisons only where evidence applies.</p></div>
         <a class="hero-action" href="#location">Choose a location <span aria-hidden="true">↗</span></a>
       </div>
       <div class="farm-overview-grid">
@@ -46,7 +46,7 @@
           <div class="hero-place"><span>SELECTED PLACE</span><strong id="overviewPlace">No location selected</strong></div>
         </div>
       </div>
-      <p class="hero-disclosure">The background photograph is decorative. NASA observations are gridded historical context, not field measurements or a forecast.</p>
+      <p class="hero-disclosure">Worldwide access is not worldwide crop advice: the current mapped-soil and rotation pilot covers Central Iowa only. The photograph is decorative; NASA observations are gridded history, not field measurements or a forecast. <a href="#research">See research coverage</a>.</p>
     </section>
     <div class="dashboard-layout">
     <aside class="dashboard-map surface" aria-labelledby="map-heading">
@@ -151,13 +151,13 @@
 
     <div id="researchView" class="app-view" data-view="research" hidden>
     <section class="research-section section-anchor" id="research" aria-labelledby="research-title">
-      <header class="section-header compact-header"><div><p class="section-kicker">Trace every claim</p><h2 id="research-title">Research and sources</h2><p>Explore worldwide data and general research first, then inspect region-specific studies, crop traits, limitations, and direct sources.</p></div><span class="section-state">Evidence—not approval</span></header>
-      <div class="surface research-panel"><p id="researchSummary">Loading the research catalog…</p><div class="research-alerts"><p id="researchCoverage" class="research-warning">Worldwide context is separate from Central Iowa crop and rotation evidence.</p><p class="research-warning">No worldwide crop recommendation is approved. These sources do not predict your yield, profit, water savings, or field suitability.</p></div><div id="researchBody">The research catalog is loading. Source links and limitations will appear here.</div><button id="retryResearch" class="button button-secondary" type="button" hidden>Retry research catalog</button></div>
+      <header class="section-header compact-header"><div><p class="section-kicker">Trace every claim</p><h2 id="research-title">Research across the world</h2><p>Explore worldwide observation sources, a six-continent rotation synthesis, and regional studies. Each record states where it applies and what it cannot prove.</p></div><span class="section-state">Evidence—not approval</span></header>
+      <div class="surface research-panel"><div class="research-coverage-map" aria-label="Research coverage by layer"><div><strong>Worldwide observation context</strong><span>NASA climate history can be requested at a selected coordinate; valid values and missing data are shown.</span></div><div><strong>Multi-region research</strong><span>Global synthesis and regional studies are context for questions, not a crop prescription.</span></div><div><strong>Local comparison pilot</strong><span>Crop traits, SSURGO soil, and rotation patterns currently apply only in Central Iowa.</span></div></div><p id="researchSummary">Loading the research catalog…</p><div class="research-alerts"><p id="researchCoverage" class="research-warning">Worldwide context is separate from Central Iowa crop and rotation evidence.</p><p class="research-warning">No worldwide crop recommendation is approved. These sources do not predict your yield, profit, water savings, or field suitability.</p></div><div id="researchBody">The research catalog is loading. Source links and limitations will appear here.</div><button id="retryResearch" class="button button-secondary" type="button" hidden>Retry research catalog</button><div class="research-audits"><strong>Read the full source-location audits</strong><p>These working notes explain methods, uncertainty, and why a source was or was not used in a rule.</p><a href="./docs/GLOBAL_RESEARCH.md" target="_blank" rel="noopener noreferrer">Worldwide research audit (Markdown)</a><a href="./docs/RESEARCH_EVIDENCE_AUDIT.md" target="_blank" rel="noopener noreferrer">Central Iowa evidence audit (Markdown)</a></div></div>
     </section>
     </div>
   </main>
 
-  <footer class="site-footer"><div><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">F</span><span>FieldShift</span></a><p>NASA data informs the conversation; local expertise makes the decision.</p></div><nav aria-label="Data source links"><a href="https://power.larc.nasa.gov/" target="_blank" rel="noreferrer">NASA POWER</a><a href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noreferrer">NASA GPM IMERG</a><a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">USDA SSURGO</a></nav></footer>
+  <footer class="site-footer"><div><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">F</span><span>FieldShift</span></a><p>Built for worldwide exploration; region-specific decisions still need local evidence and expertise.</p></div><nav aria-label="Data source links"><a href="https://power.larc.nasa.gov/" target="_blank" rel="noreferrer">NASA POWER</a><a href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noreferrer">NASA GPM IMERG</a><a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">USDA SSURGO</a></nav></footer>
   </div>
 </body>
 </html>

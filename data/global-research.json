@@ -67,6 +67,19 @@
       "review": { "status": "research-only", "reviewer": null, "date": null }
     },
     {
+      "id": "multi-continent-rotation-synthesis",
+      "category": "principle",
+      "title": "Rotation outcomes differ across continents and crop sequences",
+      "claim": "A 2025 meta-analysis combined 3,663 paired field-trial yield observations from 738 experiments across six continents. It found varied outcomes by region and crop sequence, including some transitions with unfavorable yield, nutrition, or revenue tradeoffs.",
+      "geography": "Field trials across six continents; uneven coverage by crop and region",
+      "applicability": "Research context for asking which crop sequence, comparison crop, input costs, and local conditions matter before using a rotation result.",
+      "confidence": "high",
+      "limitations": "A pooled average is not a prediction for a selected field. The study reports gross revenue, not profit, because input-cost data were insufficient; some crop combinations showed no significant gain or negative tradeoffs.",
+      "allowedUse": "context-only",
+      "sourceIds": ["mudare-global-rotation-2025"],
+      "review": { "status": "research-only", "reviewer": null, "date": null }
+    },
+    {
       "id": "north-china-rotation-study",
       "category": "case",
       "title": "North China Plain: a six-year field experiment",

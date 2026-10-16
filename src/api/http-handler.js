@@ -5,7 +5,7 @@ import { queryImergDay } from "./imerg-service.js";
 import { searchGlobalPlants } from "./global-crops-service.js";
 
 const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".png": "image/png", ".md": "text/markdown", ".webmanifest": "application/manifest+json" };
-const publicRootFiles = new Set(["index.html", "styles.css", "dashboard.css", "farm-hero.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "assets/farm-overview.jpg", "assets/harvest-card.jpg", "assets/wheat-ear.png", ...["alfalfa", "cereal-rye", "corn", "oats", "oilseed-radish", "red-clover", "soybean", "winter-wheat"].map((id) => `assets/crops/${id}.jpg`), "docs/PRIVACY.md"]);
+const publicRootFiles = new Set(["index.html", "styles.css", "dashboard.css", "farm-hero.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "assets/farm-overview.jpg", "assets/harvest-card.jpg", "assets/wheat-ear.png", ...["alfalfa", "cereal-rye", "corn", "oats", "oilseed-radish", "red-clover", "soybean", "winter-wheat"].map((id) => `assets/crops/${id}.jpg`), "docs/PRIVACY.md", "docs/GLOBAL_RESEARCH.md", "docs/RESEARCH_EVIDENCE_AUDIT.md"]);
 const vendorFiles = new Map([["vendor/leaflet.js", "node_modules/leaflet/dist/leaflet.js"], ["vendor/leaflet.css", "node_modules/leaflet/dist/leaflet.css"]]);
 const responseHeaders = {
   "Cache-Control": "no-store",

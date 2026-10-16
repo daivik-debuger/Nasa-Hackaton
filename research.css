@@ -1,4 +1,8 @@
 .research-panel > p { margin: 0 0 12px; color: var(--muted); font-size: 13px; }
+.research-coverage-map { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
+.research-coverage-map > div { min-width: 0; padding: 13px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface-soft); }
+.research-coverage-map strong { display: block; margin-bottom: 6px; color: var(--green-dark); font-size: 12px; }
+.research-coverage-map span { display: block; color: var(--muted); font-size: 11px; line-height: 1.5; }
 .research-alerts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 12px; }
 .research-warning { margin: 0; padding: 12px 14px; border: 1px solid #ead8b7; border-left: 3px solid #c58a35; border-radius: 8px; background: var(--warning-bg); color: var(--warning) !important; }
 .research-group { margin-top: 10px; overflow: hidden; border: 1px solid var(--line); border-radius: 11px; background: var(--surface-soft); transition: border-color .16s ease, box-shadow .16s ease; }
@@ -30,8 +34,13 @@
 .research-scope { display: inline-block; margin: 0 0 10px !important; padding: 4px 8px; border-radius: 999px; background: var(--green-soft); color: var(--green-dark); font-size: 10px; font-weight: 800; }
 .global-research-item h4 { margin-bottom: 9px; font-size: 14px; }
 .global-research-item p { line-height: 1.55; }
+.research-audits { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 14px; margin-top: 16px; padding: 16px 2px 0; border-top: 1px solid var(--line); }
+.research-audits strong { flex-basis: 100%; color: var(--ink); font-size: 13px; }
+.research-audits p { flex-basis: 100%; margin: 0 0 2px; color: var(--muted); font-size: 12px; }
+.research-audits a { display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; font-weight: 750; }
 
 @media (max-width: 720px) {
+  .research-coverage-map { grid-template-columns: 1fr; }
   .research-alerts { grid-template-columns: 1fr; }
   .research-grid { grid-template-columns: 1fr; }
   .research-group > summary { padding: 13px 11px; }

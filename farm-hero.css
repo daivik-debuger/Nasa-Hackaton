@@ -73,6 +73,7 @@
 .hero-location-card strong { display: block; margin-top: 8px; font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; }
 .hero-location-card small { display: block; margin-top: 8px; color: #cbd9bf; font-size: 10px; line-height: 1.45; }
 .hero-disclosure { margin: 17px 0 0; color: #e0eed9; font-size: 11px; line-height: 1.5; }
+.hero-disclosure a { color: #e8f7b0; font-weight: 800; text-underline-offset: 3px; }
 
 .crops-section { padding-top: 62px; }
 .crop-section-header { display: flex; justify-content: space-between; align-items: end; gap: 26px; margin-bottom: 20px; }

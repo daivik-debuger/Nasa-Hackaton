@@ -1,6 +1,17 @@
 {
   "sources": [
     {
+      "id": "mudare-global-rotation-2025",
+      "name": "Crop rotations synergize yield, nutrition, and revenue: a meta-analysis",
+      "owner": "Mudare et al., Nature Communications",
+      "url": "https://www.nature.com/articles/s41467-025-64567-9",
+      "sourceType": "peer-reviewed-meta-analysis",
+      "integrationStatus": "research-only",
+      "intendedUse": "Multi-continent evidence context and documented variation in crop-rotation outcomes; never a field-level prediction",
+      "limitations": "Synthesis of heterogeneous field trials, not a prescription for an individual farm. Benefits vary with crop sequence and region; some transitions have adverse tradeoffs. Gross revenue is not profit because input costs were not available consistently.",
+      "lastReviewed": "2026-10-15"
+    },
+    {
       "id": "fao-species-diversification",
       "name": "Species diversification in conservation agriculture",
       "owner": "Food and Agriculture Organization of the United Nations",

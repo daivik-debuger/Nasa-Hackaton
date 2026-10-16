@@ -45,6 +45,7 @@ test("research library escapes claims and refuses unlinked or unsafe sources", (
 test("worldwide research remains sourced, unapproved context only", () => {
   const ids = new Set(sources.map((source) => source.id));
   assert.deepEqual(validateGlobalResearch(globalResearchDocument, ids), []);
+  assert.ok(globalResearch.some((record) => record.id === "multi-continent-rotation-synthesis" && record.sourceIds.includes("mudare-global-rotation-2025")));
   const promoted = structuredClone(globalResearchDocument);
   promoted.records[0].allowedUse = "rotation-rule";
   assert.match(validateGlobalResearch(promoted, ids).join(" "), /context-only/);
@@ -54,6 +55,14 @@ test("worldwide research remains sourced, unapproved context only", () => {
   const approved = structuredClone(globalResearchDocument);
   approved.records[0].review.status = "approved";
   assert.match(validateGlobalResearch(approved, ids).join(" "), /unreviewed status/);
+});
+
+test("site introduction distinguishes worldwide access from Iowa-only comparisons", async () => {
+  const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  assert.match(html, /Explore your field, wherever you farm/);
+  assert.match(html, /Worldwide access is not worldwide crop advice/);
+  assert.match(html, /Local comparison pilot/);
+  assert.match(html, /six-continent rotation synthesis/);
 });
 
 test("worldwide research escapes external text and requires linked sources", () => {
