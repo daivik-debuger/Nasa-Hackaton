@@ -1,4 +1,6 @@
 import { readFile } from "node:fs/promises";
+import { validateAgronomy } from "../src/agronomy-validation.js";
+import { validateGlobalCatalog } from "../src/engine/global-engine.js";
 import { validateCropCollection } from "../src/data-validation.js";
 import { validateGlobalResearch } from "../src/global-research-validation.js";
 
@@ -18,6 +20,9 @@ const duplicateSourceIds = sourceIds.filter((id, index) => sourceIds.indexOf(id)
 if (duplicateSourceIds.length) throw new Error(`Duplicate source IDs: ${[...new Set(duplicateSourceIds)].join(", ")}`);
 
 const errors = [];
+errors.push(...validateGlobalCatalog(JSON.parse(await readFile("data/global-crops.json", "utf8")), new Set(sourceIds)));
+const agronomy = JSON.parse(await readFile("data/agronomy.json", "utf8"));
+errors.push(...validateAgronomy(agronomy, new Set(sourceIds)));
 errors.push(...validateGlobalResearch(globalResearch, new Set(sourceIds)));
 for (const source of sourcesDocument.sources) {
   if (!source.id || !source.name || !source.owner || !source.url || !source.limitations) errors.push(`Source ${source.id || "(missing ID)"} lacks required provenance.`);
@@ -53,4 +58,4 @@ for (const rule of rotationRules.rules) {
 for (const id of [...region.majorCropSourceIds, ...region.additionalCropSourceIds, ...region.normalRotations.flatMap((item) => item.sourceIds), ...region.climateRisks.flatMap((item) => item.sourceIds), ...region.soilDataSourceIds, ...Object.values(region.seasons).flatMap((item) => item.sourceIds)]) if (!sourceIds.includes(id)) errors.push(`Region references unknown source ${id}.`);
 if (errors.length) throw new Error(`Crop data validation failed:\n- ${errors.join("\n- ")}`);
 
-console.log(`Data validation passed: ${sourceIds.length} source IDs, ${globalResearch.records.length} worldwide context records, ${crops.length} regional crop records, ${evidence.records.length} regional evidence records, ${rotationRules.rules.length} rules.`);
+console.log(`Data validation passed: ${sourceIds.length} source IDs, ${globalResearch.records.length} worldwide context records, ${crops.length} legacy crop records, ${evidence.records.length} legacy evidence records, ${rotationRules.rules.length} legacy rules; ${agronomy.regions.length} reference packs, ${agronomy.benchmarks.length} benchmark rows, ${agronomy.rules.length} regional considerations.`);

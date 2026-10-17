@@ -4,8 +4,8 @@ import { querySoil } from "./soil-service.js";
 import { queryImergDay } from "./imerg-service.js";
 import { searchGlobalPlants } from "./global-crops-service.js";
 
-const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".png": "image/png", ".md": "text/markdown", ".webmanifest": "application/manifest+json" };
-const publicRootFiles = new Set(["index.html", "styles.css", "dashboard.css", "farm-hero.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "assets/farm-overview.jpg", "assets/harvest-card.jpg", "assets/wheat-ear.png", ...["alfalfa", "cereal-rye", "corn", "oats", "oilseed-radish", "red-clover", "soybean", "winter-wheat"].map((id) => `assets/crops/${id}.jpg`), "docs/PRIVACY.md", "docs/GLOBAL_RESEARCH.md", "docs/RESEARCH_EVIDENCE_AUDIT.md"]);
+const types = { ".ttf": "font/ttf", ".woff2": "font/woff2", ".txt": "text/plain", ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".png": "image/png", ".md": "text/markdown", ".webmanifest": "application/manifest+json" };
+const publicRootFiles = new Set(["dist/global-app.js", "dist/global-app.css", ...[400,600,700].map((weight) => `dist/space-grotesk-latin-${weight}-normal.woff2`), "index.html", "workspace.css", "styles.css", "dashboard.css", "farm-hero.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "assets/farm-overview.jpg", "assets/harvest-card.jpg", "assets/wheat-ear.png", ...["alfalfa", "cereal-rye", "corn", "oats", "oilseed-radish", "red-clover", "soybean", "winter-wheat"].map((id) => `assets/crops/${id}.jpg`), "docs/PRIVACY.md", "docs/GLOBAL_RESEARCH.md", "docs/RESEARCH_EVIDENCE_AUDIT.md"]);
 const vendorFiles = new Map([["vendor/leaflet.js", "node_modules/leaflet/dist/leaflet.js"], ["vendor/leaflet.css", "node_modules/leaflet/dist/leaflet.css"]]);
 const responseHeaders = {
   "Cache-Control": "no-store",
@@ -18,7 +18,7 @@ const responseHeaders = {
 function publicFile(pathname) {
   try {
     const relative = decodeURIComponent(pathname === "/" ? "/index.html" : pathname).replace(/^\/+/, "");
-    return publicRootFiles.has(relative) || vendorFiles.has(relative) || /^src\/[a-z0-9/-]+\.js$/.test(relative) || /^data\/[a-z0-9/-]+\.json$/.test(relative) ? relative : null;
+    return /^assets\/fonts\/(newsreader-regular\.ttf|jakarta-regular\.ttf|jakarta-semibold\.ttf|plex-mono\.ttf|Newsreader-OFL\.txt|Jakarta-OFL\.txt|Plex-OFL\.txt)$/.test(relative) || publicRootFiles.has(relative) || vendorFiles.has(relative) || /^src\/[a-z0-9/-]+\.js$/.test(relative) || /^data\/[a-z0-9/-]+\.json$/.test(relative) ? relative : null;
   } catch { return null; }
 }
 
@@ -60,7 +60,7 @@ export function createRequestHandler({ root, region, soilLookup = querySoil, ime
       if (!path.startsWith(rootDir + sep) || !types[extname(path)]) return sendJson(res, 404, { error: "Not found." });
       const body = await readFile(path);
       const type = types[extname(path)];
-      res.writeHead(200, { ...responseHeaders, "Content-Type": type.startsWith("image/") ? type : `${type}; charset=utf-8` });
+      res.writeHead(200, { ...responseHeaders, "Content-Type": type.startsWith("image/") || type.startsWith("font/") ? type : `${type}; charset=utf-8` });
       res.end(body);
     } catch (error) {
       const code = error.status || (error.code === "ENOENT" ? 404 : /coordinates|latitude|longitude|Invalid|Day must|valid/.test(error.message) ? 400 : 502);

@@ -51,6 +51,18 @@ test("public server serves app assets but not repository internals", async () =>
   assert.equal((await call("/data/regions/central-iowa.json")).status, 200);
   assert.equal((await call("/src/main.js")).status, 200);
   assert.equal((await call("/research.css")).status, 200);
+  const workspaceStyle = await call("/workspace.css");
+  assert.equal(workspaceStyle.status, 200);
+  assert.match(workspaceStyle.headers["Content-Type"], /^text\/css/);
+  const localFont = await call("/assets/fonts/newsreader-regular.ttf");
+  assert.equal(localFont.status, 200);
+  assert.match(localFont.headers["Content-Type"], /^font\/ttf/);
+  assert.equal((await call("/assets/fonts/Newsreader-OFL.txt")).status, 200);
+  assert.equal((await call("/assets/fonts/not-approved.ttf")).status, 404);
+  assert.equal((await call("/data/agronomy.json")).status, 200);
+  assert.equal((await call("/dist/global-app.js")).status, 200);
+  assert.equal((await call("/dist/global-app.css")).status, 200);
+  assert.equal((await call("/dist/not-allowed.js")).status, 404);
   assert.equal((await call("/docs/GLOBAL_RESEARCH.md")).status, 200);
   assert.equal((await call("/docs/RESEARCH_EVIDENCE_AUDIT.md")).status, 200);
   assert.equal((await call("/dashboard.css")).status, 200);

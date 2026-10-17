@@ -9,14 +9,25 @@
   },
   "description": "Mobile-first NASA data and crop-rotation exploration prototype",
   "scripts": {
-    "check": "node scripts/check-syntax.mjs && node scripts/check-assets.mjs && node scripts/validate-data.mjs && node scripts/check-project.mjs",
+    "check": "npm run build && node scripts/check-syntax.mjs && node scripts/check-assets.mjs && node scripts/validate-data.mjs && node scripts/check-project.mjs",
     "start": "node server.js",
     "api:smoke": "node scripts/smoke-apis.mjs",
     "api:smoke:global": "node scripts/smoke-global-power.mjs",
     "test": "node --test",
-    "verify": "npm run check && npm test"
+    "verify": "npm run check && npm test",
+    "build": "node scripts/build.mjs",
+    "prestart": "npm run build"
   },
   "dependencies": {
-    "leaflet": "1.9.4"
+    "leaflet": "1.9.4",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@fontsource/space-grotesk": "^5.2.10",
+    "@tailwindcss/postcss": "4.3.3",
+    "esbuild": "0.28.2",
+    "postcss": "8.5.30",
+    "tailwindcss": "4.3.0"
   }
 }

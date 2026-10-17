@@ -140,3 +140,21 @@ FieldShift will expose a live GBIF plant-name lookup using the Catalogue of Life
 **Decision:** State worldwide location and NASA climate exploration on the Dashboard, show three distinct coverage layers at the top of Research, and add a six-continent peer-reviewed rotation synthesis to the context-only library. Keep Central Iowa mapped soil, crop traits, and strategy comparisons explicitly regional. The new synthesis never feeds the comparison engine.
 
 **Reason:** A visitor should not have to infer the product's worldwide aim from the map alone, but a globally sampled paper cannot approve a crop sequence for an arbitrary field. The source itself reports variation, nonsignificant outcomes, and unfavorable tradeoffs for some comparisons, so the UI must retain those limits rather than promising a universal benefit.
+
+## 2026-10-16 — Replace accumulated UI overrides with an editorial workspace
+
+**Decision:** Load one authored stylesheet after Leaflet, retain native HTML controls and all existing data/coverage interfaces, and organize the UI as a field journal with a persistent desktop rail, asymmetric map/coverage grid, and ruled evidence index. Use local serif/sans/mono stacks, square surfaces, 2px control radii, and a paper/ink/rust palette. Cache the new shell as v18.
+
+**Reason:** A single presentation layer avoids competing legacy overrides and makes responsive behavior and contrast auditable. Palette tests enforce 7:1 authored text contrast without claiming complete AAA conformance. A framework migration would add complexity without helping this visual task. Global observations remain distinct from regional agronomy.
+
+## 2026-10-16 — Regional reference engine and empirical research tables
+
+**Decision:** Add three explicitly selected study-system packs, constraint evaluation and source-linked considerations. Keep all rules unapproved and unranked. Record empirical results with their study design instead of using published numbers as field predictions. Use locally licensed editorial/body/mono fonts and cache the updated shell as v19, superseding the system-only typography choice above.
+
+**Reason:** Crop compatibility, local water constraints and matched laboratory observations can make the comparison functional without pretending that published trial results establish universal suitability. The Oregon paper's conflicting abstract/results rates are flagged rather than silently reconciled; SOM gaps remain null. SMAP/MODIS are not labeled integrated.
+
+## 2026-10-16 — Replace rejected serif interface across all views
+
+**Decision:** Supersede the serif/paper/side-rail presentation with locally served sans-serif headings, a full-width dark green navigation bar, a centered light workspace and crisp white analytical surfaces. Add the labeled wheat illustration to the Crops header and retain every existing control and evidence boundary. Update the shell cache to v20.
+
+**Reason:** User feedback explicitly rejected the prior visual direction, especially the type. A global navigation, palette and typography change makes the revision consistent across Dashboard, Plan, Crops and Research rather than restricting it to the research panel.

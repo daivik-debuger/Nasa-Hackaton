@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "layers": [
+    {
+      "id": "power",
+      "name": "NASA POWER",
+      "sourceId": "nasa-power-daily",
+      "status": "integrated",
+      "resolution": "Approx. 0.5° × 0.625° meteorology",
+      "use": "Historical temperature and rainfall; load on Dashboard."
+    },
+    {
+      "id": "koppen",
+      "name": "Köppen–Geiger v2",
+      "sourceId": "beck-koppen-v2",
+      "status": "not-connected",
+      "resolution": "1 km; product period must be specified",
+      "use": "Climate class, not crop suitability. Manual class is unverified."
+    },
+    {
+      "id": "gaez",
+      "name": "FAO GAEZ v5",
+      "sourceId": "fao-gaez-v5",
+      "status": "not-connected",
+      "resolution": "Approx. 1 km key outputs",
+      "use": "Crop/input/water-regime-specific suitability; never a generic zone-to-crop lookup."
+    },
+    {
+      "id": "hwsd",
+      "name": "FAO HWSD v2",
+      "sourceId": "fao-hwsd-v2",
+      "status": "not-connected",
+      "resolution": "Approx. 1 km; seven soil layers",
+      "use": "Mapped soil context; not measured field pH or SOM."
+    },
+    {
+      "id": "smap",
+      "name": "NASA SMAP",
+      "sourceId": "nasa-smap-enhanced-v6",
+      "status": "not-connected",
+      "resolution": "9 km grid posting",
+      "use": "Surface-moisture context needs QA and Earthdata access."
+    },
+    {
+      "id": "sentinel",
+      "name": "Copernicus Sentinel-2",
+      "sourceId": "sentinel2-l2a",
+      "status": "not-connected",
+      "resolution": "10 m red/NIR bands; cloud-screened L2A",
+      "use": "NDVI time series needs quality filtering and cannot diagnose disease."
+    }
+  ]
+}

@@ -6,7 +6,7 @@ These instructions apply to the entire repository. More specific instructions ex
 
 Build a mobile-first decision-support tool that combines NASA Earth observations, mapped soil context, crop evidence, crop history, and farmer priorities to compare rotation strategies. FieldShift explores options; it does not prescribe a crop or replace an agronomist.
 
-The product target is worldwide use. Central Iowa is the first implemented demonstration region, not the product's geographic limit. Design location, dataset, soil-source, crop-catalog, and rule interfaces for multiple regions. Do not claim worldwide scientific support from the current Iowa-only evidence; show the actual coverage and missing layers for each location.
+The product target is worldwide use. NASA POWER location context is global. Global crop names and water-reference ranges are discovery data, not approved field recommendations. Regional reference scenarios cover Minnesota–Dakotas, western Kansas and Pendleton dryland; legacy mapped-soil integration and detailed crop traits remain Iowa-scoped. Never transfer a study to a map pin automatically.
 
 ## Token-efficient startup
 
@@ -20,8 +20,13 @@ Do not repeatedly summarize the whole project. State the current task, edit the 
 
 ## Current architecture
 
-- Installable PWA with no frontend framework or build step.
-- `index.html` and `styles.css`: accessible content and responsive presentation.
+- Installable PWA with a small React/Tailwind build for the global Plan, Crops and Research workspaces. Run `npm run build` before serving static output; `npm start` builds automatically. Never edit generated `dist/` assets.
+- `index.html` and `workspace.css`: semantic legacy dashboard, map, location journey and four-view shell. `src/react/global-workspace.jsx` and `src/react/field.css`: the source for the global assessment, crop matrix and dual-level evidence panels. `scripts/build.mjs` emits `dist/global-app.js` and `dist/global-app.css` using esbuild and Tailwind PostCSS.
+- `src/engine/global-engine.js` and `data/global-crops.json`: deterministic, evidence-gated global input checks and 34-crop reference matrix. `data/global-layers.json` records connected versus listed-only layers. This engine does not rank crops or generate a globally validated rotation.
+- `src/ui/agronomy-view.js`: regional scenario form, explanations, empirical tables and observation availability.
+- `src/engine/regional-engine.js`: deterministic constraints, scoped considerations, paired soil differences and POWER precipitation context.
+- `src/agronomy-validation.js`: runtime catalog and reference validation.
+- `data/agronomy.json` and `data/agronomy.schema.json`: regional cycles, benchmark measurements and rule contract; sources resolve through `data/sources.json`.
 - `src/main.js`, `src/ui/`, and `src/validation/`: browser journey and field inputs.
 - `src/coverage.js`: per-location availability gate; do not borrow Iowa evidence elsewhere.
 - `src/api/`: browser API clients and server-side remote-service adapters.
@@ -32,6 +37,33 @@ Do not repeatedly summarize the whole project. State the current task, edit the 
 - `docs/`: decisions, research standards, safety, progress, and development workflow.
 
 Keep dependencies minimal. Explain the tradeoff before adding a framework, external package, or new service.
+
+## Design system
+
+- Use locally bundled Space Grotesk for headings, body and controls. Use IBM Plex Mono only for measurements, status and metadata. Do not restore the rejected serif heading style. The font is built from the pinned `@fontsource/space-grotesk` package into `dist/`.
+- Tokens: ink `#172b24`, canvas `#f3f6f4`, surface `#f7f8f6`, accent `#184c38`, navigation `#132d23`, field-lab dark `#172c24`, caution `#683d16`, critical `#762e24`. See `docs/DESIGN_SYSTEM.md`.
+- Use a full-width dark navigation bar, centered 1600px workspace, 4/8/12/16/24/32/48px spacing, 1px rules and 2–4px control/surface radii. No ornamental gradients, pill panels or heavy shadows.
+- Crops opens with a split green header and labeled wheat illustration, followed by separate discovery/evidence tabs. Keep all source and regional limitations visible.
+- Dashboard holds map and observations; Plan leads with worldwide input assessment, while bounded regional scenarios stay in a labeled disclosure; Crops provides a global reference matrix plus GBIF discovery and scoped regional traits; Research shows trials with reading-level switch and source provenance.
+- Keep keyboard-visible focus, 48–56px interactive targets, native control semantics, reduced motion and readable disabled/error states. Wide tables scroll inside labeled regions, not the page.
+- Palette contrast tests are not certification of full WCAG AAA compliance.
+
+## Regional engine and research contract
+
+- Global zone lenses require a manually supplied Köppen class or explicitly entered irrigation. Coordinates and elevation are validated, not used as a proxy for GAEZ, Köppen, USDA hardiness or local suitability. GAEZ v5, HWSD v2, Köppen rasters, SMAP and Sentinel-2 are documented but not integrated. NASA POWER is integrated on Dashboard. Never label a listed-only layer as observed.
+- Global crop entries must resolve their source IDs, retain `reviewStatus`, keep unreviewed numeric nitrogen, root, disease and pH traits null, and never claim that a FAO approximate crop-water range is a net irrigation requirement. A crop/zone transition needs region-specific applicability, cited conditions, limitations and named human approval before any scoring or ranking.
+- The global assessment may calculate only transparent same-season water arithmetic from user-entered ETc, effective rain and irrigation. It emits review questions and missing inputs—not a best crop, yield, dollars or field outcome. Do not equate soil organic carbon with soil organic matter.
+- Trial/benchmark data retain site, metric, unit, treatment/comparator, period, depth, design, source locator, confidence and limitations. Unknown p-values, sample sizes, dollar impacts and SOM conversion stay unavailable. The Executive view must not overstate the Scientific view.
+
+- Require explicit reference-scenario mode and region selection. Match cycles to documented crop IDs; never invent a transition when crop history is unsupported.
+- Required next crop, fallow permission and forage access determine constraint conflicts. Water supply, nodulation, disease history and comparable soil measurements determine evidence-linked considerations.
+- Priorities highlight relevant tradeoffs; they must not become an unvalidated numerical score or ranking.
+- Calculate observed SOM differences in percentage points and bulk-density differences in g/cm³ only from dated, same-protocol sample pairs. SOC is not SOM. A paired difference is not a statistically established trend or prediction.
+- POWER annual precipitation indicators require every calendar day, including leap days. Missing/invalid values are not zero rainfall; a short baseline is not a climate normal or drought classification.
+- Benchmark records retain region, metric, unit, study design, treatment/comparator, depth, period, sample size, source locator, confidence and limitations. Unknown measurements stay null. Keep treatment differences separate from annual rates.
+- Resolve every source ID; reject unknown crop phases, duplicate IDs and unsupported rule conditions. Preserve discrepancies between a paper's abstract and results explicitly.
+- All current rules remain research-only with humanApproved false and null reviewer/date. Named independent approval requires a separately reviewed release; never silently activate recommendations.
+- SMAP and MODIS are documented but not connected. Listing an instrument is not an integration. Never populate their indicators with synthetic values presented as observations.
 
 ## Non-negotiable scientific rules
 
@@ -70,6 +102,7 @@ Keep dependencies minimal. Explain the tradeoff before adding a framework, exter
 - Record consequential decisions in `docs/DECISIONS.md` and update `docs/STATUS.md` after material work.
 - Prefer transparent deterministic rules over a black-box model for the hackathon MVP.
 - If live data cannot be verified, say so; do not imply the request succeeded.
+- Keep the soil/IMERG server scope separate from manually selected reference scenarios. Do not widen location gates as a side effect of adding literature.
 
 ## Verification
 

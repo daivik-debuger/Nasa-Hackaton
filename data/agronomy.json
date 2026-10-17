@@ -1,0 +1,597 @@
+{
+  "schemaVersion": 1,
+  "regions": [
+    {
+      "id": "upper-midwest",
+      "name": "Minnesota–Dakotas / small-grain systems",
+      "climate": "Cool continental; season length and soil-water supply vary substantially.",
+      "scope": "Reference scenarios from Minnesota/North Dakota extension guidance; Brookings trial is a separate South Dakota benchmark. No state-wide agronomic validation.",
+      "sourceIds": [
+        "umn-small-grain-rotations"
+      ],
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      },
+      "crops": [
+        {
+          "id": "wheat",
+          "label": "Spring wheat",
+          "group": "cereal"
+        },
+        {
+          "id": "corn",
+          "label": "Corn",
+          "group": "cereal"
+        },
+        {
+          "id": "soybean",
+          "label": "Soybean",
+          "group": "legume"
+        },
+        {
+          "id": "canola",
+          "label": "Canola",
+          "group": "oilseed"
+        },
+        {
+          "id": "barley",
+          "label": "Barley",
+          "group": "cereal"
+        },
+        {
+          "id": "flax",
+          "label": "Flax",
+          "group": "oilseed"
+        },
+        {
+          "id": "pea",
+          "label": "Field pea",
+          "group": "legume"
+        },
+        {
+          "id": "winter-wheat",
+          "label": "Winter wheat",
+          "group": "cereal"
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "um-baseline",
+          "name": "Wheat / corn / soybean",
+          "phases": [
+            "wheat",
+            "corn",
+            "soybean"
+          ],
+          "waterIntensification": false,
+          "sourceIds": [
+            "umn-small-grain-rotations"
+          ],
+          "note": "Extension Table 6, rotation one."
+        },
+        {
+          "id": "um-diversity",
+          "name": "Five-crop sequence",
+          "phases": [
+            "wheat",
+            "canola",
+            "barley",
+            "flax",
+            "soybean"
+          ],
+          "waterIntensification": false,
+          "sourceIds": [
+            "umn-small-grain-rotations"
+          ],
+          "note": "Extension Table 6, rotation four."
+        },
+        {
+          "id": "um-cool",
+          "name": "Cool-season diversity",
+          "phases": [
+            "winter-wheat",
+            "canola",
+            "barley",
+            "pea",
+            "flax"
+          ],
+          "waterIntensification": false,
+          "sourceIds": [
+            "umn-small-grain-rotations"
+          ],
+          "note": "Extension Table 6, rotation seven; winter survival requires local confirmation."
+        }
+      ]
+    },
+    {
+      "id": "kansas-dryland",
+      "name": "Western Kansas / Brownell dryland",
+      "climate": "Semiarid central Great Plains; stored water can limit the following cash crop.",
+      "scope": "HB Ranch wheat–sorghum–fallow experiment near Brownell. This does not cover all Kansas soils, irrigation systems or drought cycles.",
+      "sourceIds": [
+        "ks-cover-trial-2020"
+      ],
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      },
+      "crops": [
+        {
+          "id": "wheat",
+          "label": "Winter wheat",
+          "group": "cereal"
+        },
+        {
+          "id": "sorghum",
+          "label": "Grain sorghum",
+          "group": "cereal"
+        },
+        {
+          "id": "fallow",
+          "label": "Chemical fallow",
+          "group": "fallow"
+        },
+        {
+          "id": "oat-triticale",
+          "label": "Oat–triticale cover",
+          "group": "cover"
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "ks-fallow",
+          "name": "Retain fallow",
+          "phases": [
+            "wheat",
+            "sorghum",
+            "fallow"
+          ],
+          "waterIntensification": false,
+          "sourceIds": [
+            "ks-cover-trial-2020"
+          ],
+          "note": "Study comparator."
+        },
+        {
+          "id": "ks-cover",
+          "name": "Standing cover replaces fallow",
+          "phases": [
+            "wheat",
+            "sorghum",
+            "oat-triticale"
+          ],
+          "waterIntensification": true,
+          "sourceIds": [
+            "ks-cover-trial-2020"
+          ],
+          "note": "Standing oat–triticale treatment."
+        },
+        {
+          "id": "ks-forage",
+          "name": "Harvest cover for forage",
+          "phases": [
+            "wheat",
+            "sorghum",
+            "oat-triticale"
+          ],
+          "waterIntensification": true,
+          "requiresForage": true,
+          "sourceIds": [
+            "ks-cover-trial-2020"
+          ],
+          "note": "Haying treatment; retained residue and equipment differ from standing cover."
+        }
+      ]
+    },
+    {
+      "id": "pnw-dryland",
+      "name": "Pacific Northwest / Pendleton dryland",
+      "climate": "Mediterranean rainfall pattern; dry summers, winter-dominant precipitation.",
+      "scope": "CBARC Walla Walla silt loam study systems near Pendleton. Low-rainfall Columbia Plateau sites and irrigated systems are not interchangeable.",
+      "sourceIds": [
+        "pnw-carbon-2025",
+        "osu-pea-management"
+      ],
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      },
+      "crops": [
+        {
+          "id": "wheat",
+          "label": "Winter wheat",
+          "group": "cereal"
+        },
+        {
+          "id": "pea",
+          "label": "Spring pea",
+          "group": "legume"
+        },
+        {
+          "id": "fallow",
+          "label": "Summer fallow",
+          "group": "fallow"
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "pnw-fallow",
+          "name": "Wheat / summer fallow",
+          "phases": [
+            "wheat",
+            "fallow"
+          ],
+          "waterIntensification": false,
+          "sourceIds": [
+            "pnw-carbon-2025"
+          ],
+          "note": "Conventional-tillage comparator."
+        },
+        {
+          "id": "pnw-pea-ct",
+          "name": "Wheat / pea · conventional tillage",
+          "phases": [
+            "wheat",
+            "pea"
+          ],
+          "waterIntensification": true,
+          "sourceIds": [
+            "pnw-carbon-2025"
+          ],
+          "note": "Conventional-tillage study treatment."
+        },
+        {
+          "id": "pnw-pea-nt",
+          "name": "Wheat / pea · no-till",
+          "phases": [
+            "wheat",
+            "pea"
+          ],
+          "waterIntensification": true,
+          "sourceIds": [
+            "pnw-carbon-2025"
+          ],
+          "note": "No-till study treatment; tillage transition is part of the comparison."
+        }
+      ]
+    }
+  ],
+  "benchmarks": [
+    {
+      "id": "sd-bd",
+      "regionId": "upper-midwest",
+      "metric": "Bulk density",
+      "kind": "treatment-difference",
+      "unit": "g/cm³",
+      "treatment": 1.52,
+      "comparator": 1.44,
+      "value": null,
+      "treatmentLabel": "Ridge tillage",
+      "comparatorLabel": "Conventional tillage",
+      "depth": "0–20 cm",
+      "period": "1999 soil sampling; trial began 1990",
+      "design": "Corn–soybean tillage trial, three N levels",
+      "sampleSize": null,
+      "location": "Brookings, South Dakota; Barnes clay loam",
+      "sourceId": "sd-tillage-trial-2001",
+      "sourceLocator": "Abstract, p. 21; soil-property results",
+      "limitation": "Between-treatment difference, not a before/after change. Replicate count not extracted.",
+      "confidence": "medium",
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "ks-yield",
+      "regionId": "kansas-dryland",
+      "metric": "Wheat grain yield",
+      "kind": "treatment-difference",
+      "unit": "bu/acre",
+      "treatment": 41.8,
+      "comparator": 51.9,
+      "value": null,
+      "treatmentLabel": "Cover treatments mean",
+      "comparatorLabel": "Chemical fallow",
+      "depth": "Not applicable",
+      "period": "2016–2019 harvests",
+      "design": "2015–2019 field experiment; all crop phases in each block",
+      "sampleSize": null,
+      "location": "HB Ranch near Brownell, Kansas",
+      "sourceId": "ks-cover-trial-2020",
+      "sourceLocator": "Abstract; Figure 3",
+      "limitation": "Yield penalty occurred in two of four years. Treatment average is not a forecast.",
+      "confidence": "medium",
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "ks-soc",
+      "regionId": "kansas-dryland",
+      "metric": "Organic carbon concentration",
+      "kind": "qualitative",
+      "unit": "%",
+      "treatment": null,
+      "comparator": null,
+      "value": null,
+      "treatmentLabel": "Cover crop",
+      "comparatorLabel": "Fallow",
+      "depth": "2–6 inches",
+      "period": "2019",
+      "design": "Field experiment; Figure 2",
+      "sampleSize": null,
+      "location": "HB Ranch near Brownell, Kansas",
+      "sourceId": "ks-cover-trial-2020",
+      "sourceLocator": "Abstract; Figure 2b",
+      "limitation": "Higher under cover; no numerical delta transcribed from the graph. Surface 0–2 inch response differed. SOC is not SOM.",
+      "confidence": "medium",
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "pnw-ct",
+      "regionId": "pnw-dryland",
+      "metric": "Soil carbon annual rate",
+      "kind": "reported-rate",
+      "unit": "t C/ha/year",
+      "treatment": null,
+      "comparator": null,
+      "value": 0.15,
+      "treatmentLabel": "Wheat–pea, conventional tillage",
+      "comparatorLabel": null,
+      "depth": "0–30 cm",
+      "period": "Wheat–pea archives 1985–2021",
+      "design": "Long-term trial; archived MIR/PLS reconstruction",
+      "sampleSize": 4,
+      "location": "CBARC near Pendleton, Oregon; Walla Walla silt loam",
+      "sourceId": "pnw-carbon-2025",
+      "sourceLocator": "Results: C sequestration in bulk soil; Table 2",
+      "limitation": "Results/Table 2 basis; abstract reports different rates. Some bulk densities estimated; dates differ across systems.",
+      "confidence": "medium",
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "pnw-nt",
+      "regionId": "pnw-dryland",
+      "metric": "Soil carbon annual rate",
+      "kind": "reported-rate",
+      "unit": "t C/ha/year",
+      "treatment": null,
+      "comparator": null,
+      "value": 0.16,
+      "treatmentLabel": "Wheat–pea, no-till",
+      "comparatorLabel": null,
+      "depth": "0–30 cm",
+      "period": "Wheat–pea archives 1985–2021",
+      "design": "Long-term trial; archived MIR/PLS reconstruction",
+      "sampleSize": 4,
+      "location": "CBARC near Pendleton, Oregon",
+      "sourceId": "pnw-carbon-2025",
+      "sourceLocator": "Results: C sequestration in bulk soil; Table 2",
+      "limitation": "No-till began 1995. Retain the abstract/results discrepancy; not a field carbon prediction.",
+      "confidence": "medium",
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "pnw-fallow-c",
+      "regionId": "pnw-dryland",
+      "metric": "Soil carbon annual rate",
+      "kind": "reported-rate",
+      "unit": "t C/ha/year",
+      "treatment": null,
+      "comparator": null,
+      "value": -0.11,
+      "treatmentLabel": "Wheat–fallow, conventional tillage",
+      "comparatorLabel": null,
+      "depth": "0–30 cm",
+      "period": "Wheat–fallow archives 1976–2015",
+      "design": "Long-term trial; archived MIR/PLS reconstruction",
+      "sampleSize": 4,
+      "location": "CBARC near Pendleton, Oregon",
+      "sourceId": "pnw-carbon-2025",
+      "sourceLocator": "Results; Table 2",
+      "limitation": "Different observation period from wheat–pea; do not subtract these rates as a randomized treatment effect.",
+      "confidence": "medium",
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "som-gap",
+      "regionId": "upper-midwest",
+      "metric": "Δ soil organic matter",
+      "kind": "unavailable",
+      "unit": "percentage points",
+      "treatment": null,
+      "comparator": null,
+      "value": null,
+      "treatmentLabel": "No matched SOM series extracted",
+      "comparatorLabel": null,
+      "depth": "Not established",
+      "period": "Not established",
+      "design": "Evidence gap",
+      "sampleSize": null,
+      "location": "Regional catalog",
+      "sourceId": "sd-tillage-trial-2001",
+      "sourceLocator": "Abstract reports organic C, not a paired SOM series",
+      "limitation": "No SOC-to-SOM conversion. Use comparable laboratory SOM samples in Plan to calculate an observed change.",
+      "confidence": "low",
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "N-LEGUME",
+      "dimension": "nitrogen",
+      "regionIds": [
+        "upper-midwest",
+        "pnw-dryland"
+      ],
+      "when": "hasLegume",
+      "sourceIds": [
+        "umn-small-grain-rotations",
+        "osu-pea-management"
+      ],
+      "benefit": "Legume phase: investigate biological N contribution.",
+      "risk": "Net fertilizer credit needs nodulation, biomass/export and local guidance.",
+      "requiredInputs": [
+        "nodulation"
+      ],
+      "confidence": "medium",
+      "humanApproved": false,
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "W-INTENSIFY",
+      "dimension": "water",
+      "regionIds": [
+        "kansas-dryland",
+        "pnw-dryland"
+      ],
+      "when": "waterIntensification",
+      "sourceIds": [
+        "ks-cover-trial-2020",
+        "pnw-carbon-2025"
+      ],
+      "benefit": "Additional cropped phase supplies biomass.",
+      "risk": "Stored-water demand increases; local water balance and termination timing need review.",
+      "requiredInputs": [
+        "waterSupply"
+      ],
+      "confidence": "medium",
+      "humanApproved": false,
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "D-CEREAL",
+      "dimension": "disease",
+      "regionIds": [
+        "upper-midwest"
+      ],
+      "when": "cerealTransition",
+      "sourceIds": [
+        "umn-small-grain-rotations"
+      ],
+      "benefit": "Inspect each cereal-to-cereal transition.",
+      "risk": "Corn or small-grain residues before wheat/barley can retain Fusarium inoculum.",
+      "requiredInputs": [
+        "diseaseHistory"
+      ],
+      "confidence": "medium",
+      "humanApproved": false,
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "D-PEA",
+      "dimension": "disease",
+      "regionIds": [
+        "pnw-dryland"
+      ],
+      "when": "hasLegume",
+      "sourceIds": [
+        "osu-pea-management"
+      ],
+      "benefit": "A pea phase changes the crop host.",
+      "risk": "Pea root diseases require pathogen-specific rotation review; a short wheat–pea cycle is not clearance.",
+      "requiredInputs": [
+        "diseaseHistory"
+      ],
+      "confidence": "medium",
+      "humanApproved": false,
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "C-SOM",
+      "dimension": "soil",
+      "regionIds": [
+        "upper-midwest",
+        "kansas-dryland",
+        "pnw-dryland"
+      ],
+      "when": "somDeclining",
+      "sourceIds": [
+        "sd-tillage-trial-2001",
+        "ks-cover-trial-2020",
+        "pnw-carbon-2025"
+      ],
+      "benefit": "Observed SOM decline prompts residue and sampling review.",
+      "risk": "Two samples show a difference, not causation or statistical significance; no future gain is predicted.",
+      "requiredInputs": [
+        "som"
+      ],
+      "confidence": "low",
+      "humanApproved": false,
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    },
+    {
+      "id": "C-COMPACTION",
+      "dimension": "soil",
+      "regionIds": [
+        "upper-midwest",
+        "kansas-dryland"
+      ],
+      "when": "densityIncreasing",
+      "sourceIds": [
+        "sd-tillage-trial-2001",
+        "ks-cover-trial-2020"
+      ],
+      "benefit": "Observed density increase prompts traffic and soil-structure review.",
+      "risk": "Depth, moisture and sampling methods affect interpretation; no universal compaction threshold.",
+      "requiredInputs": [
+        "density"
+      ],
+      "confidence": "low",
+      "humanApproved": false,
+      "review": {
+        "status": "research-only",
+        "reviewer": null,
+        "date": null
+      }
+    }
+  ]
+}

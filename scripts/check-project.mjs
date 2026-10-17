@@ -4,6 +4,7 @@ const requiredFiles = [
   "AGENTS.md",
   "index.html",
   "styles.css",
+  "workspace.css",
   "dashboard.css",
   "farm-hero.css",
   "assets/farm-overview.jpg",

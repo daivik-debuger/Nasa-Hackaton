@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FieldShift regional research catalog",
+  "description": "Structural contract. src/agronomy-validation.js additionally enforces source IDs, regional crop references, numeric evidence kinds and research-only approval gates.",
+  "type": "object",
+  "required": ["schemaVersion", "regions", "benchmarks", "rules"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "regions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/region" } },
+    "benchmarks": { "type": "array", "items": { "$ref": "#/$defs/benchmark" } },
+    "rules": { "type": "array", "items": { "$ref": "#/$defs/rule" } }
+  },
+  "$defs": {
+    "ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-zA-Z0-9-]+$" } },
+    "review": { "type": "object", "required": ["status", "reviewer", "date"], "properties": { "status": { "const": "research-only" }, "reviewer": { "type": "null" }, "date": { "type": "null" } } },
+    "region": {
+      "type": "object", "required": ["id", "name", "climate", "scope", "sourceIds", "review", "crops", "scenarios"],
+      "properties": {
+        "id": { "type": "string" }, "name": { "type": "string" }, "scope": { "type": "string" }, "climate": { "type": "string" },
+        "sourceIds": { "$ref": "#/$defs/ids" }, "review": { "$ref": "#/$defs/review" },
+        "crops": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["id", "label", "group"], "properties": { "id": { "type": "string" }, "label": { "type": "string" }, "group": { "enum": ["cereal", "legume", "oilseed", "fallow", "cover"] } } } },
+        "scenarios": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["id", "name", "phases", "note", "sourceIds", "waterIntensification"], "properties": { "id": { "type": "string" }, "name": { "type": "string" }, "phases": { "$ref": "#/$defs/ids", "minItems": 2 }, "note": { "type": "string" }, "sourceIds": { "$ref": "#/$defs/ids" }, "waterIntensification": { "type": "boolean" }, "requiresForage": { "type": "boolean" } } } }
+      }
+    },
+    "benchmark": {
+      "type": "object", "required": ["id", "regionId", "metric", "kind", "unit", "treatment", "comparator", "value", "treatmentLabel", "comparatorLabel", "depth", "period", "design", "sampleSize", "location", "sourceId", "sourceLocator", "limitation", "confidence", "review"],
+      "properties": {
+        "id": { "type": "string" }, "regionId": { "type": "string" }, "metric": { "type": "string" }, "kind": { "enum": ["treatment-difference", "reported-rate", "qualitative", "unavailable"] }, "unit": { "type": "string" },
+        "treatment": { "type": ["number", "null"] }, "comparator": { "type": ["number", "null"] }, "value": { "type": ["number", "null"] }, "treatmentLabel": { "type": "string" }, "comparatorLabel": { "type": ["string", "null"] },
+        "depth": { "type": "string" }, "period": { "type": "string" }, "design": { "type": "string" }, "sampleSize": { "type": ["integer", "null"], "minimum": 1 }, "location": { "type": "string" }, "sourceId": { "type": "string" }, "sourceLocator": { "type": "string" }, "limitation": { "type": "string" }, "confidence": { "enum": ["high", "medium", "low"] }, "review": { "$ref": "#/$defs/review" }
+      }
+    },
+    "rule": {
+      "type": "object", "required": ["id", "regionIds", "dimension", "when", "benefit", "risk", "requiredInputs", "sourceIds", "confidence", "humanApproved", "review"],
+      "properties": {
+        "id": { "type": "string" }, "regionIds": { "$ref": "#/$defs/ids" }, "dimension": { "enum": ["nitrogen", "water", "soil", "disease"] }, "when": { "enum": ["hasLegume", "waterIntensification", "cerealTransition", "somDeclining", "densityIncreasing"] }, "benefit": { "type": "string" }, "risk": { "type": "string" }, "requiredInputs": { "$ref": "#/$defs/ids" }, "sourceIds": { "$ref": "#/$defs/ids" }, "confidence": { "enum": ["high", "medium", "low"] }, "humanApproved": { "const": false }, "review": { "$ref": "#/$defs/review" }
+      }
+    }
+  }
+}

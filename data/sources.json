@@ -89,61 +89,213 @@
       "lastReviewed": "2026-10-03"
     },
     {
-      "id": "usda-sda-api", "name": "Soil Data Access web service and spatial SQL functions", "owner": "USDA NRCS", "url": "https://sdmdataaccess.nrcs.usda.gov/WebServiceHelp.aspx", "sourceType": "official-api-documentation", "integrationStatus": "integrated", "intendedUse": "Lookup map units and their possible components at a pilot coordinate", "limitations": "Point-to-map-unit intersection gives a mapped polygon; it is not a field sampling result.", "lastReviewed": "2026-10-03"
+      "id": "usda-sda-api",
+      "name": "Soil Data Access web service and spatial SQL functions",
+      "owner": "USDA NRCS",
+      "url": "https://sdmdataaccess.nrcs.usda.gov/WebServiceHelp.aspx",
+      "sourceType": "official-api-documentation",
+      "integrationStatus": "integrated",
+      "intendedUse": "Lookup map units and their possible components at a pilot coordinate",
+      "limitations": "Point-to-map-unit intersection gives a mapped polygon; it is not a field sampling result.",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "nasa-gpm-imerg", "name": "GPM IMERG V07 half-hourly precipitation image service", "owner": "NASA GES DISC", "url": "https://gis.earthdata.nasa.gov/portal/rest/services/GESDISC/GPM_3IMERGHH/ImageServer", "sourceType": "official-dataset-service", "integrationStatus": "integrated", "intendedUse": "Attempted satellite precipitation cross-check, separate from NASA POWER history; daily total withheld unless all 48 UTC slots are valid", "limitations": "0.1-degree gridded half-hourly rates are not a field gauge or future water supply. The exact run is unverified. Live metadata checked 2026-10-03 ended at 2025-09-30; tested Iowa days returned only 47 valid in-day slots. Recheck temporal availability, units, and completeness before relying on this service.", "lastReviewed": "2026-10-03"
+      "id": "nasa-gpm-imerg",
+      "name": "GPM IMERG V07 half-hourly precipitation image service",
+      "owner": "NASA GES DISC",
+      "url": "https://gis.earthdata.nasa.gov/portal/rest/services/GESDISC/GPM_3IMERGHH/ImageServer",
+      "sourceType": "official-dataset-service",
+      "integrationStatus": "integrated",
+      "intendedUse": "Attempted satellite precipitation cross-check, separate from NASA POWER history; daily total withheld unless all 48 UTC slots are valid",
+      "limitations": "0.1-degree gridded half-hourly rates are not a field gauge or future water supply. The exact run is unverified. Live metadata checked 2026-10-03 ended at 2025-09-30; tested Iowa days returned only 47 valid in-day slots. Recheck temporal availability, units, and completeness before relying on this service.",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "nasa-gpm-imerg-overview", "name": "IMERG product overview and run guidance", "owner": "NASA Global Precipitation Measurement", "url": "https://gpm.nasa.gov/data/imerg", "sourceType": "official-dataset-documentation", "integrationStatus": "research-only", "intendedUse": "Interpret IMERG as a half-hourly precipitation estimate and distinguish Early, Late, and Final runs", "limitations": "Overview describes the product family; the app must inspect the exact service layer and returned units before treating a sample as daily accumulation.", "lastReviewed": "2026-10-03"
+      "id": "nasa-gpm-imerg-overview",
+      "name": "IMERG product overview and run guidance",
+      "owner": "NASA Global Precipitation Measurement",
+      "url": "https://gpm.nasa.gov/data/imerg",
+      "sourceType": "official-dataset-documentation",
+      "integrationStatus": "research-only",
+      "intendedUse": "Interpret IMERG as a half-hourly precipitation estimate and distinguish Early, Late, and Final runs",
+      "limitations": "Overview describes the product family; the app must inspect the exact service layer and returned units before treating a sample as daily accumulation.",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "usda-nass-iowa", "name": "2025 Iowa State Agriculture Overview", "owner": "USDA NASS", "url": "https://www.nass.usda.gov/Quick_Stats/Ag_Overview/stateOverview.php?state=Iowa", "sourceType": "official-statistics", "integrationStatus": "research-only", "intendedUse": "Identify major Iowa crops; state figures are not county or field suitability", "limitations": "State aggregate, not specific to central Iowa", "lastReviewed": "2026-10-03"
+      "id": "usda-nass-iowa",
+      "name": "2025 Iowa State Agriculture Overview",
+      "owner": "USDA NASS",
+      "url": "https://www.nass.usda.gov/Quick_Stats/Ag_Overview/stateOverview.php?state=Iowa",
+      "sourceType": "official-statistics",
+      "integrationStatus": "research-only",
+      "intendedUse": "Identify major Iowa crops; state figures are not county or field suitability",
+      "limitations": "State aggregate, not specific to central Iowa",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "usda-iowa-crop-progress", "name": "2024 Iowa Crop Progress Review", "owner": "USDA NASS", "url": "https://www.nass.usda.gov/Statistics_by_State/Iowa/Publications/Crop_Progress_%26_Condition/2024/IA-Annual-Crop-Progress-2024.pdf", "sourceType": "official-report", "integrationStatus": "research-only", "intendedUse": "Broad Iowa planting and harvest season context", "limitations": "One-year state report, not a date prescription", "lastReviewed": "2026-10-03"
+      "id": "usda-iowa-crop-progress",
+      "name": "2024 Iowa Crop Progress Review",
+      "owner": "USDA NASS",
+      "url": "https://www.nass.usda.gov/Statistics_by_State/Iowa/Publications/Crop_Progress_%26_Condition/2024/IA-Annual-Crop-Progress-2024.pdf",
+      "sourceType": "official-report",
+      "integrationStatus": "research-only",
+      "intendedUse": "Broad Iowa planting and harvest season context",
+      "limitations": "One-year state report, not a date prescription",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-cover-crop-resources", "name": "Cover Crop Resources", "owner": "Iowa State University Extension", "url": "https://naturalresources.extension.iastate.edu/encyclopedia/cover-crop-resources", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Iowa corn-soy cover-crop patterns", "limitations": "Beginner recipes need adaptation to local management", "lastReviewed": "2026-10-03"
+      "id": "isu-cover-crop-resources",
+      "name": "Cover Crop Resources",
+      "owner": "Iowa State University Extension",
+      "url": "https://naturalresources.extension.iastate.edu/encyclopedia/cover-crop-resources",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Iowa corn-soy cover-crop patterns",
+      "limitations": "Beginner recipes need adaptation to local management",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-cover-crop-species", "name": "Most Commonly Used Cover Crops in Iowa", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/post/most-commonly-used-cover-crops-iowa", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Cover crop types, overwintering, and management tradeoffs", "limitations": "General Iowa guidance, not field-specific performance", "lastReviewed": "2026-10-03"
+      "id": "isu-cover-crop-species",
+      "name": "Most Commonly Used Cover Crops in Iowa",
+      "owner": "Iowa State University Extension",
+      "url": "https://crops.extension.iastate.edu/post/most-commonly-used-cover-crops-iowa",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Cover crop types, overwintering, and management tradeoffs",
+      "limitations": "General Iowa guidance, not field-specific performance",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-cover-crop-traits", "name": "Types of Cover Crops for Use in Home Vegetable Gardens", "owner": "Iowa State University Extension", "url": "https://yardandgarden.extension.iastate.edu/how-to/types-cover-crops-use-home-vegetable-gardens", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Species identity and qualitative cover-crop traits only", "limitations": "Home vegetable gardens are a different management system from commercial row crops; do not transfer ratings directly into recommendation scores", "lastReviewed": "2026-10-03"
+      "id": "isu-cover-crop-traits",
+      "name": "Types of Cover Crops for Use in Home Vegetable Gardens",
+      "owner": "Iowa State University Extension",
+      "url": "https://yardandgarden.extension.iastate.edu/how-to/types-cover-crops-use-home-vegetable-gardens",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Species identity and qualitative cover-crop traits only",
+      "limitations": "Home vegetable gardens are a different management system from commercial row crops; do not transfer ratings directly into recommendation scores",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-rye-recipe", "name": "Iowa Cover Crop Recipe: Post Corn, Going to Soybean", "owner": "Iowa State University Extension and Midwest Cover Crops Council", "url": "https://store.extension.iastate.edu/product/15548.pdf", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Central Iowa cereal rye timing and corn-to-soybean cover window", "limitations": "Introductory recipe, not an exact planting date for every field", "lastReviewed": "2026-10-03"
+      "id": "isu-rye-recipe",
+      "name": "Iowa Cover Crop Recipe: Post Corn, Going to Soybean",
+      "owner": "Iowa State University Extension and Midwest Cover Crops Council",
+      "url": "https://store.extension.iastate.edu/product/15548.pdf",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Central Iowa cereal rye timing and corn-to-soybean cover window",
+      "limitations": "Introductory recipe, not an exact planting date for every field",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-rye-corn-risk", "name": "Terminating cover crops ahead of corn", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/post/terminating-cover-crops-ahead-corn", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Potential corn establishment and disease risks after winter cereal rye", "limitations": "Risk depends on termination, weather, and management", "lastReviewed": "2026-10-03"
+      "id": "isu-rye-corn-risk",
+      "name": "Terminating cover crops ahead of corn",
+      "owner": "Iowa State University Extension",
+      "url": "https://crops.extension.iastate.edu/post/terminating-cover-crops-ahead-corn",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Potential corn establishment and disease risks after winter cereal rye",
+      "limitations": "Risk depends on termination, weather, and management",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-drought-corn-soy", "name": "Influence of Drought on Corn and Soybean", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/cropnews/2017/07/influence-drought-corn-and-soybean", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Qualitative crop-stage water sensitivity", "limitations": "Does not provide field water needs from annual rainfall alone", "lastReviewed": "2026-10-03"
+      "id": "isu-drought-corn-soy",
+      "name": "Influence of Drought on Corn and Soybean",
+      "owner": "Iowa State University Extension",
+      "url": "https://crops.extension.iastate.edu/cropnews/2017/07/influence-drought-corn-and-soybean",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Qualitative crop-stage water sensitivity",
+      "limitations": "Does not provide field water needs from annual rainfall alone",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-ph-guidance", "name": "Soil-test interpretations for liming decisions", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/cropnews/2021/10/soil-test-interpretations-fall-fertilization-and-liming-decisions-high-fertilizer", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Conditional Iowa pH targets for corn, soybean, and alfalfa", "limitations": "Corn/soy target depends on subsoil; not a universal pH range", "lastReviewed": "2026-10-03"
+      "id": "isu-ph-guidance",
+      "name": "Soil-test interpretations for liming decisions",
+      "owner": "Iowa State University Extension",
+      "url": "https://crops.extension.iastate.edu/cropnews/2021/10/soil-test-interpretations-fall-fertilization-and-liming-decisions-high-fertilizer",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Conditional Iowa pH targets for corn, soybean, and alfalfa",
+      "limitations": "Corn/soy target depends on subsoil; not a universal pH range",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-floods", "name": "Floods", "owner": "Iowa State University Extension", "url": "https://www.extension.iastate.edu/disasterreadiness/floods", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Regional flood and erosion context", "limitations": "Hazard description does not establish individual field risk", "lastReviewed": "2026-10-03"
+      "id": "isu-floods",
+      "name": "Floods",
+      "owner": "Iowa State University Extension",
+      "url": "https://www.extension.iastate.edu/disasterreadiness/floods",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Regional flood and erosion context",
+      "limitations": "Hazard description does not establish individual field risk",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-climate-outlook", "name": "July 2025 Weather Update", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/post/july-2025-weather-update", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Example of rainfall and dryness variability", "limitations": "One period is not a long-term climate trend", "lastReviewed": "2026-10-03"
+      "id": "isu-climate-outlook",
+      "name": "July 2025 Weather Update",
+      "owner": "Iowa State University Extension",
+      "url": "https://crops.extension.iastate.edu/post/july-2025-weather-update",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Example of rainfall and dryness variability",
+      "limitations": "One period is not a long-term climate trend",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "umn-alfalfa-rotation", "name": "Adding alfalfa benefits corn-soybean rotations", "owner": "University of Minnesota Extension", "url": "https://extension.umn.edu/agriculture/crop-production/corn/adding-alfalfa-benefits-corn-soybean-rotations", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Upper Midwest diversified rotation pattern and potential benefits", "limitations": "Minnesota trial and management systems may not transfer directly to a central Iowa field", "lastReviewed": "2026-10-03"
+      "id": "umn-alfalfa-rotation",
+      "name": "Adding alfalfa benefits corn-soybean rotations",
+      "owner": "University of Minnesota Extension",
+      "url": "https://extension.umn.edu/agriculture/crop-production/corn/adding-alfalfa-benefits-corn-soybean-rotations",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Upper Midwest diversified rotation pattern and potential benefits",
+      "limitations": "Minnesota trial and management systems may not transfer directly to a central Iowa field",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-rotation-nitrogen", "name": "Value of crop rotation in nitrogen management", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/encyclopedia/value-crop-rotation-nitrogen-management", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Qualitative Iowa rotation and nitrogen context", "limitations": "Does not establish a crop-specific field nitrogen credit", "lastReviewed": "2026-10-03"
+      "id": "isu-rotation-nitrogen",
+      "name": "Value of crop rotation in nitrogen management",
+      "owner": "Iowa State University Extension",
+      "url": "https://crops.extension.iastate.edu/encyclopedia/value-crop-rotation-nitrogen-management",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Qualitative Iowa rotation and nitrogen context",
+      "limitations": "Does not establish a crop-specific field nitrogen credit",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "isu-rye-corn-analysis", "name": "Understanding rye cover crop effects on corn", "owner": "Iowa State University Extension", "url": "https://crops.extension.iastate.edu/post/understanding-rye-cover-crop-effects-corn", "sourceType": "university-extension", "integrationStatus": "research-only", "intendedUse": "Rye biomass and water/nitrogen management tradeoffs", "limitations": "Research synthesis cannot predict field-specific outcome", "lastReviewed": "2026-10-03"
+      "id": "isu-rye-corn-analysis",
+      "name": "Understanding rye cover crop effects on corn",
+      "owner": "Iowa State University Extension",
+      "url": "https://crops.extension.iastate.edu/post/understanding-rye-cover-crop-effects-corn",
+      "sourceType": "university-extension",
+      "integrationStatus": "research-only",
+      "intendedUse": "Rye biomass and water/nitrogen management tradeoffs",
+      "limitations": "Research synthesis cannot predict field-specific outcome",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "usda-cover-crop-chart", "name": "USDA ARS Cover Crop Chart, version 4.0", "owner": "USDA ARS/NRCS", "url": "https://www.nrcs.usda.gov/sites/default/files/2025-06/CoverCropChart%20V.4.0_April%202023-508.pdf", "sourceType": "official-technical-reference", "integrationStatus": "research-only", "intendedUse": "Qualitative crop type and relative water use", "limitations": "Broad species-level chart, not local water requirement or field outcome", "lastReviewed": "2026-10-03"
+      "id": "usda-cover-crop-chart",
+      "name": "USDA ARS Cover Crop Chart, version 4.0",
+      "owner": "USDA ARS/NRCS",
+      "url": "https://www.nrcs.usda.gov/sites/default/files/2025-06/CoverCropChart%20V.4.0_April%202023-508.pdf",
+      "sourceType": "official-technical-reference",
+      "integrationStatus": "research-only",
+      "intendedUse": "Qualitative crop type and relative water use",
+      "limitations": "Broad species-level chart, not local water requirement or field outcome",
+      "lastReviewed": "2026-10-03"
     },
     {
-      "id": "usda-radish-guide", "name": "Oilseed radish Plant Guide", "owner": "USDA NRCS", "url": "https://plants.usda.gov/DocumentLibrary/plantguide/pdf/pg_rasa2.pdf", "sourceType": "official-plant-guide", "integrationStatus": "research-only", "intendedUse": "Radish growing period and taproot context", "limitations": "Guide draws on multiple regions; local Iowa feasibility still requires review", "lastReviewed": "2026-10-03"
+      "id": "usda-radish-guide",
+      "name": "Oilseed radish Plant Guide",
+      "owner": "USDA NRCS",
+      "url": "https://plants.usda.gov/DocumentLibrary/plantguide/pdf/pg_rasa2.pdf",
+      "sourceType": "official-plant-guide",
+      "integrationStatus": "research-only",
+      "intendedUse": "Radish growing period and taproot context",
+      "limitations": "Guide draws on multiple regions; local Iowa feasibility still requires review",
+      "lastReviewed": "2026-10-03"
     },
     {
       "id": "nasa-modis-vi",
@@ -199,6 +351,171 @@
       "intendedUse": "Identify the farm-specific projected and actual cost/benefit scenarios needed before an economic claim",
       "limitations": "Worksheets require local numbers; the page does not prove a particular field's net return or supply an app-ready price model.",
       "lastReviewed": "2026-10-08"
+    },
+    {
+      "id": "umn-small-grain-rotations",
+      "name": "Small grain crop rotations",
+      "owner": "Wiersma and Ransom, University of Minnesota / NDSU",
+      "url": "https://extension.umn.edu/agriculture/crop-production/small-grains/small-grain-crop-rotations",
+      "sourceType": "extension-guidance",
+      "limitations": "Minnesota and North Dakota systems; regional guidance reviewed in 2018, not approval of FieldShift.",
+      "integrationStatus": "research-only",
+      "intendedUse": "Scoped comparison evidence and observation provenance",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "ks-cover-trial-2020",
+      "name": "Dual Use of Cover Crops for Forage Production and Soil Health in Dryland Crop Production",
+      "owner": "Obour, Holman, Simon and Johnson, Kansas State University (2020)",
+      "url": "https://journals.newprairiepress.org/kaesrr/article/id/11058/",
+      "sourceType": "field-trial-report",
+      "limitations": "HB Ranch near Brownell, Kansas, 2015–2019. Site and year effects limit transfer.",
+      "integrationStatus": "research-only",
+      "intendedUse": "Scoped comparison evidence and observation provenance",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "sd-tillage-trial-2001",
+      "name": "Crop yield and soil condition under ridge and chisel-plow tillage in the northern Corn Belt, USA",
+      "owner": "Pikul et al., Soil & Tillage Research 60 (2001), 21–33",
+      "url": "https://www.ars.usda.gov/ARSUserFiles/30100500/Publications%202000-2009/413%20Vigil%20-%20Crop%20yield%20and%20soil%20condition%20under%20ridge%20and%20chisel-plow%20tillage%20in%20the%20northern%20corn%20belt.PDF",
+      "sourceType": "peer-reviewed-field-study",
+      "limitations": "Brookings Barnes clay loam; tillage comparison within corn–soybean, not a rotation effect or temporal SOM change.",
+      "integrationStatus": "research-only",
+      "intendedUse": "Scoped comparison evidence and observation provenance",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "pnw-carbon-2025",
+      "name": "Legume-based rotation enhance long-term soil carbon storage in eastern Oregon dryland wheat systems",
+      "owner": "Ramírez, Calderón, Singh and Machado, Scientific Reports 15, 13842 (2025)",
+      "url": "https://www.nature.com/articles/s41598-025-98916-x",
+      "sourceType": "peer-reviewed-field-study",
+      "limitations": "Archived samples reconstructed by MIR/PLS, unequal sampling years and some estimated bulk densities. Abstract differs from Results/Table 2 rates.",
+      "integrationStatus": "research-only",
+      "intendedUse": "Scoped comparison evidence and observation provenance",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "osu-pea-management",
+      "name": "Green pea nutrient management for the Inland Northwest, east of the Cascades",
+      "owner": "Oregon State University Extension, EM 9140",
+      "url": "https://extension.oregonstate.edu/catalog/em-9140-green-pea-nutrient-management-inland-northwest-east-cascades",
+      "sourceType": "extension-guidance",
+      "limitations": "Green-pea guidance; cultivar, pathogen and soil differences prevent automatic transfer to every pulse crop.",
+      "integrationStatus": "research-only",
+      "intendedUse": "Scoped comparison evidence and observation provenance",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "nasa-smap-enhanced-v6",
+      "name": "SMAP Enhanced L3 Radiometer Global and Polar Grid Daily 9 km Soil Moisture V6",
+      "owner": "NASA NSIDC DAAC / O’Neill et al. (2023)",
+      "url": "https://nsidc.org/data/spl3smp_e/versions/6",
+      "sourceType": "official-dataset",
+      "limitations": "9 km posting does not imply field resolution. Earthdata credentials and retrieval-quality filtering required; no live adapter in FieldShift.",
+      "integrationStatus": "planned",
+      "intendedUse": "Scoped comparison evidence and observation provenance",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "nasa-mod13q1-v061",
+      "name": "MOD13Q1 Terra Vegetation Indices 16-Day Global 250 m V061",
+      "owner": "NASA LP DAAC",
+      "url": "https://ladsweb.modaps.eosdis.nasa.gov/missions-and-measurements/products/MOD13Q1/",
+      "sourceType": "official-dataset",
+      "limitations": "16-day composites require QA, scale factors and cloud screening. NDVI is not a yield or disease diagnosis; not integrated.",
+      "integrationStatus": "planned",
+      "intendedUse": "Scoped comparison evidence and observation provenance",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "fao-gaez-v5",
+      "name": "Global Agro-Ecological Zones v5",
+      "owner": "FAO / IIASA",
+      "url": "https://www.fao.org/gaez/en",
+      "integrationStatus": "planned",
+      "limitations": "Approximately 1 km key outputs; suitability depends on crop, water regime, input level and period. No point lookup integrated.",
+      "sourceType": "official-or-primary-reference",
+      "intendedUse": "Scoped context and pipeline provenance; not automatic suitability.",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "beck-koppen-v2",
+      "name": "Köppen–Geiger climate maps, version 2",
+      "owner": "Beck et al., Scientific Data 2023",
+      "url": "https://www.nature.com/articles/s41597-023-02549-6",
+      "integrationStatus": "planned",
+      "limitations": "1 km climate classification is not field crop suitability. No raster lookup integrated.",
+      "sourceType": "official-or-primary-reference",
+      "intendedUse": "Scoped context and pipeline provenance; not automatic suitability.",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "fao-hwsd-v2",
+      "name": "Harmonized World Soil Database v2",
+      "owner": "FAO / IIASA",
+      "url": "https://www.fao.org/land-water/resources/tools/databases/hwsd/en",
+      "integrationStatus": "planned",
+      "limitations": "Approximately 1 km mapped inventory, not a laboratory result. No raster lookup integrated.",
+      "sourceType": "official-or-primary-reference",
+      "intendedUse": "Scoped context and pipeline provenance; not automatic suitability.",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "usda-hardiness",
+      "name": "USDA Plant Hardiness Zone Map",
+      "owner": "USDA ARS",
+      "url": "https://planthardiness.ars.usda.gov/pages/how-to-use-the-maps",
+      "integrationStatus": "research-only",
+      "limitations": "Average annual extreme minimum temperature; not a worldwide crop rotation or season-length model.",
+      "sourceType": "official-or-primary-reference",
+      "intendedUse": "Scoped context and pipeline provenance; not automatic suitability.",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "fao-water-guide",
+      "name": "Approximate seasonal crop water needs",
+      "owner": "FAO Irrigation Water Management",
+      "url": "https://www.fao.org/4/s2022e/s2022e02.htm",
+      "integrationStatus": "research-only",
+      "limitations": "Table 5 rough total crop evapotranspiration ranges; not net irrigation demand, local thresholds or predictions.",
+      "sourceType": "official-or-primary-reference",
+      "intendedUse": "Scoped context and pipeline provenance; not automatic suitability.",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "sare-cover-index",
+      "name": "Managing Cover Crops Profitably, third edition",
+      "owner": "SARE",
+      "url": "https://www.sare.org/resources/managing-cover-crops-profitably-3rd-edition/",
+      "integrationStatus": "research-only",
+      "limitations": "US-oriented reference index. Species availability does not establish worldwide suitability or a field nitrogen credit.",
+      "sourceType": "official-or-primary-reference",
+      "intendedUse": "Scoped context and pipeline provenance; not automatic suitability.",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "sentinel2-l2a",
+      "name": "Sentinel-2 L2A product documentation",
+      "owner": "Copernicus Data Space",
+      "url": "https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/S2L2A.html",
+      "integrationStatus": "planned",
+      "limitations": "Optical data require cloud/quality screening and aligned dates. NDVI cannot establish disease diagnosis or yield.",
+      "sourceType": "official-or-primary-reference",
+      "intendedUse": "Scoped context and pipeline provenance; not automatic suitability.",
+      "lastReviewed": "2026-10-16"
+    },
+    {
+      "id": "fao-etc-method",
+      "name": "FAO-56 crop evapotranspiration method",
+      "owner": "FAO",
+      "url": "https://www.fao.org/4/x0490e/x0490e0a.htm",
+      "integrationStatus": "research-only",
+      "limitations": "ETc = Kc × ETo under specified conditions. Coefficients, phenology, effective rain and irrigation losses require local inputs.",
+      "sourceType": "official-or-primary-reference",
+      "intendedUse": "Scoped context and pipeline provenance; not automatic suitability.",
+      "lastReviewed": "2026-10-16"
     }
   ]
 }

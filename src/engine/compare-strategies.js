@@ -1,3 +1,5 @@
+export { compareRegionalStrategies } from "./regional-engine.js";
+
 import { describeConfidence } from "./confidence.js";
 
 const DEFINITIONS = {

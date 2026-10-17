@@ -16,11 +16,20 @@ import { renderOverview } from "./ui/overview-view.js";
 import { renderCropExplorer, renderSelectedCropContext, renderGlobalPlantResults } from "./ui/crop-view.js";
 import { createViewRouter } from "./ui/view-router.js";
 import { createLocationPicker } from "./ui/location-picker.js";
+import { createAgronomyWorkbench, renderResearchAnalytics } from "./ui/agronomy-view.js";
 import { setStatus } from "./ui/status-view.js";
 
 const $ = (id) => document.getElementById(id);
 const lastFullYear = new Date().getUTCFullYear() - 1;
 const state = { region: null, crops: [], rules: [], evidence: [], globalResearch: [], sources: [], power: null, soil: null, imerg: null, requestId: 0 };
+const workbench = createAgronomyWorkbench({ getContext: () => state });
+function syncAnalytics() {
+  publishContext();
+  workbench.invalidate();
+  if (state.agronomy && state.sources.length) renderResearchAnalytics(state.agronomy, state.sources, state.power);
+}
+function publishContext() { window.dispatchEvent(new CustomEvent("fieldshift:context", { detail: { point: selectedPoint(), power: state.power } })); }
+window.addEventListener("fieldshift:request-context", publishContext);
 function selectedPoint() {
   const lat = Number($("latitude").value), lon = Number($("longitude").value);
   return $("latitude").value && $("longitude").value ? { lat, lon } : null;
@@ -75,14 +84,16 @@ async function json(path) {
 }
 
 async function loadCatalog() {
-  const [region, manifest, evidence, globalResearch, rules, sources] = await Promise.all([
-    json("./data/regions/central-iowa.json"), json("./data/crops.json"), json("./data/evidence.json"), json("./data/global-research.json"), json("./data/rotation-rules.json"), json("./data/sources.json")
+  const [region, manifest, evidence, globalResearch, rules, sources, agronomy] = await Promise.all([
+    json("./data/regions/central-iowa.json"), json("./data/crops.json"), json("./data/evidence.json"), json("./data/global-research.json"), json("./data/rotation-rules.json"), json("./data/sources.json"), json("./data/agronomy.json")
   ]);
   if (manifest.regionId !== region.id || evidence.regionId !== region.id || rules.regionId !== region.id) throw new Error("Pilot data has mismatched region IDs.");
   if (!Array.isArray(globalResearch.records) || !globalResearch.records.length) throw new Error("Worldwide research catalog is incomplete.");
   const crops = await Promise.all(manifest.cropFiles.map((id) => json(`./data/crops/${id}.json`)));
-  Object.assign(state, { region, crops, evidence: evidence.records, globalResearch: globalResearch.records, rules: rules.rules, sources: sources.sources });
+  Object.assign(state, { agronomy, region, crops, evidence: evidence.records, globalResearch: globalResearch.records, rules: rules.rules, sources: sources.sources });
+  workbench.setCatalog(agronomy, sources.sources);
   renderResearch(state);
+  syncAnalytics();
   renderCropExplorer(state, { search: $("cropSearch").value, role: $("cropRole").value });
   syncOverview();
   $("retryResearch").hidden = true;
@@ -104,7 +115,7 @@ function coverage() {
 function updateCoverage() {
   if (!$("latitude").value && !$("longitude").value) {
     syncCropContext();
-    $("researchCoverage").textContent = "Worldwide data and research principles are shown first. Detailed crop traits and rotation evidence remain Central Iowa-only until other regional packs are reviewed.";
+    $("researchCoverage").textContent = "Trial benchmarks and reference scenarios now cover Minnesota–Dakotas, western Kansas and Pendleton. Field-specific agronomic validation is pending; detailed legacy crop profiles remain Iowa-scoped.";
     setStatus($("coverageStatus"), "Drop a pin on the map, use its center, choose a public example, or enter exact coordinates anywhere in the world.");
     for (const id of ["lastCrop", "priorCrop", "summarize"]) $(id).disabled = true;
     for (const id of ["iowaLastCropField", "iowaPriorCropField"]) $(id).hidden = true;
@@ -117,7 +128,7 @@ function updateCoverage() {
     const result = coverage();
     const supported = Boolean(result.region);
     syncCropContext(result.region);
-    $("researchCoverage").textContent = supported ? "Worldwide context and the Central Iowa pilot are shown separately. Iowa crop and rotation records still need named agronomist review." : "Worldwide context may inform questions about this location; the Iowa crop and rotation records below do not apply to your selected field.";
+    $("researchCoverage").textContent = "Regional reference scenarios cover Minnesota–Dakotas, western Kansas and Pendleton, independently of your map pin. They are not field-validated recommendations. " + (supported ? "The separate Iowa crop and mapped-soil pilot is also available here." : "The separate Iowa crop and mapped-soil pilot does not apply to this location.");
     setStatus($("coverageStatus"), supported ? "NASA POWER climate context is available to request worldwide. At this Iowa point, mapped SSURGO soil and research-only rotation patterns can also be explored." : "NASA POWER climate context is available to request worldwide. Mapped soil and regional crop-rotation evidence are not yet supported for this location.");
     for (const id of ["lastCrop", "priorCrop"]) $(id).disabled = !supported;
     for (const id of ["iowaLastCropField", "iowaPriorCropField"]) $(id).hidden = !supported;
@@ -148,6 +159,7 @@ function clearLoadedData() {
   $("loadClimate").textContent = "Load available data";
   renderClimate(null);
   syncOverview();
+  syncAnalytics();
   renderImerg(null, null, null, "not-loaded");
   renderSoil(null, "Load data to see mapped soil where a supported provider exists.");
   $("strategies").textContent = "Location or period changed. Load data again to compare available context.";
@@ -160,7 +172,7 @@ function farmInput() {
   return validateFarmInputs({ lastCrop: $("lastCrop").value, priorCrop: $("priorCrop").value, soilTexture: $("soilTexture").value, soilPh: $("soilPh").value, priorities: selectedPriorities(), harvestDate: null, terminationPlan: null, marketAccess: null, equipment: null, soilTest: $("soilPh").value ? "pH only" : null, diseaseHistory: null }, new Set(state.crops.map((crop) => crop.id)));
 }
 
-function selectedPriorities() { return [...document.querySelectorAll(".priority-options input:checked")].map((element) => element.value); }
+function selectedPriorities() { return [...document.querySelectorAll("#field-notes .priority-options input:checked")].map((element) => element.value); }
 
 function updateComparison() {
   const location = locationInput();
@@ -260,6 +272,7 @@ $("loadClimate").addEventListener("click", async () => {
     button.setAttribute("aria-busy", "true");
     button.textContent = "Loading available data…";
     state.power = state.soil = state.imerg = null;
+    syncAnalytics();
     renderClimate(null);
     syncOverview();
     renderImerg(null, null, null, "not-loaded");
@@ -279,6 +292,7 @@ $("loadClimate").addEventListener("click", async () => {
       catch (error) { state.power = null; renderClimate(null); failures.push(`POWER: ${error.message}`); }
     } else failures.push(`POWER: ${powerResult.reason.message}`);
     syncOverview();
+    syncAnalytics();
     if (state.power) {
       const wettest = state.power.wettestReferenceDay;
       if (wettest) {
@@ -313,6 +327,9 @@ $("summarize").addEventListener("click", () => {
 });
 
 function reportCatalogError(error) {
+  workbench.unavailable(error.message);
+  $("researchAnalytics").textContent = "";
+  state.agronomy = null;
   Object.assign(state, { region: null, crops: [], evidence: [], globalResearch: [], rules: [], sources: [] });
   renderCropExplorer(state);
   syncOverview();

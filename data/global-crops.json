@@ -1,0 +1,739 @@
+{
+  "schemaVersion": 1,
+  "scope": "Worldwide reference discovery, not a universally validated crop model.",
+  "limitations": "FAO water ranges are rough crop evapotranspiration over a total growing period, not net water consumption or irrigation need. Root, N-credit and pathogen-host traits have not been reviewed for global use. SARE cover-crop names are reference entries, not evidence of local suitability.",
+  "crops": [
+    {
+      "id": "alfalfa",
+      "name": "Alfalfa",
+      "group": "forage",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 800,
+        "max": 1600,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "barley",
+      "name": "Barley",
+      "group": "cereal",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 450,
+        "max": 650,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "oats",
+      "name": "Oats",
+      "group": "cereal",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 450,
+        "max": 650,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "wheat",
+      "name": "Wheat",
+      "group": "cereal",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 450,
+        "max": 650,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "bean",
+      "name": "Bean",
+      "group": "legume",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 300,
+        "max": 500,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "cabbage",
+      "name": "Cabbage",
+      "group": "brassica",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 350,
+        "max": 500,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "cotton",
+      "name": "Cotton",
+      "group": "fiber",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 700,
+        "max": 1300,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "maize",
+      "name": "Maize",
+      "group": "cereal",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 500,
+        "max": 800,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "melon",
+      "name": "Melon",
+      "group": "vegetable",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 400,
+        "max": 600,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "onion",
+      "name": "Onion",
+      "group": "vegetable",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 350,
+        "max": 550,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "peanut",
+      "name": "Peanut",
+      "group": "legume",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 500,
+        "max": 700,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "pea",
+      "name": "Pea",
+      "group": "legume",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 350,
+        "max": 500,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "pepper",
+      "name": "Pepper",
+      "group": "vegetable",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 600,
+        "max": 900,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "potato",
+      "name": "Potato",
+      "group": "tuber",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 500,
+        "max": 700,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "rice",
+      "name": "Paddy rice",
+      "group": "cereal",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 450,
+        "max": 700,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "sorghum",
+      "name": "Sorghum",
+      "group": "cereal",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 450,
+        "max": 650,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "millet",
+      "name": "Millet",
+      "group": "cereal",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 450,
+        "max": 650,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "soybean",
+      "name": "Soybean",
+      "group": "legume",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 450,
+        "max": 700,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "sugarbeet",
+      "name": "Sugar beet",
+      "group": "root",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 550,
+        "max": 750,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "sugarcane",
+      "name": "Sugarcane",
+      "group": "cereal",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 1500,
+        "max": 2500,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "sunflower",
+      "name": "Sunflower",
+      "group": "oilseed",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 600,
+        "max": 1000,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "tomato",
+      "name": "Tomato",
+      "group": "vegetable",
+      "role": "cash-or-forage",
+      "waterMm": {
+        "min": 400,
+        "max": 800,
+        "sourceId": "fao-water-guide",
+        "locator": "Table 5",
+        "confidence": "low",
+        "usage": "context-only"
+      },
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "fao-water-guide"
+      ]
+    },
+    {
+      "id": "ryegrass",
+      "name": "Annual ryegrass",
+      "group": "forage",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "rye",
+      "name": "Cereal rye",
+      "group": "cereal",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "mustard",
+      "name": "Mustards",
+      "group": "brassica",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "buckwheat",
+      "name": "Buckwheat",
+      "group": "cover",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "sorghum-sudangrass",
+      "name": "Sorghum–sudangrass",
+      "group": "forage",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "cowpea",
+      "name": "Cowpea",
+      "group": "legume",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "berseem",
+      "name": "Berseem clover",
+      "group": "legume",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "crimson-clover",
+      "name": "Crimson clover",
+      "group": "legume",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "hairy-vetch",
+      "name": "Hairy vetch",
+      "group": "legume",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "red-clover",
+      "name": "Red clover",
+      "group": "legume",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "sweet-clover",
+      "name": "Sweet clovers",
+      "group": "legume",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    },
+    {
+      "id": "white-clover",
+      "name": "White clover",
+      "group": "legume",
+      "role": "cover-reference",
+      "waterMm": null,
+      "nFixationKgHa": null,
+      "nScavengingKgHa": null,
+      "rootArchitecture": null,
+      "diseaseBreak": null,
+      "phRange": null,
+      "approvedZoneIds": [],
+      "humanApproved": false,
+      "sourceIds": [
+        "sare-cover-index"
+      ]
+    }
+  ]
+}

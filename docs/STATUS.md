@@ -1,8 +1,22 @@
 # Project status
 
-Last updated: 2026-10-15
+Last updated: 2026-10-17
 
 ## Confirmed
+
+- The user-facing Plan preview now uses locally built Space Grotesk rather than Plus Jakarta Sans. The new WOFF2 assets are served from the local server and versioned in the PWA app shell; the open preview tab was refreshed to `#farm`. Browser-computed heading and body typography resolved to Space Grotesk. `npm run verify` passed all 89 tests after the font change. This remains local and uncommitted.
+
+- Global research workspace work is local and uncommitted: React/Tailwind components now present a 34-entry source-linked crop reference matrix, worldwide field-input assessment, explicit data-connection states and two reading levels for empirical trials. The Plan screen now uses a dark field-lab header, numbered workflow, responsive live readout and explicit evidence-gap result. The legacy regional/Iowa tools remain separately labeled. NASA POWER is the only globally integrated observation in this workspace; GAEZ, HWSD, Köppen raster, SMAP and Sentinel-2 are listed but not connected. No crop ranking or worldwide field suitability is claimed. `npm run verify` passed all 89 tests with zero skipped using local-listener access. Browser checks at 320, 375, 390, 430, 768 and 1366px found no page-level overflow across four views; a Brasília-coordinate field assessment, crop filter and evidence-level switch responded correctly. No physical-device or live upstream QA was performed in this pass.
+
+- Latest visual refresh supersedes the serif/left-rail presentation below: dark green horizontal navigation, light green-gray canvas, white analytical surfaces and Plus Jakarta Sans headings throughout. Crops has a split illustrated header. All four pages passed six-width overflow checks; map style, crop filtering, regional comparisons and benchmark filters worked in-browser. All 80 tests passed with zero skipped. No science logic changed in this refresh; changes remain local.
+
+- Final regional-upgrade verification: npm run verify passed all 78 tests, with zero skipped, including a real local HTTP listener. Syntax, asset/import, source-reference and regional-catalog checks passed; git diff --check was clean. Changes remain local on feature/editorial-workspace, not committed, pushed or deployed.
+
+- Regional-engine upgrade: three reference packs, nine documented cycles, six scoped considerations and seven benchmark rows (including one explicit SOM evidence gap). User constraints alter conflicts; priorities highlight explanations. Paired SOM/bulk-density inputs and complete-year POWER precipitation context are functional. No agronomist approval or ranking is claimed. SMAP/MODIS remain visibly not connected. See REGIONAL_ENGINE.md.
+- Local licensed Newsreader, Plus Jakarta Sans and IBM Plex Mono replace system-only typography. Research includes filterable empirical tables and observation availability. Plan leads with the regional workbench; the legacy Iowa workflow is retained in a labeled disclosure.
+- Browser verification of the new workbench: Kansas constraints flagged two conflicting cycles, water priority highlighted its source-linked rule, and a synthetic matched SOM pair calculated −0.3 percentage points. Test inputs were cleared. Research filters returned the expected bulk-density row and an explicit empty state. Plan/results and Research had no page overflow at 320, 375, 390, 430, 768 and 1366px; keyboard focus was visible. Only an unrelated browser-extension message-port error appeared. Preview and local font requests returned HTTP 200. This pass did not retest live upstream NASA services or physical-device installation.
+
+- Editorial workspace redesign on `feature/editorial-workspace`: one active authored stylesheet, persistent desktop rail, responsive map/coverage overview, separated planning/crop/research sections, and documented tokens in `DESIGN_SYSTEM.md`. Text-palette tests enforce 7:1; this is not a full WCAG AAA certification. Browser checks found no horizontal overflow across all four sections at 320, 375, 390, 430, 768, and 1366px. A live Brisbane POWER request populated the charts; IMERG timed out and remained explicitly unavailable. No scientific rules were changed. This redesign has not been pushed or deployed.
 
 - FieldShift is a responsive PWA pilot with a small Node server for soil and IMERG access.
 - Users can drop or drag a map pin, choose a public example, or enter exact coordinates, plus a climate-history period, crop history, optional soil notes, and priorities.
@@ -61,7 +75,7 @@ Last updated: 2026-10-15
 ## Not yet implemented
 
 - Named agronomist review and approval of crop records and rotation rules. Current records are source-linked but still research-only.
-- A three-region comparison to justify central Iowa relative to alternatives.
+- Comparative field validation of the three new reference packs; literature examples alone do not establish a preferred pilot.
 - A validated global soil provider and more region-scoped crop/rule catalogs. The ISRIC SoilGrids beta REST API is currently paused; WCS/WebDAV alternatives have not been integrated.
 - Farmer validation of the interface and economic/operational feasibility of the options.
 - Published HTTPS deployment.
