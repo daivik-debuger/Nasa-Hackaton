@@ -1,56 +1,37 @@
-# FieldShift — Field workspace design system
+# TerraSown — field notebook design system
 
-## Current visual direction
+## Direction
 
-This supersedes the serif/paper/left-rail design rejected in user feedback. A dark green horizontal navigation bar anchors a bright, wide work surface. Space Grotesk supplies a more distinctive technical sans-serif hierarchy; IBM Plex Mono is reserved for measured values and compact metadata. The scientific engines and coverage boundaries are unchanged by this visual pass.
+The user approved the TerraSown field-notebook direction after the older horizontal-nav version. `terrasown.css` is the final presentation layer, loaded after the legacy Dashboard stylesheet and the built React stylesheet. The Dashboard, Plan, Crops and Research views retain their current data and evidence behavior. The legacy redesign branch is not the scientific source of truth.
 
-The Dashboard and four-view shell retain semantic HTML, native controls and `workspace.css`. The global Plan, crop matrix and trial panels are React components in `src/react/global-workspace.jsx`; `src/react/field.css` is built through Tailwind PostCSS. Fonts are local, not requested from a remote service.
-
-## Tokens
+## Tokens and type
 
 | Role | Value |
 | --- | --- |
-| Ink | #172b24 |
-| Secondary text | #3c4e46 |
-| Canvas | #f3f6f4 |
-| Surface | #f7f8f6 |
-| Recessed surface | #e9efeb |
-| Accent / focus | #184c38 |
-| Navigation | #132d23 |
-| Navigation selected / crop artwork ground | #244736 |
-| Navigation text | #f5faf6 |
-| Divider / control border | #cbd7cf / #6b7e72 |
-| Warning text / ground | #683d16 / #f5ebd9 |
-| Field-lab dark / light signal | #172c24 / #c5dda0 |
-| Critical | #762e24 |
+| Ink | `#183126` |
+| Secondary text | `#39493e` |
+| Canvas | `#f3f1ea` |
+| Surface | `#fdfcf8` |
+| Recessed surface | `#e9ece2` |
+| Accent / primary action | `#20513a` |
+| Notebook rail | `#e5e9dc` |
+| Divider / control border | `#c7cec2` / `#718474` |
+| Caution text / ground | `#754119` / `#f7ecda` |
+| Critical | `#942e28` |
 
-Spacing: 4, 8, 12, 16, 24, 32, 48px. Boundaries: 1px rules, 2px controls and 4px surfaces. No panel shadows or decorative gradients. The circular completeness indicator encodes data, not an invented farm-health score.
+- Display: licensed, locally served Newsreader Regular. Headings use editorial contrast without decorating telemetry.
+- Body and controls: licensed, locally served Plus Jakarta Sans Regular and Semibold.
+- Values and provenance: licensed, locally served IBM Plex Mono. Keep units with numbers.
+- Spacing: 4, 8, 12, 16, 24, 32 and 48px. Surfaces use 1px borders and modest radii; there are no panel shadows or gradients.
 
-## Typography
+## Layout and behavior
 
-- Headings: locally served Space Grotesk semibold; 32–78px page titles, 24–34px section headings, tight but legible tracking.
-- Body: Space Grotesk regular, 15–16px with 1.55 line height.
-- Controls: Space Grotesk semibold, 14–16px.
-- Values and provenance: IBM Plex Mono regular, tabular numbers. Metadata is 10–12px; larger values retain their measurement units.
-- Font faces declare their actual static weights. Newsreader remains a licensed repository asset but is no longer used by the interface.
+- Desktop: 224px fixed notebook index; two-column opening spread with field introduction and NASA data-completeness ring; map and location controls follow. Completeness is data quality, never a farm-health score.
+- Tablet and phone: navigation moves to a sticky top row; the dashboard stacks with the map before the completeness panel. Four labeled tabs remain visible at 320px.
+- Plan: current React workbench remains evidence-gated. Decorative numbered stage labels are removed, but input order and logic are unchanged.
+- Crops and Research: current live discovery, regional scope, trial tables, provenance and limitations remain. Typography and surfaces inherit the same notebook layer.
+- Controls stay labeled and at least 48px where the current component permits. Focus-visible, disabled, loading and error states must remain legible. Motion honors `prefers-reduced-motion`.
 
-## Layout
+## Verification boundary
 
-- All views: full-width sticky navigation; centered workspace with a 1600px maximum and 24–48px desktop gutters.
-- Dashboard: asymmetric map / completeness overview, then location controls and POWER history. No crop library on the dashboard.
-- Crops: split green introduction with a labeled wheat illustration. Discovery and regional evidence retain separate tabs. Search, scope and sources remain visible. Crop profiles use crisp bordered surfaces.
-- Plan: dark field-lab command header, numbered input stages, a live completeness/provenance readout, and a visually distinct result. Global crop inputs never imply suitability. The regional workbench and original Iowa controls remain in separate labeled disclosures.
-- Research: scope summary, limitations, white analytical sections with filterable benchmark tables, then source disclosures. Wide tables scroll inside named keyboard-focusable regions.
-- Mobile: stacked content below 640px, 16px gutters, two-row navigation. No side drawer or icon-only navigation. Crop artwork compresses to 160px; controls remain labeled.
-
-## Interaction and accessibility
-
-Hover, active, disabled and focus-visible states are defined. Keyboard focus is green on light surfaces and light on dark surfaces. Global-workspace controls are at least 48–56px; older controls are being audited separately. Motion uses 150ms transitions and respects reduced motion. Forced-color mode preserves control boundaries.
-
-Automated tests verify 7:1 authored text-palette contrast on supported light surfaces and both dark navigation grounds, plus 3:1 control/focus contrast. This is not certification of full WCAG AAA conformance. Physical-device, screen-reader and comprehensive external-map accessibility audits remain outstanding.
-
-## Verification — 2026-10-16 refresh
-
-All four views passed overflow checks at 320, 375, 390, 430, 768 and 1366px. Desktop Dashboard, Research and Crops were visually inspected. Map street-view switching, crop mode switching, Oats filtering, regional comparison submission and benchmark filtering were exercised. Browser logs contained only unrelated extension message-port errors.
-
-The full test suite passed 80 tests with zero skipped. This visual refresh did not revalidate live NASA endpoints, physical-device installation or agronomic accuracy. See REGIONAL_ENGINE.md for scientific limitations.
+Automated tests check authored palette contrast in the base stylesheet and the notebook shell's local type and responsive breakpoint. This is not a full WCAG AAA certification. Verify actual computed styles, map behavior, view switching and overflow at 320, 375, 390, 430px and desktop after presentation changes. Physical-device and assistive-technology testing remain separate tasks.

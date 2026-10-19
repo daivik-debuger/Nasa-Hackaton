@@ -3,15 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#202820">
+  <meta name="theme-color" content="#e5e9dc">
   <meta name="description" content="Explore NASA climate history for locations worldwide, with clearly scoped soil and crop-rotation research where regional evidence is available.">
-  <title>FieldShift — Climate-aware rotation explorer</title>
+  <title>TerraSown — Climate-aware rotation explorer</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icon.svg">
   <link rel="stylesheet" href="./vendor/leaflet.css">
   <link rel="stylesheet" href="workspace.css">
   <link rel="stylesheet" href="./dist/global-app.css">
+  <link rel="stylesheet" href="terrasown.css">
   <script src="./vendor/leaflet.js" defer></script>
   <script src="src/main.js" type="module"></script>
   <script src="./dist/global-app.js" type="module"></script>
@@ -21,9 +22,9 @@
   <a class="skip-link" href="#main-content">Skip to the planning tool</a>
   <header class="app-header">
     <div class="header-inner">
-      <a class="brand" href="#top" aria-label="FieldShift home"><span class="brand-mark" aria-hidden="true">F</span><span>FieldShift</span></a>
-      <nav class="primary-nav" aria-label="Main sections"><a href="#top" data-tab-link="dashboard">Dashboard</a><a href="#farm" data-tab-link="plan">Plan</a><a href="#crops" data-tab-link="crops">Crops</a><a href="#research" data-tab-link="research">Research</a></nav>
-      <div class="rail-note"><span class="prototype-label">Research prototype</span><p>Earth observations.<br>Local questions.<br>Traceable evidence.</p><span class="rail-coordinate">GLOBAL CONTEXT / LOCAL CARE</span></div>
+      <a class="brand" href="#top" aria-label="TerraSown home"><img class="brand-mark" src="./icon.svg" alt="" width="42" height="42"><span>TerraSown<small class="brand-version">A FIELD PLANNING NOTEBOOK</small></span></a>
+      <nav class="primary-nav" aria-label="Main sections"><a href="#top" data-tab-link="dashboard">Overview</a><a href="#farm" data-tab-link="plan">Plan rotations</a><a href="#crops" data-tab-link="crops">Crops</a><a href="#research" data-tab-link="research">Research</a></nav>
+      <div class="rail-note"><span class="prototype-label">Research preview</span><p>Earth observations.<br>Local questions.<br>Traceable evidence.</p><span class="rail-coordinate">GLOBAL CONTEXT / LOCAL CARE</span></div>
     </div>
   </header>
 
@@ -31,8 +32,8 @@
     <div id="dashboardView" class="app-view" data-view="dashboard">
     <section id="top" class="farm-hero section-anchor" aria-labelledby="page-title">
       <div class="farm-hero-header">
-        <div><p class="hero-eyebrow">A WORLDWIDE FARM EXPLORER</p><h1 id="page-title">Explore your field, wherever you farm.</h1><p>Choose a point anywhere on Earth for NASA climate history. Explore worldwide research and plant names, with regional crop comparisons only where evidence applies.</p></div>
-        <a class="hero-action" href="#location">Choose a location <span aria-hidden="true">↗</span></a>
+        <div><p class="hero-eyebrow">FIELD NOTES · EARTH OBSERVATIONS</p><h1 id="page-title">A clearer way to plan what grows next.</h1><p>Choose a point anywhere on Earth for NASA climate history. Compare rotation ideas only where regional evidence applies.</p></div>
+        <a class="hero-action" href="#location">Choose a field <span aria-hidden="true">↗</span></a>
       </div>
       <div class="farm-overview-grid">
         <div class="hero-glass hero-feature" aria-labelledby="overview-feature-title">
@@ -162,7 +163,7 @@
     </div>
   </main>
 
-  <footer class="site-footer"><div><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">F</span><span>FieldShift</span></a><p>Built for worldwide exploration; region-specific decisions still need local evidence and expertise.</p></div><nav aria-label="Data source links"><a href="https://power.larc.nasa.gov/" target="_blank" rel="noreferrer">NASA POWER</a><a href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noreferrer">NASA GPM IMERG</a><a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">USDA SSURGO</a></nav></footer>
+  <footer class="site-footer"><div><a class="brand footer-brand" href="#top"><img class="brand-mark" src="./icon.svg" alt="" width="42" height="42"><span>TerraSown</span></a><p>Built for worldwide exploration; region-specific decisions still need local evidence and expertise.</p></div><nav aria-label="Data source links"><a href="https://power.larc.nasa.gov/" target="_blank" rel="noreferrer">NASA POWER</a><a href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noreferrer">NASA GPM IMERG</a><a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">USDA SSURGO</a></nav></footer>
   </div>
 </body>
 </html>

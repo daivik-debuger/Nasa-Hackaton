@@ -1,8 +1,10 @@
 # Project status
 
-Last updated: 2026-10-17
+Last updated: 2026-10-18
 
 ## Confirmed
+
+- TerraSown's approved field-notebook presentation is integrated onto the current React/global-evidence mainline: local Newsreader and Plus Jakarta Sans, seedling/field mark, fixed desktop index, compact mobile navigation, responsive Dashboard spread, and the same visual language across Plan, Crops and Research. The earlier redesign branch's coordinate-derived global zone resolver was intentionally excluded; worldwide crop suitability remains unavailable without validation. `npm run verify` passed 89 tests with zero skipped. Browser checks found no horizontal overflow across all four views at 320, 375, 390, 430 and 1366px; the only browser console errors were from an unrelated extension. Live upstream services and physical-device PWA installation were not retested in this pass.
 
 - The user-facing Plan preview now uses locally built Space Grotesk rather than Plus Jakarta Sans. The new WOFF2 assets are served from the local server and versioned in the PWA app shell; the open preview tab was refreshed to `#farm`. Browser-computed heading and body typography resolved to Space Grotesk. `npm run verify` passed all 89 tests after the font change. This remains local and uncommitted.
 

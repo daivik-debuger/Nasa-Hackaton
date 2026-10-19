@@ -40,9 +40,9 @@ Keep dependencies minimal. Explain the tradeoff before adding a framework, exter
 
 ## Design system
 
-- Use locally bundled Space Grotesk for headings, body and controls. Use IBM Plex Mono only for measurements, status and metadata. Do not restore the rejected serif heading style. The font is built from the pinned `@fontsource/space-grotesk` package into `dist/`.
-- Tokens: ink `#172b24`, canvas `#f3f6f4`, surface `#f7f8f6`, accent `#184c38`, navigation `#132d23`, field-lab dark `#172c24`, caution `#683d16`, critical `#762e24`. See `docs/DESIGN_SYSTEM.md`.
-- Use a full-width dark navigation bar, centered 1600px workspace, 4/8/12/16/24/32/48px spacing, 1px rules and 2–4px control/surface radii. No ornamental gradients, pill panels or heavy shadows.
+- Use the TerraSown presentation layer in `terrasown.css`: locally bundled Newsreader headings, Plus Jakarta Sans body/controls, and IBM Plex Mono for measurements and provenance. The React functionality and scientific gates remain in the current modules; do not import the old branch's coordinate-derived zone guesses.
+- Tokens: ink `#183126`, canvas `#f3f1ea`, surface `#fdfcf8`, accent `#20513a`, notebook rail `#e5e9dc`, caution `#754119`, critical `#942e28`. See `docs/DESIGN_SYSTEM.md`.
+- Use the fixed desktop notebook index, compact tablet/mobile navigation, a responsive field/coverage spread, 4/8/12/16/24/32/48px spacing, crisp borders and 48px-plus controls. No ornamental gradients, pill panels or heavy shadows.
 - Crops opens with a split green header and labeled wheat illustration, followed by separate discovery/evidence tabs. Keep all source and regional limitations visible.
 - Dashboard holds map and observations; Plan leads with worldwide input assessment, while bounded regional scenarios stay in a labeled disclosure; Crops provides a global reference matrix plus GBIF discovery and scoped regional traits; Research shows trials with reading-level switch and source provenance.
 - Keep keyboard-visible focus, 48–56px interactive targets, native control semantics, reduced motion and readable disabled/error states. Wide tables scroll inside labeled regions, not the page.

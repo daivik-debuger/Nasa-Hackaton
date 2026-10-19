@@ -36,9 +36,12 @@ test("dark navigation and crop header text meet 7:1 contrast", () => {
   }
 });
 
-test("the refreshed shell uses local sans headings and a horizontal navigation", () => {
-  assert.match(css, /--display: 'Space Grotesk', sans-serif/);
-  assert.doesNotMatch(css, /font-family: 'Newsreader'/);
-  assert.match(css, /\.header-inner \{ display: flex; align-items: center; justify-content: space-between/);
-  assert.match(css, /\.crop-section-header \{ display: grid/);
+test("TerraSown presents the current workspace with local editorial type and an adaptive notebook index", async () => {
+  const theme = await readFile(new URL("../terrasown.css", import.meta.url), "utf8");
+  const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  assert.match(theme, /font-family: 'Newsreader'/);
+  assert.match(theme, /font-family: 'Plus Jakarta Sans'/);
+  assert.match(theme, /\.app-header \{ position: fixed/);
+  assert.match(theme, /@media \(max-width: 1120px\)/);
+  assert.match(html, /<link rel="stylesheet" href="terrasown.css">/);
 });

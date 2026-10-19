@@ -158,3 +158,9 @@ FieldShift will expose a live GBIF plant-name lookup using the Catalogue of Life
 **Decision:** Supersede the serif/paper/side-rail presentation with locally served sans-serif headings, a full-width dark green navigation bar, a centered light workspace and crisp white analytical surfaces. Add the labeled wheat illustration to the Crops header and retain every existing control and evidence boundary. Update the shell cache to v20.
 
 **Reason:** User feedback explicitly rejected the prior visual direction, especially the type. A global navigation, palette and typography change makes the revision consistent across Dashboard, Plan, Crops and Research rather than restricting it to the research panel.
+
+## 2026-10-18 — Integrate the approved TerraSown notebook without reverting scientific gates
+
+**Decision:** Reapply the user-approved TerraSown brand, local editorial/body typography, field mark, desktop notebook index, mobile navigation and dashboard spread as a presentation layer on the latest React mainline. Keep its current global coverage gate, evidence status, NASA integrations and regional research-only boundaries. Do not import the older branch's coordinate-derived agro-ecological labels or implied crop suitability.
+
+**Reason:** The prior design commit and current main both changed the same screens, but only current main contains the latest scientific-safety and React work. A mechanical merge would silently regress those safeguards. Presentation can be reconciled independently while the original design commit remains in history.

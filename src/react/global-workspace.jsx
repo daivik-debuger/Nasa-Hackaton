@@ -47,7 +47,7 @@ export function GlobalPlanner() {
   const entered=[input.latitude,input.longitude,input.texture,input.irrigation!=='unknown'?'yes':'',input.ph,input.som].filter(Boolean).length;
   const selected=input.sequence.filter(Boolean).length;
   return <div className="global-ui">
-    <header className="g-command"><div><p className="g-eyebrow">FIELD LAB / GLOBAL EXPLORATION</p><h2>A plan begins<br/><em>with a place.</em></h2><p>Sketch a sequence and inspect its evidence gaps. This is a research workspace, not a crop prescription.</p></div><div className="g-command-meta" aria-label="Assessment status"><span>01 / FIELD</span><span>02 / SEQUENCE</span><span>03 / REVIEW</span><strong>Local validation required</strong></div></header>
+    <header className="g-command"><div><p className="g-eyebrow">FIELD LAB / GLOBAL EXPLORATION</p><h2>A plan begins<br/><em>with a place.</em></h2><p>Sketch a sequence and inspect its evidence gaps. This is a research workspace, not a crop prescription.</p></div><div className="g-command-meta" aria-label="Assessment status"><span>FIELD</span><span>SEQUENCE</span><span>REVIEW</span><strong>Local validation required</strong></div></header>
     <div className="g-workspace">
     <form className="g-form" onSubmit={submit}>
       <section className="g-form-section"><div className="g-section-heading"><span className="g-index">01</span><div><h3>Locate the field</h3><p>Use the map pin or enter coordinates. Soil results here are farmer-supplied.</p></div></div>

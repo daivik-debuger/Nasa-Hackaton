@@ -1,14 +1,14 @@
 {
   "id": "./",
-  "name": "FieldShift — Farm Rotation Explorer",
-  "short_name": "FieldShift",
+  "name": "TerraSown — Farm Rotation Explorer",
+  "short_name": "TerraSown",
   "description": "Explore climate context and rotation questions for your farm.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#f6f4ed",
-  "theme_color": "#202820",
+  "background_color": "#f3f1ea",
+  "theme_color": "#e5e9dc",
   "icons": [
     { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
   ]

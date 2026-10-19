@@ -59,7 +59,7 @@ test("worldwide research remains sourced, unapproved context only", () => {
 
 test("site introduction distinguishes worldwide access, reference packs and Iowa soil scope", async () => {
   const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
-  assert.match(html, /Explore your field, wherever you farm/);
+  assert.match(html, /A clearer way to plan what grows next/);
   assert.match(html, /Worldwide access is not worldwide crop advice/);
   assert.match(html, /Three regional reference packs/);
   assert.match(html, /mapped-soil lookup remains Iowa-scoped/);
