@@ -43,6 +43,7 @@ test("public server serves app assets but not repository internals", async () =>
   assert.equal((await call("/research.css")).status, 200);
   assert.equal((await call("/dashboard.css")).status, 200);
   assert.equal((await call("/farm-hero.css")).status, 200);
+  assert.equal((await call("/editorial.css")).status, 200);
   const overviewImage = await call("/assets/farm-overview.jpg");
   assert.equal(overviewImage.status, 200);
   assert.equal(overviewImage.headers["Content-Type"], "image/jpeg");
@@ -55,6 +56,11 @@ test("public server serves app assets but not repository internals", async () =>
   assert.equal((await call("/location-map.css")).status, 200);
   assert.equal((await call("/vendor/leaflet.js")).status, 200);
   assert.equal((await call("/vendor/leaflet.css")).status, 200);
+  for (const font of ["barlow-400", "barlow-600", "barlow-700", "barlow-800", "ibm-plex-mono-400", "ibm-plex-mono-700", "newsreader-400", "newsreader-600", "source-sans-3-400", "source-sans-3-600", "source-sans-3-700"]) {
+    const response = await call(`/vendor/${font}.woff2`);
+    assert.equal(response.status, 200, font);
+    assert.equal(response.headers["Content-Type"], "font/woff2", font);
+  }
   for (const path of ["/package.json", "/node_modules/leaflet/dist/leaflet.js", "/vendor/not-approved.js", "/data/AGENTS.md", "/docs/STATUS.md", "/tests/fixtures/nasa-power-des-moines-2025-01-01-to-2025-01-07.json", "/.git/config"]) assert.equal((await call(path)).status, 404, path);
 });
 

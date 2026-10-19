@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#173f30">
-  <meta name="description" content="Explore NASA climate context, mapped soil information, and evidence-linked crop rotation strategies.">
-  <title>FieldShift — Climate-aware rotation explorer</title>
+  <meta name="theme-color" content="#F3F1EA">
+  <meta name="description" content="Explore NASA climate history, mapped soil context, and evidence-backed crop rotation questions for your field.">
+  <title>TerraSown — Explore crop rotations with NASA data</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icon.svg">
@@ -16,17 +16,35 @@
   <link rel="stylesheet" href="dashboard.css">
   <link rel="stylesheet" href="farm-hero.css">
   <link rel="stylesheet" href="accessibility.css">
+  <link rel="stylesheet" href="editorial.css">
   <script src="./vendor/leaflet.js" defer></script>
   <script src="src/main.js" type="module"></script>
 </head>
 <body>
+  <div id="filePreviewNotice" class="file-preview-notice" role="status" hidden>
+    This file preview shows the layout only. Open the app through its local server to use the map, NASA data, and planning tools.
+  </div>
+  <script>if (location.protocol === "file:") document.getElementById("filePreviewNotice").hidden = false;</script>
   <div class="app-frame">
   <a class="skip-link" href="#main-content">Skip to the planning tool</a>
   <header class="app-header">
     <div class="header-inner">
-      <a class="brand" href="#top" aria-label="FieldShift home"><span class="brand-mark" aria-hidden="true">F</span><span>FieldShift</span></a>
-      <nav class="primary-nav" aria-label="Main sections"><a href="#top" data-tab-link="dashboard">Dashboard</a><a href="#farm" data-tab-link="plan">Plan</a><a href="#crops" data-tab-link="crops">Crops</a><a href="#research" data-tab-link="research">Research</a></nav>
-      <span class="prototype-label">Research prototype</span>
+      <div class="brand-cluster">
+        <a class="brand" href="#top" aria-label="TerraSown home">
+          <img class="brand-mark" src="./icon.svg" alt="" width="40" height="40">
+          <span>TerraSown <small class="brand-version">A FIELD PLANNING NOTEBOOK</small></span>
+        </a>
+      </div>
+      <nav class="primary-nav" aria-label="Main sections">
+        <a href="#top" data-tab-link="dashboard">Overview</a>
+        <a href="#farm" data-tab-link="plan">Plan rotations</a>
+        <a href="#crops" data-tab-link="crops">Crops</a>
+        <a href="#research" data-tab-link="research">Research</a>
+      </nav>
+      <div class="header-controls">
+        <button id="cabThemeToggle" type="button" class="button button-cab-toggle" aria-pressed="false">Night mode</button>
+        <span class="prototype-label">Research preview</span>
+      </div>
     </div>
   </header>
 
@@ -34,92 +52,264 @@
     <div id="dashboardView" class="app-view" data-view="dashboard">
     <section id="top" class="farm-hero section-anchor" aria-labelledby="page-title">
       <div class="farm-hero-header">
-        <div><p class="hero-eyebrow">YOUR FARM DASHBOARD</p><h1 id="page-title">Your field at a glance.</h1><p>Choose a point on the map and load NASA climate history. Then explore field planning and crop research in their own tabs.</p></div>
-        <a class="hero-action" href="#location">Choose a location <span aria-hidden="true">↗</span></a>
+        <div>
+          <p class="hero-eyebrow">FIELD NOTES · EARTH OBSERVATIONS</p>
+          <h1 id="page-title">A clearer way to plan what grows next.</h1>
+          <p>Choose a field anywhere in the world, explore NASA climate history, and compare rotation ideas only where supporting local evidence is available.</p>
+        </div>
+        <a class="hero-action" href="#location">Choose a field <span aria-hidden="true">↗</span></a>
       </div>
       <div class="farm-overview-grid">
         <div class="hero-glass hero-feature" aria-labelledby="overview-feature-title">
-          <div class="hero-card-top"><div><p class="hero-eyebrow">NASA POWER DATA COVERAGE</p><h2 id="overview-feature-title">How complete is the climate record?</h2></div><span>HISTORICAL</span></div>
-          <div class="hero-feature-visual"><div id="overviewRing" class="coverage-ring" style="--coverage: 0%" role="img" aria-label="Climate data coverage unavailable until NASA data is loaded"><div class="coverage-ring-center"><strong id="overviewCoverage">—</strong><span id="overviewCoverageLabel">Load data to check</span></div></div></div>
-          <div class="hero-feature-footer"><div><span class="hero-dot hero-dot-lime"></span><strong id="overviewTempDays">—</strong><small>Temperature days</small></div><div><span class="hero-dot hero-dot-gold"></span><strong id="overviewRainDays">—</strong><small>Rainfall days</small></div><div><span class="hero-dot hero-dot-cream"></span><strong id="overviewRequestedDays">—</strong><small>Requested days</small></div></div>
-          <p class="hero-feature-note">The ring shows the least complete of the temperature and rainfall series. It is a data-coverage measure, not a farm-health score.</p>
-          <div class="hero-place"><span>SELECTED PLACE</span><strong id="overviewPlace">No location selected</strong></div>
+          <div class="hero-card-top">
+            <div>
+              <p class="hero-eyebrow">YOUR DATA AT A GLANCE</p>
+              <h2 id="overview-feature-title">Climate record coverage</h2>
+            </div>
+            <span>NASA POWER · 0.5° × 0.625° grid</span>
+          </div>
+          <div class="hero-feature-visual">
+            <div id="overviewRing" class="coverage-ring" style="--coverage: 0%" role="img" aria-label="Climate data coverage unavailable until NASA data is loaded">
+              <div class="coverage-ring-center">
+                <strong id="overviewCoverage" class="mono-num">—</strong>
+                <span id="overviewCoverageLabel">Load data to check</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-feature-footer">
+            <div><span class="hero-dot hero-dot-lime"></span><strong id="overviewTempDays" class="mono-num">—</strong><small>Temperature days</small></div>
+            <div><span class="hero-dot hero-dot-gold"></span><strong id="overviewRainDays" class="mono-num">—</strong><small>Rainfall days</small></div>
+            <div><span class="hero-dot hero-dot-cream"></span><strong id="overviewRequestedDays" class="mono-num">—</strong><small>Days requested</small></div>
+          </div>
+          <p class="hero-feature-note">Completeness measures the least complete NASA series. It is a data-integrity metric, never a synthetic farm-health score.</p>
+          <div class="hero-place">
+            <span>SELECTED LOCATION</span>
+            <strong id="overviewPlace" class="mono-num">No location selected — Drop a map pin or select a global benchmark</strong>
+          </div>
         </div>
       </div>
-      <p class="hero-disclosure">The background photograph is decorative. NASA observations are gridded historical context, not field measurements or a forecast.</p>
+      <p class="hero-disclosure">Satellite and mapped data describe regional context, not a field measurement or a promised yield. Local knowledge still matters.</p>
     </section>
+
     <div class="dashboard-layout">
     <aside class="dashboard-map surface" aria-labelledby="map-heading">
-      <div class="map-header"><div><p class="section-kicker">Explore anywhere</p><h2 id="map-heading">Choose a place</h2></div><span class="map-source-label">Satellite view</span></div>
+      <div class="map-header">
+        <div>
+          <p class="section-kicker">YOUR FIELD</p>
+          <h2 id="map-heading">Start on the map</h2>
+        </div>
+        <span class="map-source-label">Satellite / Streets</span>
+      </div>
       <div class="map-field">
-        <div class="map-toolbar"><p class="map-instructions">Tap to drop a pin. Zoom or drag to refine it.</p><div class="map-style-switch" role="group" aria-label="Map style"><button id="satelliteStyle" type="button" class="active" aria-pressed="true">Satellite</button><button id="streetStyle" type="button" aria-pressed="false">Streets</button></div></div>
+        <div class="map-toolbar">
+          <p class="map-instructions">Tap map to drop pin, drag marker, or pan and use map center.</p>
+          <div class="map-style-switch" role="group" aria-label="Map style">
+            <button id="satelliteStyle" type="button" class="active" aria-pressed="true">Satellite</button>
+            <button id="streetStyle" type="button" aria-pressed="false">Streets</button>
+          </div>
+        </div>
         <div id="fieldMap" aria-label="Interactive location map. Pan with arrow keys, then use the Use map center button."></div>
-        <div class="map-actions"><button id="useMapCenter" class="button button-secondary" type="button">Use map center</button><button id="clearPin" class="button button-quiet" type="button" disabled>Clear pin</button></div>
-        <p id="selectedPlace" class="selected-place" role="status" aria-live="polite">No place selected. Tap the map, use its center, or choose an example.</p>
+        <div class="map-actions">
+          <button id="useMapCenter" class="button button-secondary" type="button">Use map center</button>
+          <button id="clearPin" class="button button-quiet" type="button" disabled>Clear pin</button>
+        </div>
+        <p id="selectedPlace" class="selected-place mono-num" role="status" aria-live="polite">No place selected. Tap the map, use its center, or choose an example.</p>
         <p id="mapStatus" class="supporting-text" role="status" aria-live="polite">Loading the map…</p>
-        <p class="map-privacy">Satellite tiles are provided by Esri and its imagery partners; street tiles by OpenStreetMap. Viewing either map shares the viewed area with its provider. Imagery is a basemap, not a live crop-health reading.</p>
+        <p class="map-privacy">Satellite tiles are provided by Esri; street tiles by OpenStreetMap. Imagery is a location basemap, never used to infer NDVI crop health or nutrient status.</p>
       </div>
     </aside>
 
     <section id="location" class="workflow-section section-anchor" aria-labelledby="location-heading">
-      <header class="section-header"><span class="step-number" aria-hidden="true">1</span><div><p class="section-kicker">Choose the field</p><h2 id="location-heading">Location and time period</h2><p>Drop a pin anywhere in the world. Coverage is checked after every location change.</p></div></header>
+      <header class="section-header">
+        <div>
+          <p class="section-kicker">LOCATION &amp; CONTEXT</p>
+          <h2 id="location-heading">Tell us about this place</h2>
+          <p>Add a location and review which climate, soil, and regional evidence layers are actually available there.</p>
+        </div>
+      </header>
       <div class="surface location-panel" aria-labelledby="location-title">
-        <div class="panel-heading"><div><h3 id="location-title">Your field setup</h3><p>Use the map or a public example, then select a history period.</p></div><span class="coverage-chip">Global location</span></div>
+        <div class="panel-heading">
+          <div>
+            <h3 id="location-title">Field Coordinate &amp; Regime Setup</h3>
+            <p>Choose a global benchmark or enter exact coordinates, elevation, and moisture regime.</p>
+          </div>
+          <span class="coverage-chip">UNIVERSAL RESOLVER</span>
+        </div>
         <div class="location-workspace">
           <div class="location-settings" aria-label="Location and climate period settings">
-            <label class="field"><span>Field or farm name <small>optional</small></span><input id="fieldName" type="text" placeholder="e.g. North Farm"></label>
-            <label class="field"><span>Public example location <small>optional</small></span><select id="demoLocation"><option value="">Use my map pin</option></select><small class="hint">City-area examples for testing—not verified farms.</small></label>
-            <details id="exactCoordinates" class="exact-coordinate-details"><summary>Enter exact coordinates</summary><div class="form-grid exact-coordinate-grid"><label class="field"><span>Latitude</span><input id="latitude" type="number" step="any" min="-90" max="90" required><small class="hint">−90 to 90</small></label><label class="field"><span>Longitude</span><input id="longitude" type="number" step="any" min="-180" max="180" required><small class="hint">−180 to 180</small></label></div></details>
-            <div class="period-grid"><label class="field"><span>Start year</span><select id="startYear"></select></label><label class="field"><span>End year</span><select id="endYear"></select></label></div>
-            <p class="settings-note">Global climate access does not mean global crop or soil advice. Unsupported layers remain clearly unavailable.</p>
+            <label class="field"><span>Field or block ID <small>optional local label</small></span><input id="fieldName" type="text" placeholder="e.g. Block 4B — North Pivot"></label>
+            <label class="field"><span>Global benchmark coordinates <small>6 continents</small></span><select id="demoLocation"><option value="">Use my map pin / custom coordinates</option></select><small class="hint">Public city-area test coordinates—not verified private farms.</small></label>
+            <details id="exactCoordinates" class="exact-coordinate-details" open>
+              <summary>Exact GPS Coordinates &amp; Elevation (Tabular Monospace)</summary>
+              <div class="form-grid exact-coordinate-grid">
+                <label class="field"><span>Latitude (°)</span><input id="latitude" class="mono-num" type="number" step="any" min="-90" max="90" placeholder="e.g. 42.0350" required><small class="hint">−90 to 90</small></label>
+                <label class="field"><span>Longitude (°)</span><input id="longitude" class="mono-num" type="number" step="any" min="-180" max="180" placeholder="e.g. -93.5500" required><small class="hint">−180 to 180</small></label>
+                <label class="field"><span>Elevation (m ASL)</span><input id="elevationM" class="mono-num" type="number" step="10" min="-400" max="6000" value="300"><small class="hint">Used for thermal lapse-rate check</small></label>
+                <label class="field"><span>Precipitation regime</span>
+                  <select id="precipRegime">
+                    <option value="auto">Auto-detect from latitude &amp; longitude</option>
+                    <option value="temperate-subhumid">Temperate Sub-Humid / Humid</option>
+                    <option value="arid-semi-arid">Semi-Arid Steppe / Dryland (&lt;500 mm)</option>
+                    <option value="mediterranean-winter">Mediterranean Winter-Rain / Dry-Summer</option>
+                    <option value="tropical-wet-dry">Tropical Savanna / Humid Multi-Crop</option>
+                    <option value="monsoon-bimodal">Monsoon / Alluvial Double-Crop</option>
+                  </select>
+                </label>
+              </div>
+            </details>
+            <div class="period-grid">
+              <label class="field"><span>NASA POWER Start Year</span><select id="startYear" class="mono-num"></select></label>
+              <label class="field"><span>NASA POWER End Year</span><select id="endYear" class="mono-num"></select></label>
+            </div>
+            <p class="settings-note">Global climate access does not imply global crop or soil rule validity. Unverified regional layers remain explicitly marked.</p>
           </div>
         </div>
+
+        <!-- Dynamic Global Zone Resolution Readout -->
+        <div id="aezResolverPanel" class="aez-resolver-box" aria-live="polite">
+          <div class="aez-header">
+            <span class="aez-kicker">RESOLVED AGRO-ECOLOGICAL ZONE (FAO AEZ / KÖPPEN PROXY)</span>
+            <span id="aezBadge" class="aez-badge">AWAITING COORDINATES</span>
+          </div>
+          <div id="aezBody" class="aez-grid">
+            <div><small>MACRO ZONE</small><strong id="aezName">Select a coordinate to resolve agro-ecological zone</strong></div>
+            <div><small>KÖPPEN &amp; THERMAL BAND</small><strong id="aezKoppen">—</strong></div>
+            <div><small>ANALOGOUS GLOBAL BELTS</small><strong id="aezAnalogs">—</strong></div>
+            <div><small>STRUCTURAL ROTATION SCHEMA</small><strong id="aezSchema">—</strong></div>
+          </div>
+        </div>
+
         <div id="coverageStatus" class="status" role="status" aria-live="polite">Choose a location to check available data and regional evidence.</div>
         <div id="offlineBanner" class="status status-error" role="status" hidden>You appear to be offline. The app shell can reopen, but live NASA and soil data need a connection.</div>
-        <div class="primary-action-row"><p>Your field notes stay in this browser page. Loading data sends the selected point to the named data providers.</p><button id="loadClimate" class="button button-primary"><span aria-hidden="true">↓</span> Load available data</button></div>
-        <details class="privacy-details"><summary>Data and privacy details</summary><p>Field name, crop history, priorities, and soil notes are not saved by this prototype. Map tiles reveal the viewed area to Esri or OpenStreetMap, depending on the chosen view. Selected coordinates are sent in live data requests; providers or a future host may keep request logs. See <a href="./docs/PRIVACY.md">the complete data-flow inventory</a>.</p></details>
+        <div class="primary-action-row">
+          <p>Field notes stay in your browser session. Clicking below requests live NASA POWER &amp; regional soil context for your coordinates.</p>
+          <button id="loadClimate" class="button button-primary"><span aria-hidden="true">↓</span> Load NASA &amp; Soil Telemetry</button>
+        </div>
+        <details class="privacy-details"><summary>Data &amp; Privacy Architecture</summary><p>Field name, crop history, priorities, and lab soil notes remain strictly in browser memory. Map tiles share the viewed bounding box with Esri or OpenStreetMap. Live telemetry requests send coordinates to NASA POWER, NASA GES DISC (IMERG), and USDA NRCS SDA (when inside the U.S. pilot). See <a href="./docs/PRIVACY.md">the complete data-flow inventory</a>.</p></details>
         <div id="climateStatus" class="status" role="status" aria-live="polite">Ready to load historical climate context.</div>
       </div>
     </section>
 
     <section id="climate" class="workflow-section section-anchor" aria-labelledby="climate-heading">
-      <header class="section-header"><span class="step-number" aria-hidden="true">2</span><div><p class="section-kicker">Review the observations</p><h2 id="climate-heading">Climate and mapped soil context</h2><p>Values remain tied to their source, period, units, scale, and missing-data limits.</p></div><span id="periodBadge" class="section-state">Waiting for data</span></header>
+      <header class="section-header">
+        <div>
+          <p class="section-kicker">EARTH OBSERVATIONS</p>
+          <h2 id="climate-heading">Weather history, with sources</h2>
+          <p>Every observation displays its source, spatial grid resolution, valid-day count, and physical limitations.</p>
+        </div>
+        <span id="periodBadge" class="section-state mono-num">Waiting for data</span>
+      </header>
       <div class="climate-layout">
         <article class="surface climate-panel">
-          <div class="panel-heading"><div><h3>NASA POWER history</h3><p id="climateSubhead">Load NASA POWER data to populate this view.</p></div><span class="source-chip">NASA POWER</span></div>
-          <div id="climateMetrics" class="metrics"><div class="metric"><span class="metric-label">MEAN AIR TEMPERATURE</span><strong>—</strong><span class="metric-unit">°C · valid daily means</span></div><div class="metric"><span class="metric-label">PERIOD RAINFALL SUM</span><strong>—</strong><span class="metric-unit">mm · valid days only</span></div><div class="metric"><span class="metric-label">HOT DAYS IN PERIOD</span><strong>—</strong><span class="metric-unit">days · max ≥ 30°C</span></div></div>
-          <div id="chart" class="chart-empty">Temperature and rainfall trends will appear after data loads.</div>
-          <div class="data-caution"><strong>Scale matters.</strong><span>NASA POWER meteorology represents a grid cell of roughly 0.5° latitude × 0.625° longitude, not a sensor in this field.</span></div>
+          <div class="panel-heading"><div><h3>NASA POWER Daily Gridded Meteorology</h3><p id="climateSubhead">Load NASA POWER data to populate this view.</p></div><span class="source-chip">NASA POWER · MERRA-2</span></div>
+          <div id="climateMetrics" class="metrics">
+            <div class="metric"><span class="metric-label">MEAN AIR TEMPERATURE (T2M)</span><strong class="mono-num">—</strong><span class="metric-unit">°C · valid daily means</span></div>
+            <div class="metric"><span class="metric-label">PERIOD RAINFALL SUM (PRECTOTCORR)</span><strong class="mono-num">—</strong><span class="metric-unit">mm · valid days only</span></div>
+            <div class="metric"><span class="metric-label">EXTREME HEAT DAYS (T2M_MAX ≥ 30°C)</span><strong class="mono-num">—</strong><span class="metric-unit">days · max ≥ 30°C</span></div>
+          </div>
+          <div id="chart" class="chart-empty">Independent monthly temperature and precipitation series will appear after data loads.</div>
+          <div class="data-caution"><strong>Spatial Scale Limit:</strong><span>NASA POWER represents a ~0.5° × 0.625° (~50 km) grid cell, not an in-field rain gauge or canopy sensor.</span></div>
         </article>
-        <aside class="surface provenance-panel"><p class="section-kicker">Data record</p><h3>Request details</h3><dl class="source-list"><div><dt>Source</dt><dd>NASA POWER Daily API</dd></div><div><dt>Variables</dt><dd>T2M, T2M_MAX, PRECTOTCORR</dd></div><div><dt>Time basis</dt><dd>UTC daily values</dd></div><div><dt>Resolution</dt><dd>Approx. 0.5° × 0.625° meteorology grid</dd></div><div><dt>Requested point</dt><dd id="requestedPoint">Not loaded</dd></div><div><dt>Data period</dt><dd id="requestedPeriod">Not loaded</dd></div></dl><a class="text-link" href="https://power.larc.nasa.gov/docs/services/api/temporal/daily/" target="_blank" rel="noreferrer">NASA POWER documentation <span aria-hidden="true">↗</span></a></aside>
+        <aside class="surface provenance-panel">
+          <p class="section-kicker">TELEMETRY PROVENANCE</p>
+          <h3>Pipeline Specification</h3>
+          <dl class="source-list">
+            <div><dt>Source</dt><dd>NASA POWER Daily API</dd></div>
+            <div><dt>Variables</dt><dd class="mono-num">T2M, T2M_MAX, PRECTOTCORR</dd></div>
+            <div><dt>Time basis</dt><dd>UTC daily values</dd></div>
+            <div><dt>Resolution</dt><dd class="mono-num">0.5° × 0.625° grid</dd></div>
+            <div><dt>Requested point</dt><dd id="requestedPoint" class="mono-num">Not loaded</dd></div>
+            <div><dt>Data period</dt><dd id="requestedPeriod" class="mono-num">Not loaded</dd></div>
+          </dl>
+          <a class="text-link" href="https://power.larc.nasa.gov/docs/services/api/temporal/daily/" target="_blank" rel="noreferrer">Official NASA POWER Docs <span aria-hidden="true">↗</span></a>
+        </aside>
       </div>
-      <section class="surface imerg-panel" aria-labelledby="satellite-title"><div><p class="section-kicker">Second NASA dataset</p><h3 id="satellite-title">GPM IMERG rainfall cross-check</h3><p id="imergStatus">Load data to compare IMERG with NASA POWER on the wettest valid day in the selected end year. This is historical context, not a forecast.</p></div><div id="imergMetric" class="observation-value">—</div></section>
+      <section class="surface imerg-panel" aria-labelledby="satellite-title">
+        <div>
+          <p class="section-kicker">SECOND NASA SATELLITE PIPELINE (48/48 UTC SLOT COMPLETENESS GATE)</p>
+          <h3 id="satellite-title">GPM IMERG Half-Hourly Precipitation Cross-Check</h3>
+          <p id="imergStatus">Load data to compare IMERG V07 (0.1° grid) with NASA POWER on the wettest valid day in the selected end year. Incomplete days (&lt;48 half-hour slots) are automatically withheld.</p>
+        </div>
+        <div id="imergMetric" class="observation-value mono-num">—</div>
+      </section>
     </section>
     </div>
     </div>
 
     <div id="planView" class="app-view" data-view="plan" hidden>
     <section id="farm" class="workflow-section section-anchor" aria-labelledby="farm-heading">
-      <header class="section-header"><span class="step-number" aria-hidden="true">3</span><div><p class="section-kicker">Add local knowledge</p><h2 id="farm-heading">Describe the field</h2><p>Only farmer-entered lab results and notes are treated as local field information.</p></div></header>
+      <header class="section-header">
+        <div>
+          <p class="section-kicker">YOUR EXPERIENCE</p>
+          <h2 id="farm-heading">What do you know about the field?</h2>
+          <p>Enter laboratory soil test values (texture triangle class, pH, SOM %), irrigation access, and crop history. Missing inputs remain explicitly null—never guessed.</p>
+        </div>
+      </header>
       <div class="surface farm-panel">
         <div class="form-grid farm-grid">
-          <label class="field" id="iowaLastCropField"><span>Last season’s crop <small>Central Iowa catalog</small></span><select id="lastCrop"><option value="">Choose one</option></select></label>
-          <label class="field" id="iowaPriorCropField"><span>Crop before that <small>Central Iowa catalog</small></span><select id="priorCrop"><option value="">Choose one</option></select></label>
-          <label class="field" id="globalLastCropField" hidden><span>Last season’s crop <small>your note, optional</small></span><input id="globalLastCrop" type="text" maxlength="80" placeholder="e.g. maize or rice"><small class="hint">Shown in your summary; not used to infer a recommendation.</small></label>
-          <label class="field" id="globalPriorCropField" hidden><span>Crop before that <small>your note, optional</small></span><input id="globalPriorCrop" type="text" maxlength="80" placeholder="e.g. beans"><small class="hint">No regional crop traits are assumed from this note.</small></label>
-          <label class="field"><span>Soil texture, if known <small>optional note</small></span><select id="soilTexture"><option value="">Not sure / not tested</option><option>Sand or sandy loam</option><option>Loam or silt loam</option><option>Clay or clay loam</option><option>Other / mixed</option></select></label>
-          <label class="field"><span>Soil pH from a recent lab test <small>optional</small></span><input id="soilPh" type="number" step="0.1" min="0" max="14" placeholder="e.g. 6.4"><small class="hint">Leave blank when no laboratory result is available.</small></label>
-          <fieldset class="priority-field field-full"><legend>Priorities for this season</legend><div class="priority-options"><label class="check-option"><input type="checkbox" value="water"><span class="checkmark"></span><span>Use water carefully</span></label><label class="check-option"><input type="checkbox" value="cover"><span class="checkmark"></span><span>Keep soil covered</span></label><label class="check-option"><input type="checkbox" value="diversity"><span class="checkmark"></span><span>Diversify crop families</span></label><label class="check-option"><input type="checkbox" value="market"><span class="checkmark"></span><span>Protect the main crop or market</span></label></div></fieldset>
+          <label class="field" id="iowaLastCropField"><span>Last season’s cash crop <small>Central Iowa verified catalog</small></span><select id="lastCrop"><option value="">Choose one</option></select></label>
+          <label class="field" id="iowaPriorCropField"><span>Crop before that <small>Central Iowa verified catalog</small></span><select id="priorCrop"><option value="">Choose one</option></select></label>
+          <label class="field" id="globalLastCropField" hidden><span>Last season’s crop <small>Global operator entry</small></span><input id="globalLastCrop" type="text" maxlength="80" placeholder="e.g. Soybean, Maize, Rice, Sorghum, Wheat"><small class="hint">Used in your field snapshot and zone archetype framing; never used to fabricate local yield scores.</small></label>
+          <label class="field" id="globalPriorCropField" hidden><span>Crop before that <small>Global operator entry</small></span><input id="globalPriorCrop" type="text" maxlength="80" placeholder="e.g. Chickpea, Brachiaria, Fallow, Cotton"><small class="hint">Preserved in your session summary.</small></label>
+          <label class="field"><span>Soil texture class <small>USDA Triangle / FAO</small></span>
+            <select id="soilTexture">
+              <option value="">Not sure / not lab tested</option>
+              <option>Sand / Loamy sand (Coarse)</option>
+              <option>Sandy loam / Fine sandy loam</option>
+              <option>Loam / Silt loam (Medium)</option>
+              <option>Clay loam / Silty clay loam</option>
+              <option>Clay / Silty clay / Vertisol (Fine)</option>
+              <option>Weathered Oxisol / Ultisol clay</option>
+            </select>
+          </label>
+          <label class="field"><span>Lab soil pH (1:1 H₂O) <small>optional lab test</small></span><input id="soilPh" class="mono-num" type="number" step="0.1" min="0" max="14" placeholder="e.g. 6.4"><small class="hint">Left blank when unknown; never inferred from satellite imagery.</small></label>
+          <label class="field"><span>Lab Soil Organic Matter (SOM %) <small>optional lab test</small></span><input id="soilSom" class="mono-num" type="number" step="0.1" min="0" max="30" placeholder="e.g. 3.2"><small class="hint">Recorded in your field snapshot; no synthetic SOM delta is promised.</small></label>
+          <label class="field"><span>Irrigation availability <small>water regime</small></span>
+            <select id="irrigationAccess">
+              <option value="rainfed">Strictly Rainfed / Dryland</option>
+              <option value="supplemental">Supplemental Pivot / Drip / Sprinkler</option>
+              <option value="full-irrigated">Full Surface / Groundwater Irrigation</option>
+            </select>
+          </label>
+          <fieldset class="priority-field field-full">
+            <legend>Operator Priorities for Rotation Comparison (Minimum 52px Gloved Targets)</legend>
+            <div class="priority-options">
+              <label class="check-option"><input type="checkbox" value="water" checked><span class="checkmark"></span><span>Water Balance &amp; Drought</span></label>
+              <label class="check-option"><input type="checkbox" value="cover" checked><span class="checkmark"></span><span>Soil Cover &amp; Erosion Armor</span></label>
+              <label class="check-option"><input type="checkbox" value="diversity" checked><span class="checkmark"></span><span>Pest &amp; Root Architecture Break</span></label>
+              <label class="check-option"><input type="checkbox" value="market"><span class="checkmark"></span><span>Main-Crop Schedule &amp; Market Fit</span></label>
+            </div>
+          </fieldset>
         </div>
-        <div class="soil-notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Mapped soil is context—not a laboratory test.</strong><p>USDA SSURGO is integrated only for the Central Iowa pilot. It cannot establish exact field pH, nutrients, or a single certain soil component.</p></div><a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">About SSURGO ↗</a></div>
+        <div class="soil-notice">
+          <span class="notice-icon mono-num" aria-hidden="true">!</span>
+          <div>
+            <strong>Mapped Soil Polygons vs. Laboratory Soil Tests</strong>
+            <p>USDA SSURGO is integrated for the Central Iowa pilot; ISRIC SoilGrids REST API is currently paused globally. Mapped soil units contain multiple components and never replace a laboratory soil test for pH, SOM %, or nutrient recommendations.</p>
+          </div>
+          <a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">SSURGO Docs ↗</a>
+        </div>
         <div id="soilPanel" class="soil-results" aria-live="polite">Load data to see mapped soil components, horizons, drainage, available water storage, flooding, and uncertainty where supported.</div>
       </div>
     </section>
 
     <section id="strategies-section" class="workflow-section section-anchor" aria-labelledby="strategies-heading">
-      <header class="section-header"><span class="step-number" aria-hidden="true">4</span><div><p class="section-kicker">Compare tradeoffs</p><h2 id="strategies-heading">Rotation strategies to discuss</h2><p>Three distinct patterns are shown where the regional evidence pack applies. They are not ranked recommendations.</p></div></header>
-      <div class="research-boundary"><strong>Research-only output.</strong><span>No named agronomist has approved the current rules. Confirm local timing, seed, equipment, pest pressure, costs, markets, and water constraints.</span></div>
-      <section class="surface compare-bar"><div><p class="section-kicker">Your input summary</p><h3>Field notes for this exploration</h3><p id="inputSummary">Entries stay on this page and are not saved.</p></div><button id="summarize" class="button button-primary">Compare strategies</button></section>
+      <header class="section-header">
+        <div>
+          <p class="section-kicker">EXPLORE OPTIONS</p>
+          <h2 id="strategies-heading">Compare possible rotations</h2>
+          <p>Inside Central Iowa: executes the 5 source-linked pilot rules. Outside Central Iowa: withholds Iowa rules and displays 3 non-prescriptive Agro-Ecological Zone Structural Archetypes + your field snapshot.</p>
+        </div>
+      </header>
+      <div class="research-boundary"><strong>Scientific Safety Gate:</strong><span>Strategies are unranked exploratory options—never a guaranteed yield, carbon, or profit prescription. Confirm local cultivar maturity, herbicide carryover, equipment, and pest history with a qualified agronomist.</span></div>
+      <section class="surface compare-bar">
+        <div>
+          <p class="section-kicker">CURRENT FIELD PARAMETER SUMMARY</p>
+          <h3>Session Telemetry &amp; Operator Notes</h3>
+          <p id="inputSummary" class="mono-num">Entries stay on this page and are not saved.</p>
+        </div>
+        <button id="summarize" class="button button-primary">Compare Rotation Strategies</button>
+      </section>
       <div id="comparisonStatus" class="status" role="status" aria-live="polite">Choose crop history to compare supported strategies, or review a worldwide field snapshot.</div>
       <div class="strategy-grid" id="strategies"><p class="empty-state">Choose a location, load available data, and add field information to begin.</p></div>
     </section>
@@ -127,11 +317,44 @@
 
     <div id="cropsView" class="app-view" data-view="crops" hidden>
     <section id="crops" class="crops-section section-anchor" aria-labelledby="crops-heading">
-      <header class="crop-section-header"><div><p class="section-kicker">CROP FIELD GUIDE</p><h2 id="crops-heading">See the plants. Explore the evidence.</h2><p>Illustrative plant portraits, growing windows, water considerations, possible benefits, and risks from the sourced Central Iowa pilot records. Illustrations are not for plant identification.</p></div><a class="text-link" href="#research">View all research and sources <span aria-hidden="true">↗</span></a></header>
+      <header class="crop-section-header">
+        <div>
+          <p class="section-kicker">CROP LIBRARY</p>
+          <h2 id="crops-heading">Explore crops and their roles</h2>
+          <p>Browse <strong>8 source-linked Central Iowa pilot records</strong> alongside <strong>24 illustrative global crop archetypes</strong>. Pilot records still need qualified human review; archetypes are not field-specific recommendations.</p>
+        </div>
+        <a class="text-link" href="#research">Inspect All 26 Registered Sources <span aria-hidden="true">↗</span></a>
+      </header>
       <div class="crop-explorer surface">
-        <div class="crop-explorer-top"><div><h3>Your crop context</h3><p id="selectedCropContext">Choose a field and enter crop history to connect your notes to this pilot catalog.</p></div><span class="crop-scope">Central Iowa · research only</span></div>
-        <div class="crop-tools"><label class="field"><span>Find a crop</span><input id="cropSearch" type="search" placeholder="Search crop or family" autocomplete="off"></label><label class="field"><span>Show</span><select id="cropRole"><option value="all">All pilot crops</option><option value="cash-grain">Grain and cash crops</option><option value="cover">Cover crops</option><option value="forage">Forage crops</option></select></label></div>
-        <p id="cropCount" class="crop-count" role="status" aria-live="polite">Loading source-linked crop records…</p>
+        <div class="crop-explorer-top">
+          <div>
+            <h3>Crops in context</h3>
+            <p id="selectedCropContext">Choose a field and enter crop history to connect your notes to this catalog.</p>
+          </div>
+          <span class="crop-scope">8 pilot records · 24 global archetypes</span>
+        </div>
+        <div class="crop-tools">
+          <label class="field"><span>Search species, family, nematode, or disease break</span><input id="cropSearch" type="search" placeholder="e.g. Rye, SCN, Taproot, Sclerotinia, Millet, Brachiaria" autocomplete="off"></label>
+          <label class="field"><span>Filter by Role</span>
+            <select id="cropRole">
+              <option value="all">All roles (Cash, Cover, Forage)</option>
+              <option value="cash-grain">Cash Grain / Pulse / Oilseed</option>
+              <option value="cover">Cover &amp; Scavenger Crops</option>
+              <option value="forage">Forage &amp; Grazing Crops</option>
+            </select>
+          </label>
+          <label class="field"><span>Filter by Agro-Ecological Belt</span>
+            <select id="cropZoneFilter">
+              <option value="all">All Global AEZ Belts (32 Crops)</option>
+              <option value="pilot-only">Central Iowa Verified Pilot Only (8 Crops)</option>
+              <option value="temperate-row-cereal">Temperate Corn–Soy–Cereal Belt</option>
+              <option value="semi-arid-dryland">Semi-Arid &amp; Dryland Belt</option>
+              <option value="tropical-multicrop">Tropical &amp; Subtropical Multi-Crop</option>
+              <option value="irrigated-monsoon">Irrigated Alluvial &amp; Monsoon</option>
+            </select>
+          </label>
+        </div>
+        <p id="cropCount" class="crop-count mono-num" role="status" aria-live="polite">Loading source-linked crop records…</p>
         <div id="cropCards" class="crop-card-grid"><p class="empty-state">The crop catalog is loading. Crop traits and source links will appear here.</p></div>
       </div>
     </section>
@@ -139,13 +362,40 @@
 
     <div id="researchView" class="app-view" data-view="research" hidden>
     <section class="research-section section-anchor" id="research" aria-labelledby="research-title">
-      <header class="section-header compact-header"><div><p class="section-kicker">Trace every claim</p><h2 id="research-title">Research and sources</h2><p>Inspect applicability, limitations, confidence, review status, and direct source links.</p></div><span class="section-state">Evidence—not approval</span></header>
-      <div class="surface research-panel"><p id="researchSummary">Loading the research catalog…</p><p id="researchCoverage" class="research-warning">The crop and rotation research below applies to the Central Iowa pilot only.</p><p class="research-warning">No agronomist has approved this catalog. It does not predict yield, profit, water savings, or field suitability.</p><div id="researchBody">The research catalog is loading. Source links and limitations will appear here.</div><button id="retryResearch" class="button button-secondary" type="button" hidden>Retry research catalog</button></div>
+      <header class="section-header compact-header">
+        <div>
+          <p class="section-kicker">THE EVIDENCE BEHIND THE TOOL</p>
+          <h2 id="research-title">Research you can inspect</h2>
+          <p>Read the practical takeaways first, then open the source details, limits, and review status behind each claim.</p>
+        </div>
+        <div class="research-mode-switch" role="group" aria-label="Evidence display mode">
+          <button id="execResearchBtn" type="button" class="button button-primary" aria-pressed="true">Executive Agronomy</button>
+          <button id="deepResearchBtn" type="button" class="button button-secondary" aria-pressed="false">Deep Scientific Data</button>
+        </div>
+      </header>
+      <div class="surface research-panel">
+        <p id="researchSummary" class="mono-num">Loading the research catalog…</p>
+        <p id="researchCoverage" class="research-warning">The crop and rotation research below applies to the Central Iowa pilot only.</p>
+        <p class="research-warning">No invented p-values, soil-organic-matter changes, or nitrogen credits. Each claim is linked to a source and retains its stated limits.</p>
+        <div id="researchBody">The research catalog is loading. Source links and limitations will appear here.</div>
+        <button id="retryResearch" class="button button-secondary" type="button" hidden>Retry research catalog</button>
+      </div>
     </section>
     </div>
   </main>
 
-  <footer class="site-footer"><div><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">F</span><span>FieldShift</span></a><p>NASA data informs the conversation; local expertise makes the decision.</p></div><nav aria-label="Data source links"><a href="https://power.larc.nasa.gov/" target="_blank" rel="noreferrer">NASA POWER</a><a href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noreferrer">NASA GPM IMERG</a><a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">USDA SSURGO</a></nav></footer>
+  <footer class="site-footer">
+    <div>
+      <a class="brand footer-brand" href="#top"><img class="brand-mark" src="./icon.svg" alt="" width="32" height="32"><span>TerraSown</span></a>
+      <p>NASA Earth observations and soil context inform the conversation; local agronomic expertise makes the field decision.</p>
+    </div>
+    <nav aria-label="Data source links">
+      <a href="https://power.larc.nasa.gov/" target="_blank" rel="noreferrer">NASA POWER</a>
+      <a href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noreferrer">NASA GPM IMERG</a>
+      <a href="https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo" target="_blank" rel="noreferrer">USDA SSURGO</a>
+      <a href="https://docs.isric.org/globaldata/soilgrids/index.html" target="_blank" rel="noreferrer">ISRIC SoilGrids</a>
+    </nav>
+  </footer>
   </div>
 </body>
 </html>

@@ -1,5 +1,17 @@
 # Decision log
 
+## 2026-10-18 — Replace the terminal-style interface with a field notebook
+
+**Decision:** Keep TerraSown's existing data and decision flow, but replace the visual shell with a warm editorial field-notebook system: left-side navigation on wide screens, a map-led workspace, Newsreader headings, Source Sans 3 interface text, and monospaced figures only where alignment helps. Keep high-contrast controls and a mobile navigation row. Add a file-preview notice because the app's ES modules and API routes require a local server.
+
+**Reason:** The previous dark, uppercase, badge-heavy layout obscured the map and made research-oriented copy harder to scan. This is an interface change, not a claim of additional agronomic validation.
+
+## 2026-10-18 — Rename the interface and bundle typography
+
+**Decision:** Present the app as TerraSown. Use a single Earth/field/seedling SVG for the site brand and install icon; remove numbered navigation and section labels. Bundle Barlow for interface text and IBM Plex Mono for data so the appearance does not depend on locally installed fonts.
+
+**Reason:** The previous initials-only mark, numbered task chrome, and unavailable font stacks made the interface feel like a template and vary between devices. This is a presentation change; it does not expand the scientific coverage or validity of crop comparisons. The repository/package name can be migrated separately after the team confirms the brand.
+
 ## 2026-10-03 — Product boundary
 
 **Decision:** FieldShift is an exploration and comparison tool, not an agronomic prescription engine.

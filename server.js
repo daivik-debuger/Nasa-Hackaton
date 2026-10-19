@@ -11,5 +11,5 @@ if (!Number.isInteger(port) || port < 0 || port > 65535) throw new Error("PORT m
 const host = process.env.HOST === "0.0.0.0" ? "0.0.0.0" : "127.0.0.1";
 
 http.createServer(createRequestHandler({ root, region })).listen(port, host, function () {
-  console.log(`FieldShift running at http://${host}:${this.address().port}`);
+  console.log(`TerraSown running at http://${host}:${this.address().port}`);
 });

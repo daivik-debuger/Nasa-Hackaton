@@ -3,9 +3,16 @@ import { resolve, extname, sep } from "node:path";
 import { querySoil } from "./soil-service.js";
 import { queryImergDay } from "./imerg-service.js";
 
-const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".png": "image/png", ".md": "text/markdown", ".webmanifest": "application/manifest+json" };
-const publicRootFiles = new Set(["index.html", "styles.css", "dashboard.css", "farm-hero.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "assets/farm-overview.jpg", "assets/harvest-card.jpg", "assets/wheat-ear.png", ...["alfalfa", "cereal-rye", "corn", "oats", "oilseed-radish", "red-clover", "soybean", "winter-wheat"].map((id) => `assets/crops/${id}.jpg`), "docs/PRIVACY.md"]);
-const vendorFiles = new Map([["vendor/leaflet.js", "node_modules/leaflet/dist/leaflet.js"], ["vendor/leaflet.css", "node_modules/leaflet/dist/leaflet.css"]]);
+const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".png": "image/png", ".md": "text/markdown", ".woff2": "font/woff2", ".webmanifest": "application/manifest+json" };
+const publicRootFiles = new Set(["index.html", "styles.css", "editorial.css", "dashboard.css", "farm-hero.css", "location-map.css", "research.css", "accessibility.css", "sw.js", "manifest.webmanifest", "icon.svg", "assets/farm-overview.jpg", "assets/harvest-card.jpg", "assets/wheat-ear.png", ...["alfalfa", "cereal-rye", "corn", "oats", "oilseed-radish", "red-clover", "soybean", "winter-wheat"].map((id) => `assets/crops/${id}.jpg`), "docs/PRIVACY.md"]);
+const vendorFiles = new Map([
+  ["vendor/leaflet.js", "node_modules/leaflet/dist/leaflet.js"],
+  ["vendor/leaflet.css", "node_modules/leaflet/dist/leaflet.css"],
+  ...[400, 600, 700, 800].map((weight) => [`vendor/barlow-${weight}.woff2`, `node_modules/@fontsource/barlow/files/barlow-latin-${weight}-normal.woff2`]),
+  ...[400, 700].map((weight) => [`vendor/ibm-plex-mono-${weight}.woff2`, `node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-${weight}-normal.woff2`]),
+  ...[400, 600].map((weight) => [`vendor/newsreader-${weight}.woff2`, `node_modules/@fontsource/newsreader/files/newsreader-latin-${weight}-normal.woff2`]),
+  ...[400, 600, 700].map((weight) => [`vendor/source-sans-3-${weight}.woff2`, `node_modules/@fontsource/source-sans-3/files/source-sans-3-latin-${weight}-normal.woff2`])
+]);
 const responseHeaders = {
   "Cache-Control": "no-store",
   "X-Content-Type-Options": "nosniff",
@@ -58,7 +65,7 @@ export function createRequestHandler({ root, region, soilLookup = querySoil, ime
       if (!path.startsWith(rootDir + sep) || !types[extname(path)]) return sendJson(res, 404, { error: "Not found." });
       const body = await readFile(path);
       const type = types[extname(path)];
-      res.writeHead(200, { ...responseHeaders, "Content-Type": type.startsWith("image/") ? type : `${type}; charset=utf-8` });
+      res.writeHead(200, { ...responseHeaders, "Content-Type": type.startsWith("image/") || type.startsWith("font/") ? type : `${type}; charset=utf-8` });
       res.end(body);
     } catch (error) {
       const code = error.status || (error.code === "ENOENT" ? 404 : /coordinates|latitude|longitude|Invalid|Day must|valid/.test(error.message) ? 400 : 502);

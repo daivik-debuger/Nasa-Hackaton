@@ -1,6 +1,15 @@
 # Project status
 
-Last updated: 2026-10-09
+Last updated: 2026-10-18
+
+## Current presentation update
+
+- A new field-notebook interface replaces the terminal styling. It uses a desktop navigation rail, warm surfaces, Newsreader display headings, Source Sans 3 body text, and a simpler overview beside the map. The crop and research views inherit the same design language.
+- On 2026-10-18, `npm run verify` passed 50 tests with one sandbox-only HTTP-listener skip. Browser checks at 320, 375, 390, 430, 768, and 1440 px found no horizontal overflow; the map rendered at the local-server URL. View switching, crop filtering, and night mode worked. The only observed browser-console error came from a browser extension, not the app. Physical-device and screen-reader review remain outstanding.
+- Opening `index.html` directly is layout-only; the map, NASA requests, and comparison modules require the Node server. The page now says so when opened as a file.
+- The visible app and installable PWA are named TerraSown. The repository/package remains FieldShift for now.
+- A shared vector brand mark replaces the initials-only badge and old install icon. Numbered navigation/section chrome has been removed.
+- Barlow and IBM Plex Mono are locally served and included in the offline app shell. This update changes presentation only, not worldwide agronomic validation.
 
 ## Confirmed
 
