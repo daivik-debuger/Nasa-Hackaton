@@ -3,7 +3,7 @@
 ## Local prerequisites
 
 - Node.js 22 or newer (`.nvmrc` pins the recommended major version).
-- npm, included with Node. There are no third-party runtime or development dependencies.
+- npm, included with Node. `npm ci` installs the dependencies pinned in `package-lock.json`.
 - Internet access for live NASA POWER, NASA GPM IMERG, and USDA SSURGO requests.
 
 From the repository root:
@@ -14,7 +14,9 @@ npm run verify
 npm start
 ```
 
-Open <http://localhost:8000>. `file://` and a generic static server cannot run the soil and IMERG endpoints. Use `PORT=8001 npm start` if port 8000 is busy.
+Open <http://localhost:8000>. `npm start` builds the React assets before serving. `file://` and a generic static server cannot run the soil and IMERG endpoints. Use `PORT=8001 npm start` if port 8000 is busy.
+
+If a local page shows a blank map or stays on “Loading the map…”, check that `npm start` is still running and that `/health` returns `{"status":"ok"}`. Localhost previews deliberately bypass the PWA cache: a stopped server should show a connection failure, not a misleading partial app. HTTPS deployments retain the offline app shell.
 
 ## Checks
 

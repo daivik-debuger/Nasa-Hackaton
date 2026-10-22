@@ -81,6 +81,16 @@
       </div>
     </section>
 
+    <section id="conversation" class="surface conversation-panel" aria-labelledby="conversation-title">
+      <div class="conversation-intro"><p class="section-kicker">A place to start talking</p><h2 id="conversation-title">One place. One question. Real data.</h2><p>Farm decisions affect people, not just charts. Choose a question you would discuss with someone who knows the land. This is a conversation starter, not a crop recommendation.</p></div>
+      <div class="conversation-workspace">
+        <label class="field" for="conversationQuestion"><span>What matters here?</span><select id="conversationQuestion"><option value="water">What does the rainfall record show?</option><option value="heat">How often were days hot?</option><option value="soil">What can space data not tell us about soil?</option></select></label>
+        <div class="conversation-reading"><strong id="conversationPrompt">What does the rainfall record show?</strong><p id="conversationEvidence">Choose a public example and load NASA POWER history to start.</p><a href="https://power.larc.nasa.gov/docs/services/api/temporal/daily/" target="_blank" rel="noopener noreferrer">Check the NASA POWER source ↗</a></div>
+        <div class="conversation-share"><div><strong>Share a public example</strong><p id="publicExampleLabel">Choose a public city-area example above to make a shareable link. A private map pin and field notes are never included.</p></div><button id="shareExample" class="button button-secondary" type="button" disabled>Copy public example link</button></div>
+        <p id="shareStatus" class="conversation-status" role="status" aria-live="polite"></p><a id="shareLink" href="#top" hidden>Open this public example ↗</a>
+      </div>
+    </section>
+
     <section id="climate" class="workflow-section section-anchor" aria-labelledby="climate-heading">
       <header class="section-header"><span class="step-number" aria-hidden="true">2</span><div><p class="section-kicker">Review the observations</p><h2 id="climate-heading">Climate and mapped soil context</h2><p>Values remain tied to their source, period, units, scale, and missing-data limits.</p></div><span id="periodBadge" class="section-state">Waiting for data</span></header>
       <div class="climate-layout">

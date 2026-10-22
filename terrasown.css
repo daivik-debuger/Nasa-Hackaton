@@ -59,7 +59,22 @@ input, select, .g-field input, .g-field select { min-height: 52px; background: v
 .hero-disclosure { grid-column: 1 / -1; grid-row: 2; border: 0; padding: 0 3px; }
 .dashboard-map { grid-column: 1; grid-row: 3; border-radius: 15px; }
 #location { grid-column: 2; grid-row: 3; margin-top: 0; }
-#climate { grid-column: 1 / -1; grid-row: 4; }
+#conversation { grid-column: 1 / -1; grid-row: 4; }
+#climate { grid-column: 1 / -1; grid-row: 5; }
+.conversation-panel { display: grid; grid-template-columns: minmax(210px, .75fr) minmax(0, 1.25fr); gap: 32px; padding: 28px; border-radius: 15px; }
+.conversation-intro { max-width: 340px; }
+.conversation-intro h2 { font-size: clamp(29px, 3vw, 40px); line-height: 1.08; }
+.conversation-intro > p:last-child { margin-top: 14px; color: var(--muted); font-size: 14px; }
+.conversation-workspace { display: grid; gap: 18px; min-width: 0; }
+.conversation-reading { padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.conversation-reading strong, .conversation-share strong { display: block; font-size: 16px; }
+.conversation-reading p, .conversation-share p { margin: 8px 0; color: var(--muted); font-size: 14px; }
+.conversation-reading a, #shareLink { font-size: 13px; }
+.conversation-share { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+.conversation-share > div { max-width: 430px; }
+.conversation-share button { flex: 0 0 auto; min-height: 52px; }
+.conversation-status:empty { display: none; }
+.conversation-status { margin: 0; color: var(--ink); font-size: 13px; }
 .dashboard-map #fieldMap { border-radius: 9px; height: 400px; }
 .map-header h2, .panel-heading h3, .provenance-panel h3 { font-size: 27px; }
 .map-source-label, .coverage-chip, .source-chip { font-family: var(--sans); text-transform: none; letter-spacing: 0; }
@@ -102,7 +117,10 @@ input, select, .g-field input, .g-field select { min-height: 52px; background: v
   .page-shell, .site-footer { margin-inline: 16px; }
   .section-anchor { scroll-margin-top: 125px; }
   #dashboardView { display: flex; flex-direction: column; gap: 18px; }
-  .farm-hero-header, .farm-overview-grid, .dashboard-map, #location, #climate, .hero-disclosure { grid-column: auto; grid-row: auto; margin: 0; }
+  .farm-hero-header, .farm-overview-grid, .dashboard-map, #location, #conversation, #climate, .hero-disclosure { grid-column: auto; grid-row: auto; margin: 0; }
+  .conversation-panel { grid-template-columns: 1fr; gap: 22px; }
+  .conversation-share { align-items: stretch; flex-direction: column; }
+  .conversation-share > div, .conversation-share button { width: 100%; max-width: none; }
   .farm-hero-header { min-height: 0; padding: 28px; }
   .farm-hero-header h1 { font-size: clamp(42px, 11vw, 60px); }
   .farm-overview-grid, .dashboard-map { padding: 20px; }
@@ -113,7 +131,7 @@ input, select, .g-field input, .g-field select { min-height: 52px; background: v
 @media (max-width: 400px) {
   .brand-version { font-size: 8px; }
   .primary-nav a { font-size: 12px; }
-  .farm-hero-header, .farm-overview-grid, .dashboard-map { padding: 18px; }
+  .farm-hero-header, .farm-overview-grid, .dashboard-map, .conversation-panel { padding: 18px; }
   .hero-feature-footer { gap: 4px; }
   .hero-feature-footer strong { font-size: 16px; }
   .g-command, #research .compact-header { padding: 20px; }

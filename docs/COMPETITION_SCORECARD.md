@@ -48,6 +48,14 @@ Check an item only when a file, test result, screenshot, or source proves it.
 - [ ] Limitations are explained confidently.
 - [ ] Likely judge questions have evidence-backed answers.
 
+## Three award-theme goals
+
+- [x] Best Use of Data: a visitor can inspect NASA POWER's valid-day coverage, units, period, source and limitations, then relate a selected question to actual readings (`src/ui/public-conversation.js`, `tests/public-conversation.test.mjs`). This does not prove decision impact.
+- [x] Global Connection groundwork: public city-area examples can be encoded as bounded links without a private field pin, name, soil value or crop note (`tests/public-conversation.test.mjs`). Localhost links do not reach other people.
+- [ ] Publish the app on HTTPS and verify a public example link opens on another person's device before claiming a worldwide connection.
+- [ ] Most Inspirational: obtain a real, consented farmer story or directly attributable published case to ground the final demo. No interview or impact outcome has been verified.
+- [ ] Validate the public-example conversation flow with people in at least two regions, with consented feedback, before claiming global human connection.
+
 ## Submission integrity
 
 - [ ] Repository is public and instructions reproduce the demo.

@@ -164,3 +164,15 @@ FieldShift will expose a live GBIF plant-name lookup using the Catalogue of Life
 **Decision:** Reapply the user-approved TerraSown brand, local editorial/body typography, field mark, desktop notebook index, mobile navigation and dashboard spread as a presentation layer on the latest React mainline. Keep its current global coverage gate, evidence status, NASA integrations and regional research-only boundaries. Do not import the older branch's coordinate-derived agro-ecological labels or implied crop suitability.
 
 **Reason:** The prior design commit and current main both changed the same screens, but only current main contains the latest scientific-safety and React work. A mechanical merge would silently regress those safeguards. Presentation can be reconciled independently while the original design commit remains in history.
+
+## 2026-10-22 — Do not replay an offline shell on localhost
+
+**Decision:** Localhost and 127.0.0.1 service workers no longer intercept page or asset requests and remove older FieldShift/TerraSown shell caches during activation. Keep the existing offline app-shell behavior on deployed HTTPS origins.
+
+**Reason:** The local server had stopped while the browser replayed a cached HTML shell whose dependencies did not fully initialize. The map stayed blank and controls appeared inert. A clear connection failure on a development URL is more truthful and easier to repair than a visually complete but nonfunctional page.
+
+## 2026-10-22 — A public example can start a worldwide conversation
+
+**Decision:** Add one compact Dashboard panel that pairs a user-chosen question with the actual NASA POWER record and offers a shareable link only for one of the six public city-area examples. The link carries a bounded example ID, years and predefined question; it never carries a private pin, farm name, crop history or soil input. Opening a link restores those public selections but does not auto-request NASA data.
+
+**Reason:** The three Space Apps award themes supplied by the user call for accessible data, human relevance and connection across places. A safe, reproducible public example serves those aims without inventing farmer stories, claiming worldwide crop suitability or adding accounts and a social feed. Award outcomes remain outside the app's control.

@@ -13,6 +13,7 @@ import { renderSoil } from "./ui/soil-view.js";
 import { renderStrategies } from "./ui/strategy-view.js";
 import { renderResearch } from "./ui/research-view.js";
 import { renderOverview } from "./ui/overview-view.js";
+import { buildPublicExampleLink, conversationEvidence, parsePublicExampleLink, PUBLIC_QUESTIONS } from "./ui/public-conversation.js";
 import { renderCropExplorer, renderSelectedCropContext, renderGlobalPlantResults } from "./ui/crop-view.js";
 import { createViewRouter } from "./ui/view-router.js";
 import { createLocationPicker } from "./ui/location-picker.js";
@@ -36,6 +37,32 @@ function selectedPoint() {
 }
 function syncOverview() {
   renderOverview({ power: state.power, crops: state.crops, evidence: state.evidence, point: selectedPoint(), fieldName: $("fieldName").value });
+  const example = demoLocation($("demoLocation").value);
+  const question = $("conversationQuestion").value;
+  $("conversationPrompt").textContent = PUBLIC_QUESTIONS[question];
+  $("shareExample").disabled = !example;
+  const start = $("startYear").value;
+  const end = $("endYear").value;
+  const period = start === end ? start : `${start}–${end}`;
+  $("publicExampleLabel").textContent = example
+    ? `${example.label} · ${period}. Only this public example, the years and your chosen question go into the link.`
+    : "Choose a public city-area example above to make a shareable link. A private map pin and field notes are never included.";
+  $("conversationEvidence").textContent = example
+    ? conversationEvidence(state.power, question)
+    : "Your private field point stays on this page. Choose a public example to discuss a shared NASA history.";
+}
+function clearShareLink() {
+  $("shareLink").hidden = true;
+  $("shareStatus").textContent = "";
+}
+let restoringPublicLink = false;
+function clearSharedAddress() {
+  if (restoringPublicLink) return;
+  const url = new URL(window.location.href);
+  const keys = ["example", "start", "end", "question"];
+  if (!keys.some((key) => url.searchParams.has(key))) return;
+  for (const key of keys) url.searchParams.delete(key);
+  window.history.replaceState(null, "", url);
 }
 function syncCropContext(selectedRegion = null) {
   renderSelectedCropContext({ selectedRegion, crops: state.crops, lastCrop: $("lastCrop").value, globalLastCrop: $("globalLastCrop").value });
@@ -45,12 +72,14 @@ const locationPicker = createLocationPicker({
     $("latitude").value = String(point.lat);
     $("longitude").value = String(point.lon);
     $("demoLocation").value = "";
+    clearSharedAddress();
     clearLoadedData();
   },
   onClear() {
     $("latitude").value = "";
     $("longitude").value = "";
     $("demoLocation").value = "";
+    clearSharedAddress();
     clearLoadedData();
   }
 });
@@ -58,14 +87,16 @@ createViewRouter({ onChange: (view) => { if (view === "dashboard") locationPicke
 
 for (const location of GLOBAL_DEMO_LOCATIONS) $("demoLocation").add(new Option(location.label, location.id));
 $("demoLocation").addEventListener("change", () => {
+  clearSharedAddress();
   const selected = demoLocation($("demoLocation").value);
   $("latitude").value = selected ? String(selected.lat) : "";
   $("longitude").value = selected ? String(selected.lon) : "";
   if (selected) locationPicker.showPin(selected, `${selected.label} selected as a public example point. This is not a verified farm field.`);
   else locationPicker.clearPin();
+  clearShareLink();
   clearLoadedData();
 });
-for (const id of ["latitude", "longitude"]) $(id).addEventListener("input", () => { $("demoLocation").value = ""; locationPicker.clearPin(); clearLoadedData(); });
+for (const id of ["latitude", "longitude"]) $(id).addEventListener("input", () => { $("demoLocation").value = ""; clearSharedAddress(); locationPicker.clearPin(); clearShareLink(); clearLoadedData(); });
 for (const id of ["latitude", "longitude"]) $(id).addEventListener("change", () => {
   try { locationPicker.showPin(locationInput(), "Exact coordinate point selected. The entered coordinates will be used for data requests."); }
   catch { locationPicker.clearPin(); }
@@ -76,6 +107,41 @@ for (const id of ["startYear", "endYear"]) {
 }
 $("startYear").value = String(Math.max(1981, lastFullYear - 4));
 $("endYear").value = String(lastFullYear);
+const linkedExample = parsePublicExampleLink(window.location.href, lastFullYear);
+if (linkedExample) {
+  restoringPublicLink = true;
+  $("startYear").value = String(linkedExample.start);
+  $("endYear").value = String(linkedExample.end);
+  $("conversationQuestion").value = linkedExample.question;
+  $("demoLocation").value = linkedExample.id;
+  $("demoLocation").dispatchEvent(new Event("change"));
+  restoringPublicLink = false;
+}
+$("conversationQuestion").addEventListener("change", () => { clearSharedAddress(); clearShareLink(); syncOverview(); });
+$("shareExample").addEventListener("click", async () => {
+  try {
+    const href = buildPublicExampleLink(window.location.href, {
+      id: $("demoLocation").value,
+      start: Number($("startYear").value),
+      end: Number($("endYear").value),
+      question: $("conversationQuestion").value
+    }, lastFullYear);
+    $("shareLink").href = href;
+    $("shareLink").hidden = false;
+    try {
+      await navigator.clipboard.writeText(href);
+      const local = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+      $("shareStatus").textContent = local
+        ? "Local preview link copied. It opens only on this computer until the app has a public HTTPS address. No private field details are included."
+        : "Public example link copied. It contains no field name, private pin, crop notes or soil values.";
+    } catch {
+      $("shareStatus").textContent = "Clipboard unavailable. Open or copy the public example link below.";
+    }
+  } catch (error) {
+    clearShareLink();
+    $("shareStatus").textContent = error.message;
+  }
+});
 
 async function json(path) {
   const response = await fetch(path);
@@ -347,7 +413,7 @@ $("retryResearch").addEventListener("click", () => {
 syncOverview();
 loadCatalog().catch(reportCatalogError);
 
-for (const id of ["latitude", "longitude", "startYear", "endYear"]) $(id).addEventListener("change", clearLoadedData);
+for (const id of ["latitude", "longitude", "startYear", "endYear"]) $(id).addEventListener("change", () => { clearSharedAddress(); clearShareLink(); clearLoadedData(); });
 const offlineBanner = $("offlineBanner");
 function updateConnection() { offlineBanner.hidden = navigator.onLine !== false; }
 window.addEventListener("online", updateConnection);

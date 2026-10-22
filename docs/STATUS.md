@@ -1,8 +1,12 @@
 # Project status
 
-Last updated: 2026-10-18
+Last updated: 2026-10-22
 
 ## Confirmed
+
+- A compact Dashboard conversation panel now pairs a chosen farmer question with NASA POWER history and its missing-data caveat, then offers an opt-in link for a public city-area example only. Links restore the example, period and question without private field details or automatic NASA requests; switching to a private point clears the share address. A live 2025 Brasília POWER request returned 365 valid maximum-temperature days and the panel showed 242 days at or above 30°C with a crop-stress caveat. Browser tests covered copying/restoring/clearing the link and found no page overflow at 320, 375, 390, 430, 768 and 1280 px. `npm run verify` passed all 94 tests with zero skips after the final changes. A localhost link opens only on this computer; actual cross-region sharing requires a public HTTPS deployment. This is a discussion starter, not a social network, farmer interview, field recommendation or award guarantee.
+
+- The blank `127.0.0.1:8001` map was a cached shell after the local Node server had stopped. Restarting the current `main` build on port 8001 restored Leaflet tiles and controls. The local preview service worker now bypasses caching and removes older TerraSown/FieldShift shell caches on activation, so this failure will show as a connection error instead of a partly functional app. A public Brasília example returned 365 valid NASA POWER days for 2025; IMERG was unavailable and remained visibly withheld by its completeness gate. This does not establish live-service reliability worldwide or physical-device PWA readiness.
 
 - TerraSown's approved field-notebook presentation is integrated onto the current React/global-evidence mainline: local Newsreader and Plus Jakarta Sans, seedling/field mark, fixed desktop index, compact mobile navigation, responsive Dashboard spread, and the same visual language across Plan, Crops and Research. The earlier redesign branch's coordinate-derived global zone resolver was intentionally excluded; worldwide crop suitability remains unavailable without validation. `npm run verify` passed 89 tests with zero skipped. Browser checks found no horizontal overflow across all four views at 320, 375, 390, 430 and 1366px; the only browser console errors were from an unrelated extension. Live upstream services and physical-device PWA installation were not retested in this pass.
 
