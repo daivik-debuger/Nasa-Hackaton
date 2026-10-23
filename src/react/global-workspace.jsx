@@ -41,6 +41,13 @@ export function GlobalPlanner() {
   const [input,setInput]=useState(initial),[result,setResult]=useState(null),[error,setError]=useState(''),[context,setContext]=useState(null);
   useEffect(()=>{const update=(event)=>setContext(event.detail);window.addEventListener('fieldshift:context',update);window.dispatchEvent(new Event('fieldshift:request-context'));return()=>window.removeEventListener('fieldshift:context',update);},[]);
   const change=(event)=>{const {name,value}=event.target;setInput((previous)=>({...previous,[name]:value}));setResult(null);setError('');};
+  useEffect(()=>{
+    const capture=(event)=>{ event.detail.values={...input,sequence:[...input.sequence]}; };
+    const restore=(event)=>{ if(event.detail?.values){setInput({...initial,...event.detail.values,sequence:[...event.detail.values.sequence]});setResult(null);setError('');} };
+    window.addEventListener('fieldshift:capture-global',capture);
+    window.addEventListener('fieldshift:restore-global',restore);
+    return()=>{window.removeEventListener('fieldshift:capture-global',capture);window.removeEventListener('fieldshift:restore-global',restore);};
+  },[input]);
   const submit=(event)=>{event.preventDefault();try{setResult(assessGlobalField({...input,sequence:input.sequence.filter(Boolean)},evidence.data.catalog));setError('');}catch(e){setResult(null);setError(e.message);}};
   if(!evidence.data)return <LoadState {...evidence}/>;
   const {catalog,layers,sources}=evidence.data;

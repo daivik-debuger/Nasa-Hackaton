@@ -16,6 +16,8 @@ npm start
 
 Open <http://localhost:8000>. `npm start` builds the React assets before serving. `file://` and a generic static server cannot run the soil and IMERG endpoints. Use `PORT=8001 npm start` if port 8000 is busy.
 
+The Farmer/Judge workspaces are `/?workspace=farmer#top` and `/?workspace=judge#research`. Local accounts are available only when the server binds to `127.0.0.1`; account data is saved in the Git-ignored `.local-data/farmers.json` file, or a test-only path set with `FARMER_DATA_PATH`. Do not commit or send this file. Public `HOST=0.0.0.0` runs deliberately disable account API routes until a production data/security design is approved. A server restart signs out all local sessions but preserves saved farm records. Do not use real farmer credentials or private commercial field data in this prototype.
+
 If a local page shows a blank map or stays on “Loading the map…”, check that `npm start` is still running and that `/health` returns `{"status":"ok"}`. Localhost previews deliberately bypass the PWA cache: a stopped server should show a connection failure, not a misleading partial app. HTTPS deployments retain the offline app shell.
 
 ## Checks

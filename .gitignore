@@ -1,5 +1,6 @@
 # Dependencies and test output
 node_modules/
+.local-data/
 coverage/
 
 # Local environment and secrets

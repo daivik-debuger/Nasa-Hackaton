@@ -176,3 +176,15 @@ FieldShift will expose a live GBIF plant-name lookup using the Catalogue of Life
 **Decision:** Add one compact Dashboard panel that pairs a user-chosen question with the actual NASA POWER record and offers a shareable link only for one of the six public city-area examples. The link carries a bounded example ID, years and predefined question; it never carries a private pin, farm name, crop history or soil input. Opening a link restores those public selections but does not auto-request NASA data.
 
 **Reason:** The three Space Apps award themes supplied by the user call for accessible data, human relevance and connection across places. A safe, reproducible public example serves those aims without inventing farmer stories, claiming worldwide crop suitability or adding accounts and a social feed. Award outcomes remain outside the app's control.
+
+## 2026-10-23 — Separate farmer and evidence workspaces; keep accounts local-only
+
+**Decision:** Add a Farmer view with explicit account-backed farm saving and a Judge / evidence view with the same public workflow plus source-heavy Research. The judge route is not an admin role and cannot enumerate saved farms. Add a persistent day/night preference. Implement local account passwords as salted scrypt hashes and 12-hour, same-origin HttpOnly sessions; store only explicitly saved field records in an ignored owner-only file. This supersedes the previous decision to avoid accounts, but not the decision to avoid a social feed.
+
+**Reason:** The user asked for separate farmer and judge experiences and returning to saved fields. A local prototype validates the interaction without pretending that a JSON file, unverified email, or a Render default filesystem is ready for real farmer data. The research and coverage gates remain unchanged.
+
+## 2026-10-23 — Demonstrate award themes through a reproducible evidence path
+
+**Decision:** Add a judge-only walkthrough with explicit public Iowa and Brazil 2025 NASA POWER examples, observation-derived valid-day coverage, and clear local-soil/rotation boundaries. Keep the farmer overview free of competition badges. Audit Best Use of Data, Local Impact, Art & Technology, Most Inspirational, and Global Connection as evidence and gaps in `COMPETITION_SCORECARD.md` rather than presenting any award as achieved.
+
+**Reason:** Judges need to see the data-to-question path quickly, but a polished UI is not farmer validation, local impact, global human connection, or a guarantee of advancement. The examples contain no private field record and cannot create synthetic measurements or borrow Iowa agronomy for Brazil.

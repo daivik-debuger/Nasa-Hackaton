@@ -19,8 +19,12 @@ import { createViewRouter } from "./ui/view-router.js";
 import { createLocationPicker } from "./ui/location-picker.js";
 import { createAgronomyWorkbench, renderResearchAnalytics } from "./ui/agronomy-view.js";
 import { setStatus } from "./ui/status-view.js";
+import { setupWorkspaceMode } from "./ui/workspace-mode.js";
+import { setupFarmerAccountUi } from "./ui/farmer-account.js";
+import { setupJudgeDemo } from "./ui/judge-demo.js";
 
 const $ = (id) => document.getElementById(id);
+setupWorkspaceMode();
 const lastFullYear = new Date().getUTCFullYear() - 1;
 const state = { region: null, crops: [], rules: [], evidence: [], globalResearch: [], sources: [], power: null, soil: null, imerg: null, requestId: 0 };
 const workbench = createAgronomyWorkbench({ getContext: () => state });
@@ -117,6 +121,7 @@ if (linkedExample) {
   $("demoLocation").dispatchEvent(new Event("change"));
   restoringPublicLink = false;
 }
+setupJudgeDemo();
 $("conversationQuestion").addEventListener("change", () => { clearSharedAddress(); clearShareLink(); syncOverview(); });
 $("shareExample").addEventListener("click", async () => {
   try {
@@ -203,7 +208,7 @@ function updateCoverage() {
     $("summarize").textContent = supported ? "Compare three strategies" : "Review field snapshot";
     if (!supported) {
       $("strategies").textContent = "No region-validated crop catalog for this location yet. Review your field snapshot without an Iowa rotation comparison.";
-      $("inputSummary").textContent = "No local rotation comparison is available for this location. Your notes can still be reviewed on this page and are not saved.";
+      $("inputSummary").textContent = "No local rotation comparison is available for this location. Your notes can still be reviewed here; saving a farm requires an explicit action.";
     } else if (!$("strategies").querySelector(".strategy-card")) {
       $("strategies").textContent = "Add crop history and choose a priority, then compare three Central Iowa exploratory patterns.";
     }
@@ -234,6 +239,42 @@ function clearLoadedData() {
   updateCoverage();
 }
 
+setupFarmerAccountUi({
+  snapshot() {
+    const point = selectedPoint();
+    if (!point) throw new Error("Choose a map point or public example before saving.");
+    const globalEvent = new CustomEvent("fieldshift:capture-global", { detail: {} });
+    window.dispatchEvent(globalEvent);
+    return {
+      name: $("fieldName").value.trim(), latitude: point.lat, longitude: point.lon,
+      startYear: Number($("startYear").value), endYear: Number($("endYear").value),
+      lastCrop: $("globalLastCrop").value || $("lastCrop").value,
+      priorCrop: $("globalPriorCrop").value || $("priorCrop").value,
+      soilTexture: $("soilTexture").value, soilPh: $("soilPh").value,
+      priorities: selectedPriorities(), globalAssessment: globalEvent.detail.values || null
+    };
+  },
+  restore(farm) {
+    $("fieldName").value = farm.name;
+    $("demoLocation").value = "";
+    $("latitude").value = String(farm.latitude);
+    $("longitude").value = String(farm.longitude);
+    $("startYear").value = String(farm.startYear);
+    $("endYear").value = String(farm.endYear);
+    $("globalLastCrop").value = farm.lastCrop;
+    $("globalPriorCrop").value = farm.priorCrop;
+    if ([...$("lastCrop").options].some((option) => option.value === farm.lastCrop)) $("lastCrop").value = farm.lastCrop;
+    if ([...$("priorCrop").options].some((option) => option.value === farm.priorCrop)) $("priorCrop").value = farm.priorCrop;
+    $("soilTexture").value = farm.soilTexture;
+    $("soilPh").value = farm.soilPh ?? "";
+    for (const input of document.querySelectorAll("#field-notes .priority-options input")) input.checked = farm.priorities.includes(input.value);
+    if (farm.globalAssessment?.sequence) window.dispatchEvent(new CustomEvent("fieldshift:restore-global", { detail: { values: farm.globalAssessment } }));
+    clearSharedAddress(); clearShareLink();
+    locationPicker.showPin({ lat: farm.latitude, lon: farm.longitude }, "Saved farm point. Load observations to refresh current source context.");
+    clearLoadedData();
+  }
+});
+
 function farmInput() {
   return validateFarmInputs({ lastCrop: $("lastCrop").value, priorCrop: $("priorCrop").value, soilTexture: $("soilTexture").value, soilPh: $("soilPh").value, priorities: selectedPriorities(), harvestDate: null, terminationPlan: null, marketAccess: null, equipment: null, soilTest: $("soilPh").value ? "pH only" : null, diseaseHistory: null }, new Set(state.crops.map((crop) => crop.id)));
 }
@@ -249,25 +290,25 @@ function updateComparison() {
     const prior = $("globalPriorCrop").value.trim() || "not entered";
     const climate = state.power ? `NASA POWER historical context for ${state.power.start}–${state.power.end}: ${state.power.mean.toFixed(1)}°C mean air temperature across ${state.power.count} valid days; ${state.power.totalRain.toFixed(0)} mm summed precipitation across ${state.power.rainfallCount} valid days; ${state.power.hotDays} days with maximum air temperature at or above 30°C. These gridded values are not field measurements, and incomplete days can make a period sum incomplete.` : "NASA POWER historical context has not been loaded for this location.";
     $("strategies").textContent = `${climate} Your priorities: ${prioritiesText(notes.priorities)}. Regional soil lookup and evidence-linked rotation strategies are not yet supported here. Your crop notes are not interpreted as agronomic evidence; confirm local soil, seasons, water, and crop suitability with a qualified adviser.`;
-    $("inputSummary").textContent = `${$("fieldName").value.trim() || "Unnamed field"} · ${location.lat.toFixed(4)}, ${location.lon.toFixed(4)}. Crop notes: ${prior} → ${last}. Farmer soil texture: ${notes.soilTexture || "unknown"}; lab pH: ${notes.soilPh ?? "not provided"}. Priorities: ${prioritiesText(notes.priorities)}. Entries are not saved.`;
+    $("inputSummary").textContent = `${$("fieldName").value.trim() || "Unnamed field"} · ${location.lat.toFixed(4)}, ${location.lon.toFixed(4)}. Crop notes: ${prior} → ${last}. Farmer soil texture: ${notes.soilTexture || "unknown"}; lab pH: ${notes.soilPh ?? "not provided"}. Priorities: ${prioritiesText(notes.priorities)}. Entries are not automatically saved.`;
     return "global";
   }
   const input = farmInput();
   if (!input.lastCrop) {
     $("strategies").textContent = "Choose what grew last season before comparing regional rotation patterns. No crop sequence has been assumed.";
-    $("inputSummary").textContent = "Last season's crop is missing. Your entries remain on this page and are not saved.";
+    $("inputSummary").textContent = "Last season's crop is missing. Your entries remain on this page unless you explicitly save the farm.";
     return "missing-history";
   }
   if (!["corn", "soybean"].includes(input.lastCrop)) {
     $("strategies").textContent = "This Iowa rule set currently compares histories ending in corn or soybean. Other crop histories need additional reviewed rotation evidence; no sequence was guessed.";
-    $("inputSummary").textContent = `Last crop: ${input.lastCrop}. No evidence-linked sequence is available for this history. Entries are not saved.`;
+    $("inputSummary").textContent = `Last crop: ${input.lastCrop}. No evidence-linked sequence is available for this history. Entries are not automatically saved.`;
     return "unsupported-history";
   }
   const indicators = buildIndicators(state);
   const strategies = compareStrategies({ input, indicators, soil: state.soil, crops: state.crops, rules: state.rules, evidence: state.evidence });
   renderStrategies(strategies, new Map(state.sources.map((source) => [source.id, source])));
   const name = $("fieldName").value.trim() || "Unnamed field";
-  $("inputSummary").textContent = `${name} · ${location.lat.toFixed(4)}, ${location.lon.toFixed(4)}. History: ${input.priorCrop || "unknown"} → ${input.lastCrop || "unknown"}. Farmer soil texture: ${input.soilTexture || "unknown"}; lab pH: ${input.soilPh ?? "not provided"}. Priorities: ${prioritiesText(input.priorities)}. Entries are not saved.`;
+  $("inputSummary").textContent = `${name} · ${location.lat.toFixed(4)}, ${location.lon.toFixed(4)}. History: ${input.priorCrop || "unknown"} → ${input.lastCrop || "unknown"}. Farmer soil texture: ${input.soilTexture || "unknown"}; lab pH: ${input.soilPh ?? "not provided"}. Priorities: ${prioritiesText(input.priorities)}. Entries are not automatically saved.`;
   return "strategies";
 }
 
@@ -275,7 +316,7 @@ function prioritiesText(priorities) { return priorities.length ? priorities.join
 
 function markComparisonStale() {
   $("strategies").textContent = "Field notes changed. Review the field snapshot or compare supported strategies again to see current inputs.";
-  $("inputSummary").textContent = "Field notes changed; the previous summary is no longer current. Entries are not saved.";
+  $("inputSummary").textContent = "Field notes changed; the previous summary is no longer current. Save explicitly to keep these changes.";
   setStatus($("comparisonStatus"), "Field notes changed. Use the review button to update this result.");
   syncOverview();
   try { syncCropContext(coverage().region); }
@@ -376,7 +417,7 @@ $("loadClimate").addEventListener("click", async () => {
     try { updateComparison(); }
     catch (error) { setStatus($("comparisonStatus"), error.message, "error"); }
   } catch (error) { setStatus($("climateStatus"), error.message, "error"); button.textContent = "Retry data load"; }
-  finally { if (requestId === null || requestId === state.requestId) { button.disabled = false; button.removeAttribute("aria-busy"); } }
+  finally { if (requestId === null || requestId === state.requestId) { button.disabled = false; button.removeAttribute("aria-busy"); window.dispatchEvent(new CustomEvent("fieldshift:load-complete", { detail: { powerLoaded: Boolean(state.power), status: $("climateStatus").textContent } })); } }
 });
 
 $("summarize").addEventListener("click", () => {

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e5e9dc">
+  <title>Account — TerraSown</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./terrasown.css">
+  <link rel="stylesheet" href="./account.css">
+  <script src="./src/ui/theme.js" type="module"></script>
+  <script src="./src/ui/account-page.js" type="module"></script>
+</head>
+<body class="account-page">
+  <main class="account-shell">
+    <header class="account-header"><a class="account-brand" href="./?workspace=farmer#top"><img src="./icon.svg" width="42" height="42" alt="">TerraSown</a><button id="themeToggle" type="button" class="utility-button">Night mode</button></header>
+    <div class="account-layout">
+      <section class="account-story"><p class="section-kicker">A private field notebook</p><h1>Keep your farm notes together.</h1><p>Save a field's location, crop history, priorities and optional soil notes. Return to them later on this computer. Climate and satellite observations are still requested live.</p><div class="account-steps"><div><strong>01</strong><span>Create a local account</span></div><div><strong>02</strong><span>Save only when you choose</span></div><div><strong>03</strong><span>Compare evidence without sharing your records</span></div></div><p class="account-caution">Prototype security only. Do not enter sensitive commercial or personal information. These local accounts are not ready for a public farmer deployment.</p></section>
+      <section class="account-form-card" aria-labelledby="accountTitle"><p class="section-kicker">Your workspace</p><h2 id="accountTitle">Sign in</h2><div class="account-mode" role="group" aria-label="Account action"><button type="button" id="showLogin" aria-pressed="true">Sign in</button><button type="button" id="showRegister" aria-pressed="false">Create account</button></div><form id="accountForm"><label id="nameField" class="field" hidden><span>Your name</span><input id="accountName" type="text" autocomplete="name" maxlength="80"></label><label class="field"><span>Email</span><input id="accountEmail" type="email" autocomplete="email" required maxlength="254"></label><label class="field"><span>Password</span><input id="accountPassword" type="password" autocomplete="current-password" minlength="12" maxlength="128" required><small>At least 12 characters. Stored as a salted password hash, never plain text.</small></label><button class="button button-primary account-submit" type="submit" id="accountSubmit">Sign in</button></form><p id="accountStatus" role="status" aria-live="polite"></p><div id="signedIn" hidden><p id="signedInName"></p><a class="button button-primary" href="./?workspace=farmer#top">Open my farm view</a><button id="logoutButton" class="button button-secondary" type="button">Sign out</button></div><p class="account-footnote">Account data stays in this app's local server file. Anyone with access to this computer or its backups may access that file. There is no password reset or email verification yet.</p></section>
+    </div>
+  </main>
+</body>
+</html>

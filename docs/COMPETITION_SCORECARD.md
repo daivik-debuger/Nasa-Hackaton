@@ -48,13 +48,44 @@ Check an item only when a file, test result, screenshot, or source proves it.
 - [ ] Limitations are explained confidently.
 - [ ] Likely judge questions have evidence-backed answers.
 
-## Three award-theme goals
+## Award-theme evidence, not award claims
 
-- [x] Best Use of Data: a visitor can inspect NASA POWER's valid-day coverage, units, period, source and limitations, then relate a selected question to actual readings (`src/ui/public-conversation.js`, `tests/public-conversation.test.mjs`). This does not prove decision impact.
-- [x] Global Connection groundwork: public city-area examples can be encoded as bounded links without a private field pin, name, soil value or crop note (`tests/public-conversation.test.mjs`). Localhost links do not reach other people.
-- [ ] Publish the app on HTTPS and verify a public example link opens on another person's device before claiming a worldwide connection.
-- [ ] Most Inspirational: obtain a real, consented farmer story or directly attributable published case to ground the final demo. No interview or impact outcome has been verified.
-- [ ] Validate the public-example conversation flow with people in at least two regions, with consented feedback, before claiming global human connection.
+These themes follow the award descriptions in the team's supplied screenshots and the [published 2025 Space Apps awards page](https://www.spaceappschallenge.org/2025/awards/). Recheck the official 2026 awards and judging guide before submission. A feature alone does not establish eligibility or make an award likely.
+
+### Best Use of Data
+
+- [x] NASA POWER valid-day coverage, units, period, source and grid limitation are readable in the dashboard (`src/ui/overview-view.js`, `src/ui/climate-view.js`).
+- [x] A judge can load public Iowa or Brazil 2025 points and see an observation-derived coverage readout without synthetic measurements (`src/ui/judge-demo.js`, `tests/judge-demo.test.mjs`).
+- [ ] Show in one reproducible case how NASA context changes a farmer's *question or option comparison*, not just the visualization.
+- [ ] Verify the complete NASA POWER and IMERG path on the published HTTPS host.
+
+### Local Impact
+
+- [x] Iowa remains an explicitly bounded soil and research pilot; Brazil shows a coverage gap rather than borrowed Iowa advice (`src/coverage.js`, `src/ui/judge-demo.js`).
+- [ ] Obtain consented local farmer or extension feedback on a real planning workflow; record what changed in the design.
+- [ ] Validate an actionable local outcome without inventing yield, profit, water savings or adoption numbers.
+
+### Art & Technology
+
+- [x] A custom field-notebook interface puts the live map, observation coverage, source trail and uncertainty in an editorial layout (`terrasown.css`, `judge-demo.css`).
+- [ ] Test direct-sunlight readability, keyboard/screen-reader access, and visual clarity with people outside the team.
+
+### Most Inspirational
+
+- [x] The public-example question panel translates climate records into a possible farmer–adviser conversation (`src/ui/public-conversation.js`).
+- [ ] Obtain a real, consented farmer story or directly attributable published case. No interview, emotional response or impact outcome has been verified.
+
+### Global Connection
+
+- [x] Public city-area examples can be encoded in bounded links without private field pins, names, soil values or crop notes (`tests/public-conversation.test.mjs`).
+- [ ] Publish on HTTPS and verify a public link opens on another person's device; a localhost link is not global connection.
+- [ ] Test the conversation flow with people in at least two regions, with consented feedback and language/accessibility review.
+
+### Advancement path
+
+- [ ] Local or Universal Event judges select the team as a Global Nominee.
+- [ ] Global judging selects the project as a Finalist.
+- [ ] Executive judging selects a winner. These stages are decisions by judges, not app features. The [2025 award page](https://www.spaceappschallenge.org/2025/awards/) explains that sequence; verify the 2026 process before making submission claims.
 
 ## Submission integrity
 

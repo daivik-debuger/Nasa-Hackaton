@@ -13,7 +13,10 @@
   <link rel="stylesheet" href="workspace.css">
   <link rel="stylesheet" href="./dist/global-app.css">
   <link rel="stylesheet" href="terrasown.css">
+  <link rel="stylesheet" href="account.css">
+  <link rel="stylesheet" href="judge-demo.css">
   <script src="./vendor/leaflet.js" defer></script>
+  <script src="src/ui/theme.js" type="module"></script>
   <script src="src/main.js" type="module"></script>
   <script src="./dist/global-app.js" type="module"></script>
 </head>
@@ -24,11 +27,13 @@
     <div class="header-inner">
       <a class="brand" href="#top" aria-label="TerraSown home"><img class="brand-mark" src="./icon.svg" alt="" width="42" height="42"><span>TerraSown<small class="brand-version">A FIELD PLANNING NOTEBOOK</small></span></a>
       <nav class="primary-nav" aria-label="Main sections"><a href="#top" data-tab-link="dashboard">Overview</a><a href="#farm" data-tab-link="plan">Plan rotations</a><a href="#crops" data-tab-link="crops">Crops</a><a href="#research" data-tab-link="research">Research</a></nav>
+      <div class="workspace-tools" aria-label="Workspace controls"><div class="workspace-switch"><a href="./?workspace=farmer#top" data-workspace-link="farmer">Farmer view</a><a href="./?workspace=judge#top" data-workspace-link="judge">Judge / evidence</a></div><button id="themeToggle" type="button" class="utility-button" aria-label="Switch to dark mode">Night mode</button><a class="utility-button" href="./account.html">Account</a></div>
       <div class="rail-note"><span class="prototype-label">Research preview</span><p>Earth observations.<br>Local questions.<br>Traceable evidence.</p><span class="rail-coordinate">GLOBAL CONTEXT / LOCAL CARE</span></div>
     </div>
   </header>
 
   <main id="main-content" class="page-shell">
+    <div id="workspaceIntro" class="workspace-intro" role="note"></div>
     <div id="dashboardView" class="app-view" data-view="dashboard">
     <section id="top" class="farm-hero section-anchor" aria-labelledby="page-title">
       <div class="farm-hero-header">
@@ -44,8 +49,21 @@
           <div class="hero-place"><span>SELECTED PLACE</span><strong id="overviewPlace">No location selected</strong></div>
         </div>
       </div>
-      <p class="hero-disclosure">Worldwide access is not worldwide crop advice: regional scenarios are research-only; mapped-soil lookup remains Iowa-scoped. NASA observations are gridded history, not field measurements or a forecast. <a href="#research">See research coverage</a>.</p>
+      <p class="hero-disclosure">Worldwide access is not worldwide crop advice: regional scenarios are research-only; mapped-soil lookup remains Iowa-scoped. NASA observations are gridded history, not field measurements or a forecast. <a href="./?workspace=judge#research">See research coverage</a>.</p>
     </section>
+    <section id="judgeDemo" class="judge-demo surface" aria-labelledby="judge-demo-title" hidden>
+      <div class="judge-demo-heading"><div><p class="section-kicker">A judge's field guide</p><h2 id="judge-demo-title">Follow a field question from space data to local context.</h2><p>Two public city-area examples show what the tool can—and cannot—support. These are not farms, farmer stories, or validated crop recommendations.</p></div><a href="#research" class="text-link">Inspect the evidence <span aria-hidden="true">↗</span></a></div>
+      <div class="judge-demo-actions" aria-label="Reproducible public examples"><button type="button" class="button button-primary" data-judge-example="iowa">Load Iowa pilot example</button><button type="button" class="button button-secondary" data-judge-example="brazil">Load Brazil global example</button></div>
+      <p id="judgeDemoStatus" class="judge-demo-status" role="status" aria-live="polite">Choose an example to request 2025 NASA POWER history. The request uses public city-area coordinates only.</p>
+      <div class="judge-demo-grid">
+        <div><span class="judge-demo-label">Space data, made legible</span><p id="judgeDataReadout">No NASA observation loaded yet. The dashboard will show valid-day coverage, units, period, and source.</p></div>
+        <div><span class="judge-demo-label">A local decision boundary</span><p id="judgeScopeReadout">The Iowa example can request mapped soil context; the Brazil example cannot borrow Iowa soil or rotation rules.</p></div>
+        <div><span class="judge-demo-label">A human question</span><p>Use the question panel below to discuss rainfall, heat, or what a soil test must answer. No farmer outcome or interview is claimed.</p></div>
+        <div><span class="judge-demo-label">Worldwide exchange</span><p>Share only a public example, period, and question. Private field notes never enter the link; a hosted HTTPS demo and cross-region feedback are still needed.</p></div>
+      </div>
+      <p class="judge-demo-footnote">This is a reproducible demonstration of data access and uncertainty—not evidence of yield gain, water savings, adoption, or award eligibility. <a href="./docs/COMPETITION_SCORECARD.md">See the submission audit ↗</a></p>
+    </section>
+    <section class="account-overview surface" aria-labelledby="account-overview-title"><div><p class="section-kicker">Your field notebook</p><h2 id="account-overview-title">Saved farms, when you choose.</h2><p id="accountGreeting">Sign in to save field notes on this computer. Live NASA data must be loaded again for each visit.</p></div><div class="account-actions"><label class="field" for="savedFarmSelect"><span>Saved farms</span><select id="savedFarmSelect" disabled><option value="">No saved farms</option></select></label><div class="account-button-row"><button id="saveFarm" class="button button-primary" type="button" disabled>Save current farm</button><button id="newFarm" class="button button-secondary" type="button" disabled>Save as new</button><button id="loadFarm" class="button button-secondary" type="button" disabled>Open farm</button><button id="deleteFarm" class="button button-quiet" type="button" disabled>Delete</button></div><p id="farmSaveStatus" role="status" aria-live="polite">Private farm records are never visible in the judge view.</p></div></section>
     <div class="dashboard-layout">
     <aside class="dashboard-map surface" aria-labelledby="map-heading">
       <div class="map-header"><div><p class="section-kicker">Explore anywhere</p><h2 id="map-heading">Choose a place</h2></div><span class="map-source-label">Satellite view</span></div>
@@ -75,8 +93,8 @@
         </div>
         <div id="coverageStatus" class="status" role="status" aria-live="polite">Choose a location to check available data and regional evidence.</div>
         <div id="offlineBanner" class="status status-error" role="status" hidden>You appear to be offline. The app shell can reopen, but live NASA and soil data need a connection.</div>
-        <div class="primary-action-row"><p>Your field notes stay in this browser page. Loading data sends the selected point to the named data providers.</p><button id="loadClimate" class="button button-primary"><span aria-hidden="true">↓</span> Load available data</button></div>
-        <details class="privacy-details"><summary>Data and privacy details</summary><p>Field name, crop history, priorities, and soil notes are not saved by this prototype. Map tiles reveal the viewed area to Esri or OpenStreetMap, depending on the chosen view. Selected coordinates are sent in live data requests; providers or a future host may keep request logs. See <a href="./docs/PRIVACY.md">the complete data-flow inventory</a>.</p></details>
+        <div class="primary-action-row"><p>Notes stay in this page until you explicitly save them while signed in. Loading data sends the selected point to the named data providers.</p><button id="loadClimate" class="button button-primary"><span aria-hidden="true">↓</span> Load available data</button></div>
+        <details class="privacy-details"><summary>Data and privacy details</summary><p>Sign-in and Save current farm store your name, coordinates, crop notes, soil notes and priorities in a local server file on this computer. Judge view cannot read another farmer's records. NASA observations are not saved. Map tiles reveal the viewed area to Esri or OpenStreetMap; loading observations sends coordinates to named providers. See <a href="./docs/PRIVACY.md">the complete data-flow inventory</a>.</p></details>
         <div id="climateStatus" class="status" role="status" aria-live="polite">Ready to load historical climate context.</div>
       </div>
     </section>
@@ -132,7 +150,7 @@
     <section id="strategies-section" class="workflow-section section-anchor" aria-labelledby="strategies-heading">
       <header class="section-header"><span class="step-number" aria-hidden="true">2</span><div><p class="section-kicker">Compare tradeoffs</p><h2 id="strategies-heading">Rotation strategies to discuss</h2><p>Three distinct patterns are shown where the regional evidence pack applies. They are not ranked recommendations.</p></div></header>
       <div class="research-boundary"><strong>Research-only output.</strong><span>No named agronomist has approved the current rules. Confirm local timing, seed, equipment, pest pressure, costs, markets, and water constraints.</span></div>
-      <section class="surface compare-bar"><div><p class="section-kicker">Your input summary</p><h3>Field notes for this exploration</h3><p id="inputSummary">Entries stay on this page and are not saved.</p></div><button id="summarize" class="button button-primary">Compare strategies</button></section>
+      <section class="surface compare-bar"><div><p class="section-kicker">Your input summary</p><h3>Field notes for this exploration</h3><p id="inputSummary">Entries stay on this page unless you explicitly save the farm while signed in.</p></div><button id="summarize" class="button button-primary">Compare strategies</button></section>
       <div id="comparisonStatus" class="status" role="status" aria-live="polite">Choose crop history to compare supported strategies, or review a worldwide field snapshot.</div>
       <div class="strategy-grid" id="strategies"><p class="empty-state">Choose a location, load available data, and add field information to begin.</p></div>
     </section>

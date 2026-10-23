@@ -12,6 +12,10 @@ export function createViewRouter({ onChange = () => {} } = {}) {
   function show() {
     const hash = location.hash.replace(/^#/, "");
     const view = viewForHash(location.hash);
+    if (view === "research" && document.body.dataset.workspace === "farmer") {
+      location.replace(`${location.pathname}${location.search}#top`);
+      return;
+    }
     for (const panel of document.querySelectorAll(".app-view")) panel.hidden = panel.dataset.view !== view;
     for (const link of document.querySelectorAll("[data-tab-link]")) {
       if (link.dataset.tabLink === view) link.setAttribute("aria-current", "page");
